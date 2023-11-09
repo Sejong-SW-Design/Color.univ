@@ -6,7 +6,7 @@
 #include <time.h>
 #include <queue>
 
-int Exit[][2]; // 비상구 전역 변수 배열
+int Exit[5][2]; // 비상구 전역 변수 배열
 int Exit_n = 0; // 비상구 수
 
 enum GAME_BOARD
@@ -210,6 +210,7 @@ void removeBossLife()
     }
 }
 
+/*
 int randomEmergencyExit()//PC의 위치 받음(전역)
 {
     srand((unsigned int)time(NULL));
@@ -217,6 +218,7 @@ int randomEmergencyExit()//PC의 위치 받음(전역)
     //while(Exit[num]!=Pos Player)
 }
 
+*/
 //void drawGameResult();
 
 //void removeGameResult();
