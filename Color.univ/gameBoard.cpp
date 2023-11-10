@@ -9,45 +9,6 @@
 int Exit[5][2]; // 비상구 전역 변수 배열
 int Exit_n = 0; // 비상구 수
 
-enum GAME_BOARD
-{
-    BLANK, //0
-    NORMAL_WALL,//1 
-    
-    BLUE_WALL,//2
-    RED_WALL,//3
-    YELLOW_WALL,//4
-    
-    PURPLE_WALL,//5
-    GREEN_WALL,//6
-    ORANGE_WALL,//7
-    //2차 혼합 (노+파=초, 초+파=청록) -> 보류
-    CYAN_WALL,//8	//청록색
-    DARKBLUE_WALL,//9
-
-    //item
-    EMERGENCY_EXIT,//10
-    PRIME,//11
-    ERASER,//12
-
-    //btn
-    BLUE_BTN,//13
-    RED_BTN,//14
-    YELLOW_BTN,//15
-    PURPLE_BTN,//16
-    GREEN_BTN,//17
-    ORANGE_BTN,//18
-    CYAN_BTN,//19
-    DARKBLUE_BTN,//20
-};
-
-/*
-검정 0 어두운 파랑 1 어두운 초록 2 어두운 하늘 3 
-어두운 빨강 4 어두운 보라 5 어두운 노랑 6 
-회색 7 어두운 회색 8 파랑 9 초록 10
-하늘 11 빨강 12 보라 13 노랑 14 흰색 15
-*/
-
 void drawGameBoard(int arr[][37])
 {
     double score[] = { 4.5,0,0,0,0 }; // util
