@@ -8,10 +8,7 @@
 
 Player* player;
 Enemy* enemy;
-
-//스토어 구조체 임시로 만듦 지우가 수정해주세요
-Store store;
-
+extern Store myStore;
 
 int main() {
 	setConsoleSize();

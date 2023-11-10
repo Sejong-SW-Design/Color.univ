@@ -1,4 +1,5 @@
 #include"Move.h"
+#include"item.h"
 
 void Move::shiftCharacter(int direction, int gameMap[22][37])
 {
@@ -28,7 +29,7 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     //아이템 관련 함수들 호출하기
     if (nextSort >= BLUE_BTN && nextSort <= DARKBLUE_BTN)
     {
-        //버튼입니다.
+        getColor(nextSort);
     }
     if (nextSort == EMERGENCY_EXIT)
     {
@@ -40,7 +41,7 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     }
     if (nextSort == ERASER)
     {
-        //지우개입니다.
+        eraseColor();
     }
 }
 
