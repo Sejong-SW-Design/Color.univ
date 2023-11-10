@@ -29,19 +29,21 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     //아이템 관련 함수들 호출하기
     if (nextSort >= BLUE_BTN && nextSort <= DARKBLUE_BTN)
     {
-        getColor(nextSort);
+        getColor(nextSort, next.x, next.y, gameMap); 
     }
     if (nextSort == EMERGENCY_EXIT)
     {
-        //비상구입니다.
+        //randomEmergencyExit(next.x,next.y,gameMap); -> 얘가 반환하는 int 배열 값으로 좌표 이동
     }
     if (nextSort == PRIME)
     {
         //족보입니다.
+        removeItem(nextSort,next.x,next.y,gameMap);
     }
     if (nextSort == ERASER)
     {
         eraseColor();
+        removeItem(nextSort, next.x, next.y, gameMap);
     }
 }
 
@@ -91,6 +93,8 @@ void Player::moveingProcess(int gameMap[22][37])
             shiftCharacter(DOWN, gameMap);
             break;
         case SPACEBAR:
+            collaborateColor(position.x,position.y,gameMap); //이거 맞나..? -지원
+            // Player 위치를 변수에 넣어두고 싶었어요
             break;
         }
     }

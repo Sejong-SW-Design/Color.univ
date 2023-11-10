@@ -7,6 +7,7 @@
 #define GBOARD_WIDTH 36
 #define GBOARD_HEIGHT 21
 
+
 /*
 검정 0 어두운 파랑 1 어두운 초록 2 어두운 하늘 3
 어두운 빨강 4 어두운 보라 5 어두운 노랑 6
@@ -48,15 +49,17 @@ enum GAME_BOARD
 
 using namespace std;
 
-void drawGameBoard(int arr[][37]);
+void drawGameBoard(int gameMap[22][37]);
 
-void updateGameBoard(int colorSort);
+void updateGameBoard(int gameMap[22][37]);
 
-void removeWall();
+void removeWall(int num, int posX, int posY, int gameMap[22][37]);
 
-void removeItem();
+void removeItem(int num, int posX, int posY, int gameMap[22][37]);
 
 void drawStore();
+
+void updateStore(int color1,int color2); // 새로 생성
 
 void drawInfo(double score[], int grade); // score[0]은 평균
 
@@ -70,11 +73,13 @@ void removeAttackTouchedWall();
 
 void removeBossLife();
 
-int randomEmergencyExit();
+int* randomEmergencyExit(int posX, int posY, int gameMap[22][37]); // -> 반환값 배열로 바꿈, ppt 수정해야함
 
 void drawGameResult();
 
 void removeGameResult();
+
+
 
 #endif
 

@@ -142,7 +142,7 @@
     <ClInclude Include="gameBoard.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="manager.h" />
-    <ClInclude Include="map1.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="move.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
