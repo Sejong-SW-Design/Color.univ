@@ -1,6 +1,4 @@
 #include "item.h"
-#include "gameBoard.h"
-#include <Windows.h>
 
 Store myStore = { 0,0 };
 int flag = 0; //저장소 용량 확인

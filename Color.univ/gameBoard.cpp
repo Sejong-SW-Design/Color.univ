@@ -1,12 +1,5 @@
 #include "gameBoard.h"
-#include "util.h"
 #include "move.h"
-#include "item.h"
-#include <stdio.h>
-#include <iostream>
-#include <Windows.h>
-#include <ctime>
-#include <queue>
 
 int Exit[5][2]; // 비상구 전역 변수 배열
 int Exit_n = 0; // 비상구 수

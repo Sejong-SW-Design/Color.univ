@@ -1,6 +1,15 @@
 #ifndef __GAMEBOARD_H__
 #define __GAMEBOARD_H__
 
+#include <stdio.h>
+#include <iostream>
+#include <Windows.h>
+#include <ctime>
+#include <queue>
+#include "util.h"
+#include "item.h"
+
+
 #define GBOARD_ORIGIN_X 6
 #define GBOARD_ORIGIN_Y 4
 
