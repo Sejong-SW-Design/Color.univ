@@ -1,5 +1,6 @@
 #include "manager.h"
-#include "util.h"
+
+double score[5] = { 4.5, 0.0, 0.0, 0.0, 0.0 };
 
 //void setScore();
 //

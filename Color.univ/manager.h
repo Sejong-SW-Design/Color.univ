@@ -2,6 +2,8 @@
 #define __MANAGER_H_
 
 #include <iostream>
+#include "util.h"
+
 using namespace std;
 
 //void setScore();

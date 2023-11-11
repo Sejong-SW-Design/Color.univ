@@ -11,9 +11,10 @@
 int Exit[5][2]; // 비상구 전역 변수 배열
 int Exit_n = 0; // 비상구 수
 
+extern double score[5];
+
 void drawGameBoard(int gameMap[22][37])
 {
-    double score[] = { 4.5,0,0,0,0 }; // util
     drawInfo(score, 1);
     drawStore();
 

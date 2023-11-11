@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "util.h"
 #include "gameBoard.h"
@@ -32,7 +31,7 @@ int main() {
             Sleep(enemy->getSleepTime() / 50);
         }
         //적 돌아당기게 하고싶으면 이거 주석 풀면됨
-        //enemy->moveingProcess(player->getPosition(), gameMap1);
+        // enemy->moveingProcess(player->getPosition(), gameMap1);
     }
 
 	//after game over

@@ -32,6 +32,7 @@ void getColor(int colorNum, int posX, int posY, int gameMap[22][37]) {
 	}
 	else return;
 }
+
 void collaborateColor(int posX, int posY,int gameMap[22][37]) {//스페이스바 누르면 호출됨
 	int mixColor=0; // 임시로 해놨어요~ -지원
 	if (flag == 1) 
