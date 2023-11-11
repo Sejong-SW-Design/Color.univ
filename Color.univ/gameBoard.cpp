@@ -125,7 +125,8 @@ void updateGameBoard(int gameMap[22][37]) // 게임보드, 게임 정보 업데이트  -> 미
 
 void removeWall(int num, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
 {
-    gameMap[posY][posX] = 0; // 색 버튼 없앰
+    
+    // gameMap[posY][posX] = 0; // 색 버튼 없앰 -> 이게 플레이어도 같이 삭제했던거임 (복)
 
     /////
     int start = gameMap[posX][posY];

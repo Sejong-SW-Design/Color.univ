@@ -37,3 +37,7 @@ void drawDevInfo() { // 임시화면
 //void drawIntro();
 //
 //void drawReturnToMain();
+
+//void gameBoardInit() {
+//
+//}
