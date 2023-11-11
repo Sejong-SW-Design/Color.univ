@@ -5,7 +5,7 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
 {
     deleteCharacter();
 
-    Position next = position;
+    Pos next = position;
     switch (direction)
     {
     case LEFT:

@@ -70,7 +70,6 @@ void drawGameBoard(int gameMap[22][37])
 
 void updateGameBoard(int gameMap[22][37]) // 게임보드, 게임 정보 업데이트  -> 미완
 {
-    double score[] = { 4.5,0,0,0,0 }; // util
     drawInfo(score, 1);
 
     for (int i = 0; i < 22; i++)
@@ -329,13 +328,13 @@ void drawStore()
 
 
 
-void drawInfo(double score[], int grade)
+void drawInfo(double *score, int gradeIdx)
 {
     setCurrentCursorPos(14, 1);
-    printf("[%d 학년]", grade);
+    printf("[%d 학년]", gradeIdx);
 
     setCurrentCursorPos(28, 1);
-    printf("현재 학점 : %.1f", score[grade]);
+    printf("현재 학점 : %.1f", score[gradeIdx]);
 
     setCurrentCursorPos(48, 1);
     printf("평균 학점 : %.1f", score[0]);
