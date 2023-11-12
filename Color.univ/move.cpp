@@ -97,7 +97,7 @@ void Player::moveingProcess(int gameMap[22][37])
             shiftCharacter(DOWN, gameMap);
             break;
         case SPACEBAR:
-            collaborateColor(position.x,position.y,gameMap); //이거 맞나..? -지원
+            collaborateColor(position.x, position.y, gameMap); //이거 맞나..? -지원
             // Player 위치를 변수에 넣어두고 싶었어요
             break;
         }
