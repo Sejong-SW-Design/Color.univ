@@ -4,10 +4,6 @@
 #include "manager.h"
 
 extern double score[5];
-int isExit = 0; // 전 단계에서 비상구로 이동했는지 확인하는 변수
-int* exitSort; // 비상구 랜덤으로 생성된 좌표
-
-// isExit랑 exitSort 전역으로 해놨는데 좀 그러면 바꿔주세용!!
 
 bool Move::shiftCharacter(int direction, int gameMap[22][37])
 {
@@ -18,13 +14,13 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37])
     switch (direction)
     {
     case LEFT:
-        next.x -= 1; break;
+        next.x = next.x - 1 >= 0 ? next.x - 1 : next.x; break;
     case RIGHT:
-        next.x += 1; break;
+        next.x = next.x + 1 <= GBOARD_WIDTH ? next.x + 1 : next.x; break;
     case UP:
-        next.y -= 1; break;
+        next.y = next.y - 1 >= 0 ? next.y - 1 : next.y; break;
     case DOWN:
-        next.y += 1; break;
+        next.y = next.y + 1 <= GBOARD_HEIGHT ? next.y + 1 : next.y; break;
     }
 
     int nextSort = detectCollision(gameMap, next);
@@ -123,20 +119,18 @@ void Player::moveingProcess(int gameMap[22][37])
 void Player::getItem(int gameMap[22][37])
 {
     int itemSort = gameMap[position.y][position.x];
-    
+
     if (itemSort >= BLUE_BTN && itemSort <= DARKBLUE_BTN)
     {
         getColor(itemSort, position.x, position.y, gameMap);
     }
     if (itemSort == EMERGENCY_EXIT)
     {
-        isExit = 1; // 비상구로 이동 -> PC, NPC 둘다 해당 : 비상구가 화면에서 지워지면 안됨!
-
         deleteCharacter(gameMap);
-        exitSort = randomEmergencyExit(position.x, position.y, gameMap);
+        pair<int, int> exitSort = randomEmergencyExit(position.x, position.y, gameMap);
         Pos prevPos = position;
-        position.x = exitSort[1];
-        position.y = exitSort[0];
+        position.x = exitSort.second;
+        position.y = exitSort.first;
 
         Pos curPos = getCursorPos(prevPos);
         setCurrentCursorPos(curPos.x, curPos.y);

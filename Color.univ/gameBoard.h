@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include <ctime>
 #include <queue>
+#include <vector>
 #include "util.h"
 #include "manager.h"
 #include "item.h"
@@ -83,7 +84,7 @@ void removeAttackTouchedWall();
 
 void removeBossLife();
 
-int* randomEmergencyExit(int posX, int posY, int gameMap[22][37]); // -> 반환값 배열로 바꿈, ppt 수정해야함
+pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]);
 
 void drawGameResult();
 

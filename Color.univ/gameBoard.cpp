@@ -1,9 +1,7 @@
 #include "gameBoard.h"
 #include "move.h"
 
-int Exit[5][2]; // 비상구 전역 변수 배열
-int Exit_n = 0; // 비상구 수
-
+vector<pair<int, int>>Exits; //비상구 배열
 
 extern double score[5];
 
@@ -52,9 +50,8 @@ void drawGameBoard(int gameMap[22][37])
             case DARKBLUE_BTN:
                 setBackgroundColor(0, 1); printf("⊙"); break;
             case EMERGENCY_EXIT:
-                setBackgroundColor(0, 2); printf("▥"); 
-                Exit[Exit_n][0] = i; Exit[Exit_n][1] = j; //좌표 저장
-                Exit_n++;
+                setBackgroundColor(0, 2); printf("▥");
+                Exits.push_back(make_pair(i, j));
                 break;
             case PRIME:
                 setBackgroundColor(0, 6); printf("★"); break;
@@ -363,18 +360,18 @@ void removeBossLife()
     }
 }
 
-int* randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
+pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
 {
     srand((unsigned int)time(NULL));
 
-    int idx = rand() % Exit_n; // 나올 비상구 idx
+    int idx = rand() % Exits.size(); // 나올 비상구 idx
 
-    while (Exit[idx][0] == posY && Exit[idx][1] == posX) //현재와 같은 위치로 나오면 안된다.
+    while (Exits[idx].first == posY && Exits[idx].second == posX) //현재와 같은 위치로 나오면 안된다.
     {
-        idx = rand() % Exit_n;
+        idx = rand() % Exits.size();
     }
- 
-    return Exit[idx];
+
+    return Exits[idx];
 }
 
 //void drawGameResult();
