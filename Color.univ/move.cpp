@@ -9,7 +9,7 @@ int* exitSort; // 비상구 랜덤으로 생성된 좌표
 
 // isExit랑 exitSort 전역으로 해놨는데 좀 그러면 바꿔주세용!!
 
-void Move::shiftCharacter(int direction, int gameMap[22][37])
+bool Move::shiftCharacter(int direction, int gameMap[22][37])
 {
     deleteCharacter(gameMap);
 
@@ -29,39 +29,16 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
 
     int nextSort = detectCollision(gameMap, next);
   
-    if (!isWall(nextSort))
-        position = next;
+    bool shifted = false;
 
+    if (!isWall(nextSort))
+    {
+        position = next;
+        shifted = true;
+    }
     showCharacter();
 
-    if (nextSort >= BLUE_BTN && nextSort <= DARKBLUE_BTN)
-    {
-        getColor(nextSort, next.x, next.y, gameMap); 
-    }
-    if (nextSort == EMERGENCY_EXIT)
-    {
-        isExit = 1; // 비상구로 이동 -> PC, NPC 둘다 해당 : 비상구가 화면에서 지워지면 안됨!
-
-        //PC일때만
-        //
-        deleteCharacter(gameMap);
-        exitSort = randomEmergencyExit(next.x, next.y, gameMap);
-        position.x = exitSort[1];
-        position.y = exitSort[0];
-        
-        Pos curPos = getCursorPos(next);
-        setCurrentCursorPos(curPos.x, curPos.y); // 여기도 이상한 듯,, 좌표를 어디다가 해야되는겨
-        setBackgroundColor(0, 2); printf("▥");     
-        showCharacter();
-    }
-    if (nextSort == PRIME)      // 족보
-    {
-        primeItemCollision(next.x, next.y, gameMap);
-    }
-    if (nextSort == ERASER)
-    {
-        eraseColor(next.x, next.y, gameMap);
-    }
+    return true;
 }
 
 void Move::deleteCharacter(int gameMap[22][37])
@@ -114,40 +91,66 @@ Player::Player(Pos initPosition)
 void Player::moveingProcess(int gameMap[22][37])
 {
     if (_kbhit() != 0)
-    {    
+    {
+        bool shifted = false;
         int key = _getch();
         switch (key)
         {
         case LEFT:
-            shiftCharacter(LEFT, gameMap);
+            shifted = shiftCharacter(LEFT, gameMap);
             break;
         case RIGHT:
-            shiftCharacter(RIGHT, gameMap);
+            shifted = shiftCharacter(RIGHT, gameMap);
             break;
         case UP:
-            shiftCharacter(UP, gameMap);
+            shifted = shiftCharacter(UP, gameMap);
             break;
         case DOWN:
-            shiftCharacter(DOWN, gameMap);
+            shifted = shiftCharacter(DOWN, gameMap);
             break;
         case SPACEBAR:
             collaborateColor(position.x, position.y, gameMap); 
             break;
         }
-        /*
-        if (isExit == 1) // 비상구가 화면에서 사라지면 안됨! -지원
-        {
-            // 여기가 이상해.. 왜 알맞은 비상구 위치로 안 나올까
-            
-            setCurrentCursorPos(exitSort[1] + GBOARD_ORIGIN_X, exitSort[0] + GBOARD_ORIGIN_Y); // 위치가 왜!!!!
-            setBackgroundColor(0, 2); printf("▥");
 
-            isExit = 0;
-            
-        }
-        */
+        if (!shifted)
+            return;
+        getItem(gameMap);
     }
+}
+
+
+void Player::getItem(int gameMap[22][37])
+{
+    int itemSort = gameMap[position.y][position.x];
     
+    if (itemSort >= BLUE_BTN && itemSort <= DARKBLUE_BTN)
+    {
+        getColor(itemSort, position.x, position.y, gameMap);
+    }
+    if (itemSort == EMERGENCY_EXIT)
+    {
+        isExit = 1; // 비상구로 이동 -> PC, NPC 둘다 해당 : 비상구가 화면에서 지워지면 안됨!
+
+        deleteCharacter(gameMap);
+        exitSort = randomEmergencyExit(position.x, position.y, gameMap);
+        Pos prevPos = position;
+        position.x = exitSort[1];
+        position.y = exitSort[0];
+
+        Pos curPos = getCursorPos(prevPos);
+        setCurrentCursorPos(curPos.x, curPos.y);
+        setBackgroundColor(0, 2); printf("▥");
+        showCharacter();
+    }
+    if (itemSort == PRIME)      // 족보
+    {
+        primeItemCollision(position.x, position.y, gameMap);
+    }
+    if (itemSort == ERASER)
+    {
+        eraseColor(position.x, position.y, gameMap);
+    }
 }
 
 Enemy::Enemy(Pos initPosition, int sleepTime)

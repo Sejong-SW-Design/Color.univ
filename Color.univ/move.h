@@ -34,7 +34,7 @@ public:
 		this->shape = shape;
 	}
 
-	void shiftCharacter(int direction, int gameMap[22][37]);
+	bool shiftCharacter(int direction, int gameMap[22][37]);
 	void deleteCharacter(int gameMap[22][37]);
 	void showCharacter();
 
@@ -69,6 +69,7 @@ private:
 public:
 	Player(Pos initPosition);
 	void moveingProcess(int gameMap[22][37]);
+	void getItem(int gameMap[22][37]);
 };
 
 class Enemy : public Move

@@ -13,8 +13,6 @@ void drawGameBoard(int gameMap[22][37])
     drawStore();
 
     //if (gradeidx == 4) drawBossLife();
-    
-
 
     for (int i = 0; i < 22; i++)
     {
