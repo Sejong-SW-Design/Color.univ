@@ -54,8 +54,6 @@ enum GAME_BOARD
     CYAN_BTN,//19
     DARKBLUE_BTN,//20
 
-    // game over
-    GAME_OVER   // 30
 };
 
 using namespace std;
