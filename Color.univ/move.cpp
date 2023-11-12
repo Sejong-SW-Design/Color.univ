@@ -27,8 +27,10 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
 
 
     //아이템 관련 함수들 호출하기
+    //(이지호) 모든 아이템은 한번 먹으면 gameboard에서 사라져야 하므로 removeItem계속호출
     if (nextSort >= BLUE_BTN && nextSort <= DARKBLUE_BTN)
     {
+        removeItem(nextSort, next.x, next.y, gameMap);
         getColor(nextSort, next.x, next.y, gameMap); 
     }
     if (nextSort == EMERGENCY_EXIT)
@@ -42,9 +44,11 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     }
     if (nextSort == ERASER)
     {
-        eraseColor();
         removeItem(nextSort, next.x, next.y, gameMap);
+        eraseColor();
     }
+
+    showCharacter();
 }
 
 void Move::deleteCharacter()

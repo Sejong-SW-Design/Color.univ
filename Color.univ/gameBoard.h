@@ -9,7 +9,6 @@
 #include "util.h"
 #include "item.h"
 
-
 #define GBOARD_ORIGIN_X 6
 #define GBOARD_ORIGIN_Y 4
 
@@ -62,7 +61,7 @@ void drawGameBoard(int gameMap[22][37]);
 
 void updateGameBoard(int gameMap[22][37]);
 
-void removeWall(int num, int posX, int posY, int gameMap[22][37]);
+bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]);
 
 void removeItem(int num, int posX, int posY, int gameMap[22][37]);
 
@@ -87,7 +86,6 @@ int* randomEmergencyExit(int posX, int posY, int gameMap[22][37]); // -> ¹ÝÈ¯°ª 
 void drawGameResult();
 
 void removeGameResult();
-
 
 
 #endif

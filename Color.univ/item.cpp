@@ -13,12 +13,17 @@ void eraseColor() {
 
 
 void getColor(int colorNum, int posX, int posY, int gameMap[22][37]) {
+
+	//일단 벽 해제를 시도한다. 벽 해제에 사용되지 않은 건 store에 저장된다.
+	bool didRemove = removeWall(colorNum - 11, posX, posY, gameMap);
+	if (didRemove)
+		return;
+	
 	if (myStore.capacity < 2) {
 		if (myStore.color1 == 0) { //1이 비어있으면
 			myStore.color1 = colorNum;
 			myStore.capacity++;
 			//벽해제함수호출(같은 색 벽 있으면 해제 아님 말구)
-			// removeWall(colorNum,posX,posY,gameMap);
 			updateStore(myStore.color1, myStore.color2);// 이거 removeWall 함수 완성되면 없애기
 		}
 		else {
