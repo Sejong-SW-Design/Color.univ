@@ -1,9 +1,10 @@
 #include "manager.h"
 #include "gameBoard.h"
 
-double score[5] = { 4.5, 0.0, 0.0, 0.0, 0.0 };
+double score[5] = { 4.5, 4.5, 4.5, 4.5, 4.5 };
 
 void setScore(int gradeidx, double s) {
+	if (score[gradeidx] >= 4.5) return;
 	score[gradeidx] += s;
 }
 
