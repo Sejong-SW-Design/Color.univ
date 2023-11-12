@@ -35,7 +35,7 @@ public:
 	}
 
 	void shiftCharacter(int direction, int gameMap[22][37]);
-	void deleteCharacter();
+	void deleteCharacter(int gameMap[22][37]);
 	void showCharacter();
 
 	int detectCollision(int gameMap[22][37], Pos nextPosition)

@@ -11,7 +11,7 @@ int* exitSort; // 비상구 랜덤으로 생성된 좌표
 
 void Move::shiftCharacter(int direction, int gameMap[22][37])
 {
-    deleteCharacter();
+    deleteCharacter(gameMap);
 
     Pos next = position;
     
@@ -34,28 +34,25 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
 
     showCharacter();
 
-    //아이템 관련 함수들 호출하기
-    //(이지호) 모든 아이템은 한번 먹으면 gameboard에서 사라져야 하므로 removeItem계속호출
-    //(전지원) 비상구 제외!
     if (nextSort >= BLUE_BTN && nextSort <= DARKBLUE_BTN)
     {
         getColor(nextSort, next.x, next.y, gameMap); 
     }
-    if (nextSort == EMERGENCY_EXIT )
+    if (nextSort == EMERGENCY_EXIT)
     {
         isExit = 1; // 비상구로 이동 -> PC, NPC 둘다 해당 : 비상구가 화면에서 지워지면 안됨!
 
         //PC일때만
         //
-        deleteCharacter();
-        exitSort =randomEmergencyExit(next.x, next.y, gameMap);
+        deleteCharacter(gameMap);
+        exitSort = randomEmergencyExit(next.x, next.y, gameMap);
         position.x = exitSort[1];
         position.y = exitSort[0];
-
         
-        setCurrentCursorPos(next.x + GBOARD_ORIGIN_X + 2, next.y + GBOARD_ORIGIN_Y); // 여기도 이상한 듯,, 좌표를 어디다가 해야되는겨
+        Pos curPos = getCursorPos(next);
+        setCurrentCursorPos(curPos.x, curPos.y); // 여기도 이상한 듯,, 좌표를 어디다가 해야되는겨
         setBackgroundColor(0, 2); printf("▥");     
-        //
+        showCharacter();
     }
     if (nextSort == PRIME)      // 족보
     {
@@ -65,17 +62,34 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     {
         eraseColor(next.x, next.y, gameMap);
     }
-
-    showCharacter();
-
-
 }
 
-void Move::deleteCharacter()
+void Move::deleteCharacter(int gameMap[22][37])
 {
     Pos cursorPosition = getCursorPos(position);
     setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
-    printf("  ");
+
+    switch (gameMap[position.y][position.x])
+    {
+    case BLANK:
+        printf("  "); break;
+    case BLUE_BTN:
+        setBackgroundColor(0, 9); printf("⊙"); break;
+    case RED_BTN:
+        setBackgroundColor(0, 12); printf("⊙"); break;
+    case YELLOW_BTN:
+        setBackgroundColor(0, 14); printf("⊙"); break;
+    case CYAN_BTN:
+        setBackgroundColor(0, 3); printf("⊙"); break;
+    case DARKBLUE_BTN:
+        setBackgroundColor(0, 1); printf("⊙"); break;
+    case EMERGENCY_EXIT:
+        setBackgroundColor(0, 2); printf("▥"); break;
+    case PRIME:
+        setBackgroundColor(0, 6); printf("★"); break;
+    case ERASER:
+        setBackgroundColor(0, 15); printf("ⓔ"); break;
+    }
 }
 
 void Move::showCharacter()
