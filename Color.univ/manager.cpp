@@ -2,8 +2,10 @@
 
 double score[5] = { 4.5, 0.0, 0.0, 0.0, 0.0 };
 
-//void setScore();
-//
+void setScore(int grageIdx) {
+	score[grageIdx] += 0.5;
+}
+
 //void drawStartScreen();
 //
 //void drawMenu();

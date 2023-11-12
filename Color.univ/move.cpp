@@ -1,6 +1,7 @@
 #include"Move.h"
 #include"item.h"
 #include "gameBoard.h"
+#include "manager.h"
 
 extern double score[5];
 
@@ -44,7 +45,7 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     {
         //족보입니다.
         removeItem(nextSort,next.x,next.y,gameMap);
-        score[1] += 0.5;
+        setScore(1);        // 일단 1학년 맵만 생성했으니까 숫자로 받음
         drawInfo(score, 1);
     }
     if (nextSort == ERASER)
