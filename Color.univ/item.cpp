@@ -47,7 +47,6 @@ void collaborateColor(int posX, int posY,int gameMap[22][37]) {//스페이스바 누르
 		mixColor = myStore.color1 + myStore.color2;
 	}
 
-	///
 	bool didRemove = removeWall(mixColor - 22, posX, posY, gameMap);
 	if (didRemove) {
 		//벽해제를 완료하면 스토어에서 지워야 함
