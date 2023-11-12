@@ -4,6 +4,7 @@
 #include "map.h"
 #include"move.h"
 #include"item.h"
+#include "manager.h"
 
 Player* player;
 Enemy* enemy;
@@ -13,7 +14,6 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-	// drawDevInfo();
 	drawGameBoard(gameMap1);
 
     //초기위치 정해주세요! (게임보드 기준! 곱하기 2 이딴거 안해도됨)
@@ -34,6 +34,9 @@ int main() {
         //적 돌아당기게 하고싶으면 이거 주석 풀면됨
         enemy->moveingProcess(player->getPosition(), gameMap1);
     }
+
+    // drawResultScreen(gameOver, 0);
+    // drawResultScreen(gameClear, 1);
 
 	//after game over
 	setCurrentCursorPos(100, 100);

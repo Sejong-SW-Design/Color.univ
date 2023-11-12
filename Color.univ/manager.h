@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "util.h"
+#include "gameBoard.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ void drawDevInfo();
 //
 //void drawStageEnding();
 //
-//void drawGameOver();
+void drawResultScreen(int gameResult[22][37], int check);
 //
 //void drawGameInstruction();
 //
