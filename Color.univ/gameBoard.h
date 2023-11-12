@@ -64,8 +64,6 @@ void updateGameBoard(int gameMap[22][37]);
 
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]);
 
-void removeItem(int num, int posX, int posY, int gameMap[22][37]);
-
 void drawStore();
 
 void updateStore(int color1,int color2); // 새로 생성

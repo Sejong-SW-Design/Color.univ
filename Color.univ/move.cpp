@@ -34,7 +34,6 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     //(이지호) 모든 아이템은 한번 먹으면 gameboard에서 사라져야 하므로 removeItem계속호출
     if (nextSort >= BLUE_BTN && nextSort <= DARKBLUE_BTN)
     {
-        removeItem(nextSort, next.x, next.y, gameMap);
         getColor(nextSort, next.x, next.y, gameMap); 
     }
     if (nextSort == EMERGENCY_EXIT)
@@ -44,14 +43,12 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     if (nextSort == PRIME)
     {
         //족보입니다.
-        removeItem(nextSort,next.x,next.y,gameMap);
-        setScore(1);        // 일단 1학년 맵만 생성했으니까 숫자로 받음
+        primeItemCollision(next.x, next.y, gameMap);
         drawInfo(score, 1);
     }
     if (nextSort == ERASER)
     {
-        removeItem(nextSort, next.x, next.y, gameMap);
-        eraseColor();
+        eraseColor(next.x, next.y, gameMap);
     }
 
     showCharacter();

@@ -172,34 +172,6 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
     return didRemove;
 }
 
-
-
-void removeItem(int num, int posX, int posY, int gameMap[22][37]) // 미완성
-{
-    gameMap[posY][posX] = 0;
-
-    if (num == 11)//족보일 경우
-    {
-        //util 점수 계산
-    }
-    else if (num == 12)//지우개일 경우
-    {
-        //(이지ㅗ) eraseColor이거 주석처리한 이유는 
-        // move에서 eraseColor를 또 호출하더라고? 그래서일단여기 주석처리함. 
-        // 혹시라도 수정필요하면 중복 안 되게 잘 옮겨주세요
-       // eraseColor();
-        // 이상한데 어디를 고쳐야할까... 
-        // 문제 1. 되기는 함. 근데 player도 같이 사라졌다가 움직이면 다시 나타남.
-        //  -> (이지호) 아래 업데이트 게임보드 때문에 그럼 이 함수 주석처리
-        // 문제 2. 2개의 색이 저장소에 있었다가 erase하면 없어졌던
-        // 마지막에 먹었던 색버튼 다시 생성됨... -> 지우 파트와 조정
-    }
-
-    //updateGameBoard(gameMap);
-}
-
-
-
 void updateStore(int color1, int color2) // 새로 만듦 -> ppt에 추가해야함
 {
     int x, y;

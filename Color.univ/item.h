@@ -11,7 +11,7 @@ typedef struct store {
 
 
 
-void eraseColor();
+void eraseColor(int posX, int posY, int gameMap[22][37]);
 
 void getColor(int colorNum, int posX, int posY, int gameMap[22][37]);
 
@@ -20,5 +20,7 @@ void getColor(int colorNum, int posX, int posY, int gameMap[22][37]);
 void collaborateColor(int posX, int posY, int gameMap[22][37]);
 
 void chageNumBTS(int color1, int color2);
+
+void primeItemCollision(int posX, int posY, int gameMap[22][37]);
 
 #endif __ITEM_H__
