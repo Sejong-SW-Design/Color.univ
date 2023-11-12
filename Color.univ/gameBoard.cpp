@@ -11,7 +11,7 @@ void drawGameBoard(int gameMap[22][37])
 {
     drawInfo(score, 1);
     drawStore();
-
+    drawGameEdge();
     //if (gradeidx == 4) drawBossLife();
 
     for (int i = 0; i < 22; i++)
@@ -65,6 +65,49 @@ void drawGameBoard(int gameMap[22][37])
         
         printf("\n");
         
+    }
+}
+
+
+void drawGameEdge()
+{
+
+    int x, y;
+
+
+    int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x1, origin_y1 + y);
+        if (y == h)
+            printf("└");
+        else if (y == 0)
+            printf("┌");
+        else
+            printf("│");
+    }
+
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x1 + (w + 1) * 2, origin_y1 + y);
+        if (y == h)
+            printf("┘");
+        else if (y == 0)
+            printf("┐");
+        else
+            printf("│");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x1 + x * 2, origin_y1);
+        printf("─");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x1 + x * 2, origin_y1 + h);
+        printf("─");
     }
 }
 
@@ -243,10 +286,10 @@ void drawInfo(double *score, int gradeIdx)
     setCurrentCursorPos(14, 1);
     printf("[%d 학년]", gradeIdx);
 
-    setCurrentCursorPos(28, 1);
+    setCurrentCursorPos(33, 1);
     printf("현재 학점 : %.1f", score[gradeIdx]);
 
-    setCurrentCursorPos(48, 1);
+    setCurrentCursorPos(58, 1);
     printf("평균 학점 : %.1f", score[0]);
 }
 
@@ -255,7 +298,7 @@ void drawInfo(double *score, int gradeIdx)
 void drawBossLife()
 {
     int x, y;
-    int origin_x = 80, origin_y = 8, h = 15, w = 1;
+    int origin_x = 84, origin_y = 8, h = 15, w = 1;
     for (y = 0; y <= h; y++)
     {
         setCurrentCursorPos(origin_x, origin_y + y);
@@ -294,7 +337,7 @@ void drawBossLife()
 void removeBossLife()
 {
     int x, y;
-    int origin_x = 80, origin_y = 8, h = 15, w = 1;
+    int origin_x = 84, origin_y = 8, h = 15, w = 1;
     for (y = 0; y <= h; y++)
     {
         setCurrentCursorPos(origin_x, origin_y + y);

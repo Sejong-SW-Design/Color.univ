@@ -63,7 +63,7 @@ using namespace std;
 
 void drawGameBoard(int gameMap[22][37]);
 
-void updateGameBoard(int gameMap[22][37]);
+void drawGameEdge();
 
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]);
 
@@ -92,3 +92,53 @@ void removeGameResult();
 
 #endif
 
+/* 색상 추가
+* 
+enum GAME_BOARD
+{
+    BLANK, //0
+    NORMAL_WALL,//1 
+
+    BLUE_WALL,//2
+    RED_WALL,//3
+    YELLOW_WALL,//4
+
+    PURPLE_WALL,//5
+    GREEN_WALL,//6
+    ORANGE_WALL,//7
+    //2차 혼합 (노+파=초, 초+파=청록) -> 보류
+    CYAN_WALL,//8	//청록색
+    DARKBLUE_WALL,//9
+    DARKGREEN_WALL,//10
+    DARKSKYBLUE_WALL,//11
+    DARKRED_WALL,//12
+    DARKPURPLE_WALL,//13
+    DARKYELLOW_WALL,//14
+    DARKGRAY_WALL,//15
+    SKYBLUE_WALL,//16
+
+
+    //item
+    EMERGENCY_EXIT,//10->17
+    PRIME,//11->18
+    ERASER,//12->19
+
+    //btn
+    BLUE_BTN,//13->20
+    RED_BTN,//21
+    YELLOW_BTN,//22
+    PURPLE_BTN,//23
+    GREEN_BTN,//24
+    ORANGE_BTN,//25
+    CYAN_BTN,//26
+    DARKBLUE_BTN,//27
+    DARKGREEN_BTN,//28
+    DARKSKYBLUE_BTN,//29
+    DARKRED_BTN,//30
+    DARKPURPLE_BTN,//31
+    DARKYELLOW_BTN,//32
+    DARKGRAY_BTN,//33
+    SKYBLUE_BTN,//34
+
+};
+*/
