@@ -22,12 +22,18 @@ int main() {
     player = new Player(playerInitPos);
     enemy = new Enemy(enemyInitPos, 300);
 
-    //게임 메인 루프 (이지호가 만듦)
     while (true)
     {
         for (int i = 0; i < 50; i++)
         {
             player->moveingProcess(gameMap1);
+            if (player->checkGoalIn())
+            {
+                drawResultScreen(gameOver, 0);
+                setCurrentCursorPos(100, 100);
+                return 0;
+            }
+
             Sleep(enemy->getSleepTime() / 50);
         }
 

@@ -14,14 +14,18 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37])
     switch (direction)
     {
     case LEFT:
-        next.x = next.x - 1 >= 0 ? next.x - 1 : next.x; break;
+        next.x -= 1; break;
     case RIGHT:
-        next.x = next.x + 1 <= GBOARD_WIDTH ? next.x + 1 : next.x; break;
+        next.x += 1; break;
     case UP:
-        next.y = next.y - 1 >= 0 ? next.y - 1 : next.y; break;
+        next.y -= 1; break;
     case DOWN:
-        next.y = next.y + 1 <= GBOARD_HEIGHT ? next.y + 1 : next.y; break;
+        next.y += 1; break;
     }
+
+    //게임보드 밖을 벗어나지 않도록
+    if (next.x < 0 || next.x >= GBOARD_WIDTH || next.y < 0 || next.y >= GBOARD_HEIGHT)
+        next = position;
 
     int nextSort = detectCollision(gameMap, next);
   
@@ -115,7 +119,6 @@ void Player::moveingProcess(int gameMap[22][37])
     }
 }
 
-
 void Player::getItem(int gameMap[22][37])
 {
     int itemSort = gameMap[position.y][position.x];
@@ -145,6 +148,14 @@ void Player::getItem(int gameMap[22][37])
     {
         eraseColor(position.x, position.y, gameMap);
     }
+}
+
+bool Player::checkGoalIn()
+{
+    if (GBOARD_WIDTH - position.x <= 1 &&
+        (position.y >= 8 && position.y <= 14))
+        return true;
+    return false;
 }
 
 Enemy::Enemy(Pos initPosition, int sleepTime)

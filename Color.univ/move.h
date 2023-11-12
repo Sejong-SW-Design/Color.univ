@@ -70,6 +70,7 @@ public:
 	Player(Pos initPosition);
 	void moveingProcess(int gameMap[22][37]);
 	void getItem(int gameMap[22][37]);
+	bool checkGoalIn();
 };
 
 class Enemy : public Move
