@@ -202,49 +202,6 @@ void removeItem(int num, int posX, int posY, int gameMap[22][37]) // 미완성
 
 void updateStore(int color1, int color2) // 새로 만듦 -> ppt에 추가해야함
 {
-    //btn enum으로 된 것을 콘솔 색으로 바꾼다!!
-    //지우 collaborate 함수에서도 이거 적용해야함.
-    switch (color1)
-    {
-    case BLUE_BTN:
-        color1 = 9; break;
-    case RED_BTN:
-        color1 = 12; break;
-    case YELLOW_BTN:
-        color1 = 14; break;
-    case PURPLE_BTN:
-        color1 = 13; break;
-    case GREEN_BTN:
-        color1 = 10; break;
-    case ORANGE_BTN:
-        color1 = 6; break;
-    case CYAN_BTN:
-        color1 = 3; break;
-    case DARKBLUE_BTN:
-        color1 = 1; break;
-    }
-
-    switch (color2)
-    {
-    case BLUE_BTN:
-        color2 = 9; break;
-    case RED_BTN:
-        color2 = 12; break;
-    case YELLOW_BTN:
-        color2 = 14; break;
-    case PURPLE_BTN:
-        color2 = 13; break;
-    case GREEN_BTN:
-        color2 = 10; break;
-    case ORANGE_BTN:
-        color2 = 6; break;
-    case CYAN_BTN:
-        color2 = 3; break;
-    case DARKBLUE_BTN:
-        color2 = 1; break;
-    }
-
-
     int x, y;
     int origin_x1 = 20, origin_y1 = 27, h = 2, w = 2;
 
