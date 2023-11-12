@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void setScore(int gradeidx, int score);
+void setScore(int gradeidx, double s);
 //
 //void drawStartScreen();
 //

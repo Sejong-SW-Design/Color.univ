@@ -1,10 +1,12 @@
 #include "manager.h"
+#include "gameBoard.h"
 
 double score[5] = { 4.5, 0.0, 0.0, 0.0, 0.0 };
 
-void setScore(int gradeidx, int s) {
-	score[gradeidx] += s;	
+void setScore(int gradeidx, double s) {
+	score[gradeidx] += s;
 }
+
 
 //void drawStartScreen();
 //

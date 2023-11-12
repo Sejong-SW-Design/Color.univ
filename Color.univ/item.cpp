@@ -2,7 +2,7 @@
 #include "manager.h"
 
 Store myStore = { 0,0 };
-// int flag = 0; //저장소 용량 확인
+extern double score[5];
 
 void eraseColor(int posX, int posY, int gameMap[22][37]) {
 
@@ -109,4 +109,5 @@ void chageNumBTS(int color1, int color2) {
 void primeItemCollision(int posX, int posY, int gameMap[22][37]) {
 	gameMap[posY][posX] = 0;
 	setScore(1, 0.5);
+	drawInfo(score, 1);
 }

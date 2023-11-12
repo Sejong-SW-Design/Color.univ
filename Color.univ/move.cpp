@@ -40,11 +40,9 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     {
         //randomEmergencyExit(next.x,next.y,gameMap); -> 얘가 반환하는 int 배열 값으로 좌표 이동
     }
-    if (nextSort == PRIME)
+    if (nextSort == PRIME)      // 족보
     {
-        //족보입니다.
         primeItemCollision(next.x, next.y, gameMap);
-        drawInfo(score, 1);
     }
     if (nextSort == ERASER)
     {
