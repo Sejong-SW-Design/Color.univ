@@ -7,7 +7,9 @@
 #include <ctime>
 #include <queue>
 #include "util.h"
+#include "manager.h"
 #include "item.h"
+
 
 #define GBOARD_ORIGIN_X 6
 #define GBOARD_ORIGIN_Y 4
@@ -55,6 +57,7 @@ enum GAME_BOARD
     DARKBLUE_BTN,//20
 
 };
+
 
 using namespace std;
 

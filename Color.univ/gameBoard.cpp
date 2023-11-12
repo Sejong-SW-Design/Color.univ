@@ -4,6 +4,7 @@
 int Exit[5][2]; // 비상구 전역 변수 배열
 int Exit_n = 0; // 비상구 수
 
+
 extern double score[5];
 
 void drawGameBoard(int gameMap[22][37])
@@ -11,8 +12,9 @@ void drawGameBoard(int gameMap[22][37])
     drawInfo(score, 1);
     drawStore();
 
-    // if(grade==4)
-    drawBossLife();
+    //if (gradeidx == 4) drawBossLife();
+    
+
 
     for (int i = 0; i < 22; i++)
     {
@@ -53,7 +55,7 @@ void drawGameBoard(int gameMap[22][37])
                 setBackgroundColor(0, 1); printf("⊙"); break;
             case EMERGENCY_EXIT:
                 setBackgroundColor(0, 2); printf("▥"); 
-                Exit[Exit_n][0] = i; Exit[Exit_n][1] = j;
+                Exit[Exit_n][0] = i; Exit[Exit_n][1] = j; //좌표 저장
                 Exit_n++;
                 break;
             case PRIME:
@@ -68,60 +70,6 @@ void drawGameBoard(int gameMap[22][37])
     }
 }
 
-void updateGameBoard(int gameMap[22][37]) // 게임보드, 게임 정보 업데이트  -> 미완
-{
-    drawInfo(score, 1);
-
-    for (int i = 0; i < 22; i++)
-    {
-        setCurrentCursorPos(GBOARD_ORIGIN_X, GBOARD_ORIGIN_Y + i); // 위치
-        for (int j = 0; j < 37; j++)
-        {
-            switch (gameMap[i][j])
-            {
-            case NORMAL_WALL:
-                setBackgroundColor(0, 7); printf("■"); break;
-            case BLANK:
-                printf("  "); break;
-            case BLUE_WALL:
-                setBackgroundColor(0, 9); printf("■"); break;
-            case RED_WALL:
-                setBackgroundColor(0, 12); printf("■");  break;
-            case YELLOW_WALL:
-                setBackgroundColor(0, 14); printf("■");  break;
-            case PURPLE_WALL:
-                setBackgroundColor(0, 13); printf("■");  break;
-            case GREEN_WALL:
-                setBackgroundColor(0, 10); printf("■"); break;
-            case ORANGE_WALL:
-                setBackgroundColor(0, 6); printf("■");  break;
-            case CYAN_WALL:
-                setBackgroundColor(0, 3); printf("■");  break;
-            case DARKBLUE_WALL:
-                setBackgroundColor(0, 1); printf("■");  break;
-            case BLUE_BTN:
-                setBackgroundColor(0, 9); printf("⊙"); break;
-            case RED_BTN:
-                setBackgroundColor(0, 12); printf("⊙"); break;
-            case YELLOW_BTN:
-                setBackgroundColor(0, 14); printf("⊙"); break;
-            case CYAN_BTN:
-                setBackgroundColor(0, 3); printf("⊙"); break;
-            case DARKBLUE_BTN:
-                setBackgroundColor(0, 1); printf("⊙"); break;
-            case EMERGENCY_EXIT:
-                setBackgroundColor(0, 2); printf("▥"); break;
-            case PRIME:
-                setBackgroundColor(0, 6); printf("★"); break;
-            case ERASER:
-                setBackgroundColor(0, 15); printf("ⓔ"); break;
-            }
-        }
-
-        printf("\n");
-
-    }
-}
 
 //해제할 벽 해제 여부를 반환 -> 해제를 하나도 안 했다면 스토어에 저장, 해제한 게 있으면 저장노
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
@@ -374,20 +322,19 @@ void removeBossLife()
     }
 }
 
-/*
-int* randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 미완
+int* randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
 {
     srand((unsigned int)time(NULL));
-    int num = rand() % Exit_n;
 
-    while (!(Exit[num][0] == posX && Exit[num][1] == posY)) //현재와 같은 위치로 나오면 안된다.
+    int idx = rand() % Exit_n; // 나올 비상구 idx
+
+    while (Exit[idx][0] == posY && Exit[idx][1] == posX) //현재와 같은 위치로 나오면 안된다.
     {
-        num = rand() % Exit_n;
+        idx = rand() % Exit_n;
     }
-
-
+ 
+    return Exit[idx];
 }
-*/
 
 //void drawGameResult();
 

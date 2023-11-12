@@ -4,12 +4,17 @@
 #include "manager.h"
 
 extern double score[5];
+int isExit = 0; // 전 단계에서 비상구로 이동했는지 확인하는 변수
+int* exitSort; // 비상구 랜덤으로 생성된 좌표
+
+// isExit랑 exitSort 전역으로 해놨는데 좀 그러면 바꿔주세용!!
 
 void Move::shiftCharacter(int direction, int gameMap[22][37])
 {
     deleteCharacter();
 
     Pos next = position;
+    
     switch (direction)
     {
     case LEFT:
@@ -23,22 +28,34 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     }
 
     int nextSort = detectCollision(gameMap, next);
-
+  
     if (!isWall(nextSort))
         position = next;
 
     showCharacter();
 
-
     //아이템 관련 함수들 호출하기
     //(이지호) 모든 아이템은 한번 먹으면 gameboard에서 사라져야 하므로 removeItem계속호출
+    //(전지원) 비상구 제외!
     if (nextSort >= BLUE_BTN && nextSort <= DARKBLUE_BTN)
     {
         getColor(nextSort, next.x, next.y, gameMap); 
     }
-    if (nextSort == EMERGENCY_EXIT)
+    if (nextSort == EMERGENCY_EXIT )
     {
-        //randomEmergencyExit(next.x,next.y,gameMap); -> 얘가 반환하는 int 배열 값으로 좌표 이동
+        isExit = 1; // 비상구로 이동 -> PC, NPC 둘다 해당 : 비상구가 화면에서 지워지면 안됨!
+
+        //PC일때만
+        //
+        deleteCharacter();
+        exitSort =randomEmergencyExit(next.x, next.y, gameMap);
+        position.x = exitSort[1];
+        position.y = exitSort[0];
+
+        
+        setCurrentCursorPos(next.x + GBOARD_ORIGIN_X + 2, next.y + GBOARD_ORIGIN_Y); // 여기도 이상한 듯,, 좌표를 어디다가 해야되는겨
+        setBackgroundColor(0, 2); printf("▥");     
+        //
     }
     if (nextSort == PRIME)      // 족보
     {
@@ -50,6 +67,8 @@ void Move::shiftCharacter(int direction, int gameMap[22][37])
     }
 
     showCharacter();
+
+
 }
 
 void Move::deleteCharacter()
@@ -81,7 +100,7 @@ Player::Player(Pos initPosition)
 void Player::moveingProcess(int gameMap[22][37])
 {
     if (_kbhit() != 0)
-    {
+    {    
         int key = _getch();
         switch (key)
         {
@@ -98,11 +117,23 @@ void Player::moveingProcess(int gameMap[22][37])
             shiftCharacter(DOWN, gameMap);
             break;
         case SPACEBAR:
-            collaborateColor(position.x, position.y, gameMap); //이거 맞나..? -지원
-            // Player 위치를 변수에 넣어두고 싶었어요
+            collaborateColor(position.x, position.y, gameMap); 
             break;
         }
+        /*
+        if (isExit == 1) // 비상구가 화면에서 사라지면 안됨! -지원
+        {
+            // 여기가 이상해.. 왜 알맞은 비상구 위치로 안 나올까
+            
+            setCurrentCursorPos(exitSort[1] + GBOARD_ORIGIN_X, exitSort[0] + GBOARD_ORIGIN_Y); // 위치가 왜!!!!
+            setBackgroundColor(0, 2); printf("▥");
+
+            isExit = 0;
+            
+        }
+        */
     }
+    
 }
 
 Enemy::Enemy(Pos initPosition, int sleepTime)
