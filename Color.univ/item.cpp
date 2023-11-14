@@ -7,7 +7,6 @@ extern double score[5];
 void eraseColor(int posX, int posY, int gameMap[22][37]) {
 
 	gameMap[posY][posX] = 0;
-	//setCurrentCursorPos(posX, posY); printf("  ");  -> 안해도 될 것 같음. -지원-
 
 	myStore.color1 = 0;
 	myStore.color2 = 0;

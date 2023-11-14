@@ -80,6 +80,7 @@ void drawGameBoard(int gameMap[22][37])
                 setBackgroundColor(0, 8); printf("¢Á");  break;
             case SKYBLUE_BTN:
                 setBackgroundColor(0, 11); printf("¢Á");  break;
+
             case EMERGENCY_EXIT:
                 setBackgroundColor(0, 2); printf("¢È");
                 Exits.push_back(make_pair(i, j));
@@ -105,7 +106,6 @@ void drawGameEdge()
 {
 
     int x, y;
-
 
     int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;
     for (y = 0; y <= h; y++)

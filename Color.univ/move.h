@@ -59,7 +59,7 @@ public:
 	}
 	static bool isWall(int sort)
 	{
-		return sort >= NORMAL_WALL && sort <= DARKBLUE_WALL;
+		return sort >= NORMAL_WALL && sort <= SKYBLUE_WALL;
 	}
 };
 

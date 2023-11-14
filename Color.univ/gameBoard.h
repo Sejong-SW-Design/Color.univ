@@ -73,7 +73,7 @@ enum GAME_BOARD
     PRIME,//31
     ERASER,//32
     HIDDEN,//33
-    STOP,//34
+    STOP//34
 };
 
 
