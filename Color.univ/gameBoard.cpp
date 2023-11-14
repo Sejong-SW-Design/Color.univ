@@ -35,20 +35,51 @@ void drawGameBoard(int gameMap[22][37])
                 setBackgroundColor(0, 10); printf("¡á"); break;
             case ORANGE_WALL:
                 setBackgroundColor(0, 6); printf("¡á");  break;
-            case CYAN_WALL:
-                setBackgroundColor(0, 3); printf("¡á");  break;
             case DARKBLUE_WALL:
                 setBackgroundColor(0, 1); printf("¡á");  break;
+            case DARKGREEN_WALL:
+                setBackgroundColor(0, 2); printf("¡á");  break;
+            case DARKSKYBLUE_WALL:
+                setBackgroundColor(0, 3); printf("¡á");  break;
+            case DARKRED_WALL:
+                setBackgroundColor(0, 4); printf("¡á");  break;
+            case DARKPURPLE_WALL:
+                setBackgroundColor(0, 5); printf("¡á");  break;
+            case DARKYELLOW_WALL:
+                setBackgroundColor(0, 6); printf("¡á");  break;
+            case DARKGRAY_WALL:
+                setBackgroundColor(0, 8); printf("¡á");  break;
+            case SKYBLUE_WALL:
+                setBackgroundColor(0, 11); printf("¡á");  break;
+
             case BLUE_BTN:
                 setBackgroundColor(0, 9); printf("¢Á"); break;
             case RED_BTN:
                 setBackgroundColor(0, 12); printf("¢Á"); break;
             case YELLOW_BTN:
                 setBackgroundColor(0, 14); printf("¢Á"); break;
-            case CYAN_BTN:
-                setBackgroundColor(0, 3); printf("¢Á"); break;
+            case PURPLE_BTN:
+                setBackgroundColor(0, 13); printf("¢Á");  break;
+            case GREEN_BTN:
+                setBackgroundColor(0, 10); printf("¢Á"); break;
+            case ORANGE_BTN:
+                setBackgroundColor(0, 6); printf("¢Á");  break;
             case DARKBLUE_BTN:
                 setBackgroundColor(0, 1); printf("¢Á"); break;
+            case DARKGREEN_BTN:
+                setBackgroundColor(0, 2); printf("¢Á");  break;
+            case DARKSKYBLUE_BTN:
+                setBackgroundColor(0, 3); printf("¢Á");  break;
+            case DARKRED_BTN:
+                setBackgroundColor(0, 4); printf("¢Á");  break;
+            case DARKPURPLE_BTN:
+                setBackgroundColor(0, 5); printf("¢Á");  break;
+            case DARKYELLOW_BTN:
+                setBackgroundColor(0, 6); printf("¢Á");  break;
+            case DARKGRAY_BTN:
+                setBackgroundColor(0, 8); printf("¢Á");  break;
+            case SKYBLUE_BTN:
+                setBackgroundColor(0, 11); printf("¢Á");  break;
             case EMERGENCY_EXIT:
                 setBackgroundColor(0, 2); printf("¢È");
                 Exits.push_back(make_pair(i, j));
@@ -57,6 +88,10 @@ void drawGameBoard(int gameMap[22][37])
                 setBackgroundColor(0, 6); printf("¡Ú"); break;
             case ERASER:
                 setBackgroundColor(0, 15); printf("¨Ñ"); break;
+            case HIDDEN:
+                // ±³¼ö´ÔÀÇ »ç¶û
+            case STOP:
+                setBackgroundColor(0, 8); printf("¡Ø"); break;
             }
         }
         

@@ -14,11 +14,11 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-	drawGameBoard(gameMap1);
+	drawGameBoard(gameMap2); //gameMap1
 
     //초기위치 정해주세요! (게임보드 기준! 곱하기 2 이딴거 안해도됨)
-    Pos playerInitPos = { 1,10 };
-    Pos enemyInitPos = { 26, 5 }; 
+    Pos playerInitPos = { 16,1 };
+    Pos enemyInitPos = { 30, 5 }; 
     player = new Player(playerInitPos);
     enemy = new Enemy(enemyInitPos, 300);
 
@@ -38,7 +38,7 @@ int main() {
         }
 
         //적 돌아당기게 하고싶으면 이거 주석 풀면됨
-        enemy->moveingProcess(player->getPosition(), gameMap1);
+        //enemy->moveingProcess(player->getPosition(), gameMap1);
     }
 
     // drawResultScreen(gameOver, 0);

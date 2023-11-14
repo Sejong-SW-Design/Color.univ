@@ -26,6 +26,8 @@
 하늘 11 빨강 12 보라 13 노랑 14 흰색 15
 */
 
+
+
 enum GAME_BOARD
 {
     BLANK, //0
@@ -38,25 +40,40 @@ enum GAME_BOARD
     PURPLE_WALL,//5
     GREEN_WALL,//6
     ORANGE_WALL,//7
-    //2차 혼합 (노+파=초, 초+파=청록) -> 보류
-    CYAN_WALL,//8	//청록색
-    DARKBLUE_WALL,//9
 
-    //item
-    EMERGENCY_EXIT,//10
-    PRIME,//11
-    ERASER,//12
+    DARKBLUE_WALL,//8
+    DARKGREEN_WALL,//9
+    DARKSKYBLUE_WALL,//10
+    DARKRED_WALL,//11
+    DARKPURPLE_WALL,//12
+    DARKYELLOW_WALL,//13
+    DARKGRAY_WALL,//14
+    SKYBLUE_WALL,//15
+
 
     //btn
-    BLUE_BTN,//13
-    RED_BTN,//14
-    YELLOW_BTN,//15
-    PURPLE_BTN,//16
-    GREEN_BTN,//17
-    ORANGE_BTN,//18
-    CYAN_BTN,//19
-    DARKBLUE_BTN,//20
+    BLUE_BTN,//16
+    RED_BTN,//17
+    YELLOW_BTN,//18
+    PURPLE_BTN,//19
+    GREEN_BTN,//20
+    ORANGE_BTN,//21
 
+    DARKBLUE_BTN,//22
+    DARKGREEN_BTN,//23
+    DARKSKYBLUE_BTN,//24
+    DARKRED_BTN,//25
+    DARKPURPLE_BTN,//26
+    DARKYELLOW_BTN,//27
+    DARKGRAY_BTN,//28
+    SKYBLUE_BTN,//29
+
+    //item
+    EMERGENCY_EXIT,//30
+    PRIME,//31
+    ERASER,//32
+    HIDDEN,//33
+    STOP,//34
 };
 
 
@@ -92,54 +109,3 @@ void removeGameResult();
 
 
 #endif
-
-/* 색상 추가
-* 
-enum GAME_BOARD
-{
-    BLANK, //0
-    NORMAL_WALL,//1 
-
-    BLUE_WALL,//2
-    RED_WALL,//3
-    YELLOW_WALL,//4
-
-    PURPLE_WALL,//5
-    GREEN_WALL,//6
-    ORANGE_WALL,//7
-    
-    DARKBLUE_WALL,//8
-    DARKGREEN_WALL,//9
-    DARKSKYBLUE_WALL,//10
-    DARKRED_WALL,//11
-    DARKPURPLE_WALL,//12
-    DARKYELLOW_WALL,//13
-    DARKGRAY_WALL,//14
-    SKYBLUE_WALL,//15
-
-
-    //btn
-    BLUE_BTN,//16
-    RED_BTN,//17
-    YELLOW_BTN,//18
-    PURPLE_BTN,//19
-    GREEN_BTN,//20
-    ORANGE_BTN,//21
-    
-    DARKBLUE_BTN,//22
-    DARKGREEN_BTN,//23
-    DARKSKYBLUE_BTN,//24
-    DARKRED_BTN,//25
-    DARKPURPLE_BTN,//26
-    DARKYELLOW_BTN,//27
-    DARKGRAY_BTN,//28
-    SKYBLUE_BTN,//29
-
-    //item
-    EMERGENCY_EXIT,//30
-    PRIME,//31
-    ERASER,//32
-    DRINK,//33
-    STOP,//34
-};
-*/

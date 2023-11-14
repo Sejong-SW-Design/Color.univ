@@ -19,7 +19,7 @@ void eraseColor(int posX, int posY, int gameMap[22][37]) {
 void getColor(int colorNum, int posX, int posY, int gameMap[22][37]) {
 
 	//일단 벽 해제를 시도한다. 벽 해제에 사용되지 않은 건 store에 저장된다.
-	bool didRemove = removeWall(colorNum - 11, posX, posY, gameMap);
+	bool didRemove = removeWall(colorNum - 14, posX, posY, gameMap);
 	if (didRemove)
 		return;
 	
@@ -47,7 +47,7 @@ void collaborateColor(int posX, int posY,int gameMap[22][37]) {//스페이스바 누르
 		mixColor = myStore.color1 + myStore.color2;
 	}
 
-	bool didRemove = removeWall(mixColor - 22, posX, posY, gameMap);
+	bool didRemove = removeWall(mixColor - 28, posX, posY, gameMap);
 	if (didRemove) {
 		//벽해제를 완료하면 스토어에서 지워야 함
 		myStore.color1 = 0;
@@ -78,10 +78,22 @@ void chageNumBTS(int color1, int color2) {
 		color1 = 10; break;
 	case ORANGE_BTN:
 		color1 = 6; break;
-	case CYAN_BTN:
-		color1 = 3; break;
 	case DARKBLUE_BTN:
 		color1 = 1; break;
+	case DARKGREEN_BTN:
+		color1 = 2; break;
+	case DARKSKYBLUE_BTN:
+		color1 = 3; break;
+	case DARKRED_BTN:
+		color1 = 4; break;
+	case DARKPURPLE_BTN:
+		color1 = 5; break;
+	case DARKYELLOW_BTN:
+		color1 = 6; break;
+	case DARKGRAY_BTN:
+		color1 = 8; break;
+	case SKYBLUE_BTN:
+		color1 = 11; break;
 	}
 
 	switch (color2)
@@ -98,10 +110,22 @@ void chageNumBTS(int color1, int color2) {
 		color2 = 10; break;
 	case ORANGE_BTN:
 		color2 = 6; break;
-	case CYAN_BTN:
-		color2 = 3; break;
 	case DARKBLUE_BTN:
 		color2 = 1; break;
+	case DARKGREEN_BTN:
+		color2 = 2; break;
+	case DARKSKYBLUE_BTN:
+		color2 = 3; break;
+	case DARKRED_BTN:
+		color2 = 4; break;
+	case DARKPURPLE_BTN:
+		color2 = 5; break;
+	case DARKYELLOW_BTN:
+		color2 = 6; break;
+	case DARKGRAY_BTN:
+		color2 = 8; break;
+	case SKYBLUE_BTN:
+		color2 = 11; break;
 	}
 	updateStore(color1, color2);
 }
