@@ -26,7 +26,7 @@ void getColor(int colorNum, int posX, int posY, int gameMap[22][37]) {
 		if (myStore.color1 == 0) { //1이 비어있으면
 			myStore.color1 = colorNum;
 			myStore.capacity++;
-			chageNumBTS(myStore.color1, myStore.color2);// 이거 removeWall 함수 완성되면 없애기
+			chageNumBTS(myStore.color1, myStore.color2);
 		}
 		else {
 			myStore.color2 = colorNum;
@@ -73,7 +73,7 @@ void chageNumBTS(int color1, int color2) {
 	case YELLOW_BTN:
 		color1 = 14; break;
 	case PURPLE_BTN:
-		color1 = 13; break;
+		color1 = 5; break;
 	case GREEN_BTN:
 		color1 = 10; break;
 	case ORANGE_BTN:
@@ -86,8 +86,8 @@ void chageNumBTS(int color1, int color2) {
 		color1 = 3; break;
 	case DARKRED_BTN:
 		color1 = 4; break;
-	case DARKPURPLE_BTN:
-		color1 = 5; break;
+	case PINK_BTN:
+		color1 = 13; break;
 	case DARKYELLOW_BTN:
 		color1 = 6; break;
 	case DARKGRAY_BTN:
@@ -105,7 +105,7 @@ void chageNumBTS(int color1, int color2) {
 	case YELLOW_BTN:
 		color2 = 14; break;
 	case PURPLE_BTN:
-		color2 = 13; break;
+		color2 = 5; break;
 	case GREEN_BTN:
 		color2 = 10; break;
 	case ORANGE_BTN:
@@ -118,8 +118,8 @@ void chageNumBTS(int color1, int color2) {
 		color2 = 3; break;
 	case DARKRED_BTN:
 		color2 = 4; break;
-	case DARKPURPLE_BTN:
-		color2 = 5; break;
+	case PINK_BTN:
+		color2 = 13; break;
 	case DARKYELLOW_BTN:
 		color2 = 6; break;
 	case DARKGRAY_BTN:

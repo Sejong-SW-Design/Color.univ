@@ -30,7 +30,7 @@ void drawGameBoard(int gameMap[22][37])
             case YELLOW_WALL:
                 setBackgroundColor(0, 14); printf("¡á");  break;
             case PURPLE_WALL:
-                setBackgroundColor(0, 13); printf("¡á");  break;
+                setBackgroundColor(0, 5); printf("¡á");  break;
             case GREEN_WALL:
                 setBackgroundColor(0, 10); printf("¡á"); break;
             case ORANGE_WALL:
@@ -43,8 +43,8 @@ void drawGameBoard(int gameMap[22][37])
                 setBackgroundColor(0, 3); printf("¡á");  break;
             case DARKRED_WALL:
                 setBackgroundColor(0, 4); printf("¡á");  break;
-            case DARKPURPLE_WALL:
-                setBackgroundColor(0, 5); printf("¡á");  break;
+            case PINK_WALL:
+                setBackgroundColor(0,13); printf("¡á");  break;
             case DARKYELLOW_WALL:
                 setBackgroundColor(0, 6); printf("¡á");  break;
             case DARKGRAY_WALL:
@@ -59,7 +59,7 @@ void drawGameBoard(int gameMap[22][37])
             case YELLOW_BTN:
                 setBackgroundColor(0, 14); printf("¢Á"); break;
             case PURPLE_BTN:
-                setBackgroundColor(0, 13); printf("¢Á");  break;
+                setBackgroundColor(0, 5); printf("¢Á");  break;
             case GREEN_BTN:
                 setBackgroundColor(0, 10); printf("¢Á"); break;
             case ORANGE_BTN:
@@ -72,8 +72,8 @@ void drawGameBoard(int gameMap[22][37])
                 setBackgroundColor(0, 3); printf("¢Á");  break;
             case DARKRED_BTN:
                 setBackgroundColor(0, 4); printf("¢Á");  break;
-            case DARKPURPLE_BTN:
-                setBackgroundColor(0, 5); printf("¢Á");  break;
+            case PINK_BTN:
+                setBackgroundColor(0,13); printf("¢Á");  break;
             case DARKYELLOW_BTN:
                 setBackgroundColor(0, 6); printf("¢Á");  break;
             case DARKGRAY_BTN:
@@ -92,7 +92,7 @@ void drawGameBoard(int gameMap[22][37])
             case HIDDEN:
                 // ±³¼ö´ÔÀÇ »ç¶û
             case STOP:
-                setBackgroundColor(0, 8); printf("¡Ø"); break;
+                setBackgroundColor(0, 7); printf("¡Ø"); break;
             }
         }
         
