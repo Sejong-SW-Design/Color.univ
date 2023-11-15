@@ -10,15 +10,17 @@ Player* player;
 Enemy* enemy;
 extern Store myStore;
 
+//게임매니저님 단계별로 맵 호출하는 기능 만들어주세요ㅎㅎㅎ
+
 int main() {
 	setConsoleSize();
 	removeCursor();
 
-	drawGameBoard(gameMap1); //gameMap1
+	drawGameBoard(gameMap2); //gameMap1
 
     //초기위치 정해주세요! (게임보드 기준! 곱하기 2 이딴거 안해도됨)
-    Pos playerInitPos = { 1,10}; //1,10 - 1  // 16,1 - 2 
-    Pos enemyInitPos = { 26, 5 }; //26,5 - 1  // 30,5 - 2
+    Pos playerInitPos = { 16,1}; //1,10 - 1  // 16,1 - 2 
+    Pos enemyInitPos = { 30, 5 }; //26,5 - 1  // 30,5 - 2
     player = new Player(playerInitPos);
     enemy = new Enemy(enemyInitPos, 300);
 
@@ -26,7 +28,7 @@ int main() {
     {
         for (int i = 0; i < 50; i++)
         {
-            player->moveingProcess(gameMap1);
+            player->moveingProcess(gameMap2);
             if (player->checkGoalIn())
             {
                 drawResultScreen(gameOver, 0);

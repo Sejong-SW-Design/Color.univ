@@ -153,8 +153,7 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //°°Àº »
     /////
     int start = gameMap[posY][posX];
 
-    int dx[] = { 0, 0, -1, 1 };
-    int dy[] = { -1, 1, 0, 0 };
+    int filter[8][2] = { {0,1},{1,0},{0,-1},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1} };
 
     //bfs
     std::queue<std::pair<int, int>> q;
@@ -164,11 +163,12 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //°°Àº »
     while (!q.empty())
     {
         std::pair<int, int>now = q.front();
+        
         q.pop();
-        for (int k = 0; k < 4; k++)
+        for (int k = 0; k < 8; k++)
         {
-            int nextY = now.first + dy[k];
-            int nextX = now.second + dx[k];
+            int nextY = now.first + filter[k][0];
+            int nextX = now.second + filter[k][1];
             if (nextY < 0 || nextX < 0 || nextY >= 22 || nextX >= 37)
                 continue;
             if (visited[nextY][nextX])
@@ -176,14 +176,13 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //°°Àº »
             if (gameMap[nextY][nextX] == colorSort)
             {
                 didRemove = true;
-                int cursorPosX = 2 * nextX + GBOARD_ORIGIN_X;
-                int cursorPosY = nextY + GBOARD_ORIGIN_Y;
-                setCurrentCursorPos(cursorPosX, cursorPosY);
+                Pos cursorPos = Move::getCursorPos({nextX, nextY});
+                setCurrentCursorPos(cursorPos.x, cursorPos.y);
                 printf("  ");
                 gameMap[nextY][nextX] = 0;
                 continue;
             }
-            if (gameMap[nextY][nextX] != BLANK)
+            if (Move::isWall(gameMap[nextY][nextX]))
                 continue;
             q.push(make_pair(nextY, nextX));
             visited[nextY][nextX] = true;
