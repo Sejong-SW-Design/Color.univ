@@ -51,6 +51,7 @@ void collaborateColor(int posX, int posY,int gameMap[22][37]) {//스페이스바 누르
 		//벽해제를 완료하면 스토어에서 지워야 함
 		myStore.color1 = 0;
 		myStore.color2 = 0;
+		myStore.capacity = 0;
 		
 		updateStore(myStore.color1, myStore.color2);
 
