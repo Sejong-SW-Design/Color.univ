@@ -5,6 +5,14 @@
 
 extern double score[5];
 
+Move::Move(Position initPos, int color, std::string shape)
+{
+    position = initPos;
+    this->color = color;
+    this->shape = shape;
+    showCharacter();
+}
+
 bool Move::shiftCharacter(int direction, int gameMap[22][37])
 {
     deleteCharacter(gameMap);
@@ -31,6 +39,7 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37])
   
     bool shifted = false;
 
+    //벽이 아니면 움직일 수 있다
     if (!isWall(nextSort))
     {
         position = next;
@@ -38,7 +47,7 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37])
     }
     showCharacter();
 
-    return true;
+    return shifted;
 }
 
 void Move::deleteCharacter(int gameMap[22][37])
@@ -48,8 +57,12 @@ void Move::deleteCharacter(int gameMap[22][37])
 
     switch (gameMap[position.y][position.x])
     {
-    case BLANK:
+    case BLANK: 
         printf("  "); break;
+    case NORMAL_NPC: 
+        setBackgroundColor(0, 12); printf("▲"); break;
+    case ALCOHOL_NPC:
+        setBackgroundColor(0, 12); printf("§"); break;
     case BLUE_BTN:
         setBackgroundColor(0, 9); printf("⊙"); break;
     case RED_BTN:
@@ -99,6 +112,11 @@ void Move::showCharacter()
     printf("%s", shape.c_str());
 }
 
+int Move::detectCollision(int gameMap[22][37], Pos nextPosition)
+{
+    return gameMap[nextPosition.y][nextPosition.x];
+}
+
 Pos Move::getPosition()
 {
     return position;
@@ -107,10 +125,10 @@ Pos Move::getPosition()
 Player::Player(Pos initPosition)
     :Move(initPosition, 15, "◈")
 {
-    showCharacter();
+    ;
 }
 
-void Player::moveingProcess(int gameMap[22][37])
+void Player::movingProcess(int gameMap[22][37])
 {
     if (_kbhit() != 0)
     {
@@ -137,7 +155,16 @@ void Player::moveingProcess(int gameMap[22][37])
 
         if (!shifted)
             return;
+
+        //아이템 확인
         getItem(gameMap);
+
+        //npc와 충돌 확인
+        if (gameMap[position.y][position.x] == ALCOHOL_NPC
+            || gameMap[position.y][position.x] == NORMAL_NPC)
+        {
+            setScore(1, -1.5);
+        }
     }
 }
 
@@ -180,8 +207,8 @@ bool Player::checkGoalIn()
     return false;
 }
 
-Enemy::Enemy(Pos initPosition, int sleepTime)
-    :Move(initPosition, 12, "▲")
+Enemy::Enemy(Pos initPosition, int sleepTime, string shape)
+    :Move(initPosition, 12, shape)
 {
     this->sleepTime = sleepTime;
     showCharacter();
@@ -192,7 +219,7 @@ int Enemy::getSleepTime()
     return sleepTime;
 }
 
-void Enemy::moveingProcess(Pos playerPos, int gameMap[22][37])
+void Enemy::movingProcess(int gameMap[22][37], Pos playerPos)
 {
     int result = getNextDirection(playerPos, gameMap);
     if (result == -1)

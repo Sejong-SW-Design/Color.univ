@@ -148,23 +148,20 @@ void drawGameEdge()
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
 {
     bool didRemove = false;
-    gameMap[posY][posX] = 0; // 색 버튼 없앰 -> 이게 플레이어도 같이 삭제했던거임 (복)
-
-    /////
-    int start = gameMap[posY][posX];
-
+    gameMap[posY][posX] = BLANK; // 색 버튼 없앰 -> 이게 플레이어도 같이 삭제했던거임 (복)
+    vector<Pos>ErasePos;
     int filter[8][2] = { {0,1},{1,0},{0,-1},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1} };
+    queue<pair<int, int>> q;
+    bool visited[22][37] = { 0 };
 
     //bfs
-    std::queue<std::pair<int, int>> q;
-    bool visited[22][37] = { 0 };
     q.push(make_pair(posY, posX));
     visited[posY][posX] = true;
     while (!q.empty())
     {
-        std::pair<int, int>now = q.front();
-        
+        pair<int, int>now = q.front();
         q.pop();
+
         for (int k = 0; k < 8; k++)
         {
             int nextY = now.first + filter[k][0];
@@ -176,10 +173,11 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
             if (gameMap[nextY][nextX] == colorSort)
             {
                 didRemove = true;
-                Pos cursorPos = Move::getCursorPos({nextX, nextY});
+                ErasePos.push_back({ nextX, nextY });
+                /*Pos cursorPos = Move::getCursorPos({nextX, nextY});
                 setCurrentCursorPos(cursorPos.x, cursorPos.y);
                 printf("  ");
-                gameMap[nextY][nextX] = 0;
+                gameMap[nextY][nextX] = 0;*/
                 continue;
             }
             if (Move::isWall(gameMap[nextY][nextX]))
@@ -189,6 +187,15 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
             setCurrentCursorPos(2 * nextX + GBOARD_ORIGIN_X, nextY + GBOARD_ORIGIN_Y);
         }
     }
+
+    for (auto e : ErasePos)
+    {
+        Pos cursorPos = Move::getCursorPos(e);
+        setCurrentCursorPos(cursorPos.x, cursorPos.y);
+        printf("  ");
+        gameMap[e.y][e.x] = 0;
+    }
+
     return didRemove;
 }
 

@@ -73,7 +73,12 @@ enum GAME_BOARD
     PRIME,//31
     ERASER,//32
     HIDDEN,//33
-    STOP//34
+    STOP,//34
+
+
+    //PC NPC
+    ALCOHOL_NPC,
+    NORMAL_NPC
 };
 
 

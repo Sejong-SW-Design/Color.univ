@@ -3,10 +3,13 @@
 double score[5] = { 4.5, 4.5, 4.5, 4.5, 4.5 };
 
 void setScore(int gradeidx, double s) {
-	if (score[gradeidx] >= 4.5) return;
+    //나 실험좀 해보려고 잠시 주석처리했으
+	//if (score[gradeidx] >= 4.5) return;
 	score[gradeidx] += s;
-}
 
+    //언니 내가 충돌 확인하고싶어서 임시로 추가했어!!
+    drawInfo(score, 1);
+}
 
 //void drawStartScreen();
 //
