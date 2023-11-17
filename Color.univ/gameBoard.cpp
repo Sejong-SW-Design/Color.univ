@@ -3,6 +3,7 @@
 
 vector<pair<int, int>>Exits; //비상구 배열
 
+
 extern double score[5];
 
 void drawGameBoard(int gameMap[22][37])
