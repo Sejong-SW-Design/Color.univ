@@ -35,12 +35,10 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37])
     if (next.x < 0 || next.x >= GBOARD_WIDTH || next.y < 0 || next.y >= GBOARD_HEIGHT)
         next = position;
 
-    int nextSort = detectCollision(gameMap, next);
-  
     bool shifted = false;
 
     //벽이 아니면 움직일 수 있다
-    if (!isWall(nextSort))
+    if (!isWall(detectCollision(gameMap, next)))
     {
         position = next;
         shifted = true;
@@ -207,27 +205,83 @@ bool Player::checkGoalIn(int gameMap[22][37])
     return false;
 }
 
-Enemy::Enemy(Pos initPosition, int sleepTime, string shape)
-    :Move(initPosition, 12, shape)
+PatternNpc::PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSort)
+    :Move(initPosition, 12, (npcSort == NORMAL_NPC ? "▲" : "§"))
 {
-    this->sleepTime = sleepTime;
-    showCharacter();
+    this->startPoint = startPoint;
+    this->endPoint = endPoint;
+    this->npcSort = npcSort;
+
+    //게임 레벨 디자인할 때 초기 방향 설정이 필요하면 인자로 받자
+    //지금은 임의 설정 상태
+    if (startPoint.x != endPoint.x)
+        direction = RIGHT;
+    else
+        direction = DOWN;
 }
 
-int Enemy::getSleepTime()
+void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 {
-    return sleepTime;
+    //1. set direction
+    setNextDirection();
+
+    //2. shift character 
+    gameMap[position.y][position.x] = BLANK;
+    shiftCharacter(this->direction, gameMap);
+    gameMap[position.y][position.x] = npcSort;
+
+    //3. check collision
+    if (position == player.getPosition())
+    {
+        setScore(1, -1.5);
+        player.showCharacter(); //충돌 시, 플레이어를 앞으로
+    }
 }
 
-void Enemy::movingProcess(int gameMap[22][37], Pos playerPos)
+void PatternNpc::setNextDirection()
 {
-    int result = getNextDirection(playerPos, gameMap);
+    if (position == startPoint || position == endPoint)
+        direction = getOppositeDirection(direction);
+}
+
+int PatternNpc::getOppositeDirection(int direction) {
+    switch (direction)
+    {
+    case RIGHT: return LEFT;
+    case LEFT: return RIGHT;
+    case UP: return DOWN;
+    case DOWN: return UP;
+    }
+    return 0;
+}
+
+ChasingNpc::ChasingNpc(Pos initPosition)
+    : Move(initPosition, 12, "▲")
+{
+    ;
+}
+
+void ChasingNpc::movingProcess(int gameMap[22][37], Player player)
+{
+    //1. set direction
+    int result = getNextDirection(player.getPosition(), gameMap);
     if (result == -1)
         return;
+    
+    //2. shift character
+    gameMap[position.y][position.x] = BLANK;
     shiftCharacter(result, gameMap);
+    gameMap[position.y][position.x] = NORMAL_NPC;
+
+    //3. check collision
+    if (position == player.getPosition())
+    {
+        setScore(1, -1.5);
+        player.showCharacter(); //충돌 시, 플레이어를 앞으로
+    }
 }
 
-int Enemy::getNextDirection(Pos playerPos, int gameMap[22][37])
+int ChasingNpc::getNextDirection(Pos playerPos, int gameMap[22][37])
 {
     int filter[4][2] = { {0,1},{1,0},{0,-1},{-1,0} };
     int ret[4] = { DOWN, RIGHT, UP, LEFT };
@@ -238,7 +292,7 @@ int Enemy::getNextDirection(Pos playerPos, int gameMap[22][37])
         int x = this->position.x + filter[i][0];
         int y = this->position.y + filter[i][1];
 
-        if (isWall(detectCollision(gameMap, {x,y})))
+        if (detectCollision(gameMap, { x,y }) != BLANK)
             continue;
 
         int dist = (x - playerPos.x) * (x - playerPos.x)

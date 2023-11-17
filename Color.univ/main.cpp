@@ -25,13 +25,13 @@ int main() {
     int npcSleepTime = 50;
 
     //npc 위치 설정해주세요!
-    //Pos enemyInitPos = { 26, 5 }; //26,5 - 1  // 30,5 - 2 // 30, 5 - 3
-    PatternNpc* enemy1 = new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, npcSleepTime, NORMAL_NPC);
-    PatternNpc* enemy2 = new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, npcSleepTime, ALCOHOL_NPC);
-    PatternNpc* enemy3 = new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, npcSleepTime, ALCOHOL_NPC);
+    vector<PatternNpc*>patternEnemies;
+    patternEnemies.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
+    patternEnemies.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, ALCOHOL_NPC));
+    patternEnemies.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, ALCOHOL_NPC));
 
-    //골인 지점 설정해주세요!
-
+    vector<ChasingNpc*> chasingEnemies;
+    chasingEnemies.push_back(new ChasingNpc({ 26, 5 }));
 
     while (true)
     {
@@ -48,9 +48,8 @@ int main() {
         }
 
         //적 돌아당기게 하고싶으면 이거 주석 풀면됨
-        enemy1->movingProcess(gameMapHere, *player);
-        enemy2->movingProcess(gameMapHere, *player);
-        enemy3->movingProcess(gameMapHere, *player);
+        EnemiesManager::enemyMoveProcess(patternEnemies, gameMapHere, *player);
+        EnemiesManager::enemyMoveProcess(chasingEnemies, gameMapHere, *player);
     }
        
     /*drawResultScreen(gameOver, 0);
