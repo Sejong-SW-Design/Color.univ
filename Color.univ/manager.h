@@ -27,5 +27,7 @@ void drawResultScreen(int gameResult[22][37], int check);
 //
 //void drawReturnToMain();
 
+void getStage(int gameMap[22][37], int stage);
+
 
 #endif

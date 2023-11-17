@@ -3,7 +3,6 @@
 
 vector<pair<int, int>>Exits; //비상구 배열
 
-
 extern double score[5];
 
 void drawGameBoard(int gameMap[22][37])
@@ -105,10 +104,9 @@ void drawGameBoard(int gameMap[22][37])
 
 void drawGameEdge()
 {
-
     int x, y;
 
-    int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;
+    int origin_x1 = 4, origin_y1 = 2, h = 24, w = 38;
     for (y = 0; y <= h; y++)
     {
         setCurrentCursorPos(origin_x1, origin_y1 + y);
@@ -149,7 +147,7 @@ void drawGameEdge()
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
 {
     bool didRemove = false;
-    gameMap[posY][posX] = BLANK; // 색 버튼 없앰 -> 이게 플레이어도 같이 삭제했던거임 (복)
+    gameMap[posY][posX] = BLANK; 
     vector<Pos>ErasePos;
     int filter[8][2] = { {0,1},{1,0},{0,-1},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1} };
     queue<pair<int, int>> q;

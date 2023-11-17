@@ -8,22 +8,6 @@
 
 extern Store myStore;
 
-//게임매니저님 아래 함수 사용해서 단계별로 맵 호출하는 기능 만들어주세요ㅎㅎㅎ
-void getStage(int gameMap[22][37], int stage)
-{
-    //언니가 마음대로 추가 수정 삭제 해버려도 상관없삼
-    for (int i = 0; i < 22; i++)
-        for (int j = 0; j < 37; j++)
-        {
-            if (stage == 1)
-                gameMap[i][j] = gameMap1[i][j];
-            else if (stage == 2)
-                gameMap[i][j] = gameMap2[i][j];
-            else if (stage == 3)
-                gameMap[i][j] = gameMap3[i][j];
-        }
-}
-
 int main() {
 	setConsoleSize();
 	removeCursor();
@@ -68,9 +52,9 @@ int main() {
         enemy2->movingProcess(gameMapHere, *player);
         enemy3->movingProcess(gameMapHere, *player);
     }
-
-    // drawResultScreen(gameOver, 0);
-    // drawResultScreen(gameClear, 1);
+       
+    /*drawResultScreen(gameOver, 0);
+    drawResultScreen(gameClear, 1);*/
 
 	//after game over
 	setCurrentCursorPos(100, 100);

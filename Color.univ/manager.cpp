@@ -1,6 +1,10 @@
 #include "manager.h"
 
 double score[5] = { 4.5, 4.5, 4.5, 4.5, 4.5 };
+extern int gameMap1[22][37];
+extern int gameMap2[22][37];
+extern int gameMap3[22][37];
+
 
 void setScore(int gradeidx, double s) {
     //나 실험좀 해보려고 잠시 주석처리했으
@@ -39,19 +43,19 @@ void drawDevInfo() { // 임시화면
 //
 void drawResultScreen(int gameResult[22][37], int check) {
     setCurrentCursorPos(12, 28);
-    for (int i = 0; i < 20; i++) {
-        printf(" ");
-    }
+    printf("                                     ");
 
     int origin_x1 = 20, origin_y1 = 27, h = 2, w = 2;
-    for (int y = 0; y <= h; y++) {
-        setCurrentCursorPos(origin_x1, origin_y1 + y);
-        printf(" ");
-    }
-    for (int y = 0; y <= h; y++) {
-        setCurrentCursorPos(origin_x1 + (w + 1) * 2, origin_y1 + y);
-        printf(" ");
-    }
+    setCurrentCursorPos(origin_x1, origin_y1);
+    printf("                           ");
+
+    setCurrentCursorPos(origin_x1, origin_y1 + h);
+    printf("       ");
+
+    setCurrentCursorPos(origin_x1 + (w + 1) * 2, origin_y1);
+    printf("                           ");
+
+
     for (int x = 1; x < w + 1; x++) {
         setCurrentCursorPos(origin_x1 + x * 2, origin_y1);
         printf(" ");
@@ -62,14 +66,15 @@ void drawResultScreen(int gameResult[22][37], int check) {
     }
 
     int origin_x2 = 28, origin_y2 = 27;
-    for (int y = 0; y <= h; y++) {
-        setCurrentCursorPos(origin_x2, origin_y2 + y);
-        printf(" ");
-    }
-    for (int y = 0; y <= h; y++) {
-        setCurrentCursorPos(origin_x2 + (w + 1) * 2, origin_y2 + y);
-        printf(" ");
-    }
+    setCurrentCursorPos(origin_x2, origin_y2);
+    printf("                           ");
+
+    setCurrentCursorPos(origin_x2, origin_y2 + h);
+    printf("              ");
+
+    setCurrentCursorPos(origin_x2 + (w + 1) * 2, origin_y2);
+    printf("                           ");
+
     for (int x = 1; x < w + 1; x++) {
         setCurrentCursorPos(origin_x2 + x * 2, origin_y2);
         printf(" ");
@@ -113,3 +118,18 @@ void drawResultScreen(int gameResult[22][37], int check) {
 //void gameBoardInit() {
 //
 //}
+
+
+void getStage(int gameMap[22][37], int stage)
+{
+    for (int i = 0; i < 22; i++)
+        for (int j = 0; j < 37; j++)
+        {
+            if (stage == 1)
+                gameMap[i][j] = gameMap1[i][j];
+            else if (stage == 2)
+                gameMap[i][j] = gameMap2[i][j];
+            else if (stage == 3)
+                gameMap[i][j] = gameMap3[i][j];
+        }
+}
