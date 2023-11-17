@@ -25,6 +25,73 @@ int keyControl() {
         case SPACEBAR:
             return SPACEBAR;
             break;
+
+        case 112:
+            drawPauseScreen();
+            break;
+        }
+    }
+}
+
+
+/*
+* main에서 호출할거임
+* 아.. 모르겟다;
+* 
+*/
+//int modeControl() {
+//    
+//}
+
+void drawPauseScreen() {
+    system("cls");
+
+    setBackgroundColor(0, 12);
+
+    setCurrentCursorPos(30, 14);
+    printf("> ");
+
+    setCurrentCursorPos(32, 14);
+    printf("이 어 하 기");
+
+    setCurrentCursorPos(32, 16);
+    printf("현재 학년을 재수강 하시겠습니까?");
+
+    setCurrentCursorPos(32, 18);
+    printf("메인화면으로 돌아가기");
+
+    while (1) {
+        int x = 32;
+        int y = 14;
+
+        while (1) {
+            int n = keyControl();
+            switch (n) {
+            case UP:
+                if (y > 14) {
+                    setCurrentCursorPos(x - 2, y);
+                    printf(" ");
+                    y -= 2;
+                    setCurrentCursorPos(x - 2, y);
+                    printf(">");
+                }
+                break;
+
+            case DOWN:
+                if (y < 18) {
+                    setCurrentCursorPos(x - 2, y);
+                    printf(" ");
+                    y += 2;
+                    setCurrentCursorPos(x - 2, y);
+                    printf(">");
+                }
+                break;
+
+            // 화면 다 만들고 주석해제할거임
+            /*case SPACEBAR:
+                return y - 12;
+                */
+            }
         }
     }
 }

@@ -19,6 +19,8 @@ using namespace std;
 
 int keyControl();
 
+void drawPauseScreen();
+
 void setScore(int gradeidx, double s);
 //
 //void drawStartScreen();
