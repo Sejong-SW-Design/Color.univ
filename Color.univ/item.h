@@ -10,7 +10,6 @@ typedef struct store {
 }Store;
 
 
-
 void eraseColor(int posX, int posY, int gameMap[22][37]);
 
 void getColor(int colorNum, int posX, int posY, int gameMap[22][37]);
@@ -23,6 +22,6 @@ void chageNumBTS(int color1, int color2);
 
 void primeItemCollision(int posX, int posY, int gameMap[22][37]);
 
-//void getAlchol();
+//void Move::getDrink(int direction);
 
 #endif __ITEM_H__

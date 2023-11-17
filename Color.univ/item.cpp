@@ -1,5 +1,7 @@
 #include "item.h"
 #include "manager.h"
+#include "move.h"
+
 
 Store myStore = { 0,0 };
 extern double score[5];
@@ -140,7 +142,195 @@ void primeItemCollision(int posX, int posY, int gameMap[22][37]) {
 	drawInfo(score, 1);
 }
 
-/*
-void getAlchol() {
 
-}*/
+void Move::getDrink(int direction) {
+	Pos next = position;
+
+	int n = rand() % 23; 
+
+	if (n == 0) {
+		switch (direction){
+		case LEFT: next.x += 1; break;
+		case RIGHT: next.x -= 1; break;
+		case UP: next.y -= 1; break;
+		case DOWN: next.y += 1; break;
+		}
+	}
+	else if (n == 1) {
+		switch (direction){
+		case LEFT: next.x -= 1; break;
+		case RIGHT: next.x += 1; break;
+		case UP: next.y -= 1; break;
+		case DOWN: next.y += 1; break;
+		}
+	}
+	else if (n == 2) {
+		switch (direction){
+		case LEFT: next.x += 1; break;
+		case RIGHT: next.y += 1; break;
+		case UP: next.y -= 1; break;
+		case DOWN: next.x -= 1; break;
+		}
+	}
+	else if (n == 3) {
+		switch (direction){
+		case LEFT: next.y += 1; break;
+		case RIGHT: next.x -= 1; break;
+		case UP: next.y -= 1; break;
+		case DOWN: next.x += 1; break;
+		}
+	}
+	else if (n == 4) {
+		switch (direction){
+		case LEFT: next.y += 1; break;
+		case RIGHT: next.x += 1; break;
+		case UP: next.y -= 1; break;
+		case DOWN: next.x -= 1; break;
+		}
+	}
+	else if (n == 5) {
+		switch (direction){
+		case LEFT: next.y -= 1; break;
+		case RIGHT: next.y += 1; break;
+		case UP: next.x += 1; break;
+		case DOWN: next.x -= 1; break;
+		}
+	}
+	else if (n == 6) {
+		switch (direction){
+		case LEFT: next.y -= 1; break;
+		case RIGHT: next.x -= 1; break;
+		case UP: next.x += 1; break;
+		case DOWN: next.y += 1; break;
+		}
+	}
+	else if (n == 7) {
+		switch (direction){
+		case LEFT: next.y += 1; break;
+		case RIGHT: next.x -= 1; break;
+		case UP: next.x += 1; break;
+		case DOWN: next.y -= 1; break;
+		}
+	}
+	else if (n == 8) {
+		switch (direction){
+		case LEFT: next.y += 1; break;
+		case RIGHT: next.y -= 1; break;
+		case UP: next.x += 1; break;
+		case DOWN: next.x -= 1; break;
+		}
+	}
+	else if (n == 9) {
+		switch (direction){
+		case LEFT: next.x -= 1; break;
+		case RIGHT: next.y -= 1; break;
+		case UP: next.x += 1; break;
+		case DOWN: next.y += 1; break;
+		}
+	}
+	else if (n == 10) {
+		switch (direction){
+		case LEFT: next.x -= 1; break;
+		case RIGHT: next.y += 1; break;
+		case UP: next.x += 1; break;
+		case DOWN: next.y -= 1; break;
+		}
+	}
+	else if (n == 11) {
+		switch (direction){
+		case LEFT: next.y -= 1; break;
+		case RIGHT: next. x+= 1; break;
+		case UP: next.y += 1; break;
+		case DOWN: next.x -= 1; break;
+		}
+	}
+	else if (n == 12) {
+		switch (direction) {
+		case LEFT: next.y -= 1; break;
+		case RIGHT: next.x -= 1; break;
+		case UP: next.y += 1; break;
+		case DOWN: next.x += 1; break;
+		}
+	}
+	else if (n == 13) {
+		switch (direction) {
+		case LEFT: next.x -= 1; break;
+		case RIGHT: next.y -= 1; break;
+		case UP: next.y += 1; break;
+		case DOWN: next.x += 1; break;
+		}
+	}
+	else if (n == 14) {
+		switch (direction) {
+		case LEFT: next.x -= 1; break;
+		case RIGHT: next.x += 1; break;
+		case UP: next.y += 1; break;
+		case DOWN: next.y -= 1; break;
+		}
+	}
+	else if (n == 15) {
+		switch (direction) {
+		case LEFT: next.x += 1; break;
+		case RIGHT: next.y -= 1; break;
+		case UP: next.y += 1; break;
+		case DOWN: next.x -= 1; break;
+		}
+	}
+	else if (n == 16) {
+		switch (direction) {
+		case LEFT: next.x += 1; break;
+		case RIGHT: next.x -= 1; break;
+		case UP: next.y += 1; break;
+		case DOWN: next.y -= 1; break;
+		}
+	}
+	else if (n == 17) {
+		switch (direction) {
+		case LEFT: next.y -= 1; break;
+		case RIGHT: next.x += 1; break;
+		case UP: next.x -= 1; break;
+		case DOWN: next.y += 1; break;
+		}
+	}
+	else if (n == 18) {
+		switch (direction) {
+		case LEFT: next.y -= 1; break;
+		case RIGHT: next.y += 1; break;
+		case UP: next.x -= 1; break;
+		case DOWN: next.x += 1; break;
+		}
+	}
+	else if (n == 19) {
+		switch (direction) {
+		case LEFT: next.y += 1; break;
+		case RIGHT: next.x += 1; break;
+		case UP: next.x -= 1; break;
+		case DOWN: next.y -= 1; break;
+		}
+	}
+	else if (n == 20) {
+		switch (direction) {
+		case LEFT: next.y += 1; break;
+		case RIGHT: next.y -= 1; break;
+		case UP: next.x -= 1; break;
+		case DOWN: next.x += 1; break;
+		}
+	}
+	else if (n == 21) {
+		switch (direction) {
+		case LEFT: next.x += 1; break;
+		case RIGHT: next.y -= 1; break;
+		case UP: next.x -= 1; break;
+		case DOWN: next.y += 1; break;
+		}
+	}
+	else if (n == 22) {
+		switch (direction) {
+		case LEFT: next.x += 1; break;
+		case RIGHT: next.y += 1; break;
+		case UP: next.x -= 1; break;
+		case DOWN: next.y -= 1; break;
+		}
+	}
+}
+

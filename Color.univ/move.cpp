@@ -19,17 +19,24 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37])
 
     Pos next = position;
     
-    switch (direction)
-    {
-    case LEFT:
-        next.x -= 1; break;
-    case RIGHT:
-        next.x += 1; break;
-    case UP:
-        next.y -= 1; break;
-    case DOWN:
-        next.y += 1; break;
+    /*
+    if (changeD >= 1) {
+        getDrink(direction);
     }
+    */
+    //else {
+        switch (direction)
+        {
+        case LEFT:
+            next.x -= 1; break;
+        case RIGHT:
+            next.x += 1; break;
+        case UP:
+            next.y -= 1; break;
+        case DOWN:
+            next.y += 1; break;
+        }
+    //}
 
     //게임보드 밖을 벗어나지 않도록
     if (next.x < 0 || next.x >= GBOARD_WIDTH || next.y < 0 || next.y >= GBOARD_HEIGHT)
@@ -194,6 +201,9 @@ void Player::getItem(int gameMap[22][37])
     if (itemSort == ERASER)
     {
         eraseColor(position.x, position.y, gameMap);
+    }
+    if (itemSort == ALCOHOL_NPC) {
+        changeD++;
     }
 }
 

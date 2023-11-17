@@ -15,6 +15,8 @@
 #define DOWN 80 
 #define SPACEBAR 32
 
+static int changeD = 0;
+
 class Move
 {
 protected:
@@ -25,6 +27,7 @@ public:
 	Move(Position initPos, int color, std::string shape);
 	bool shiftCharacter(int direction, int gameMap[22][37]);
 	void deleteCharacter(int gameMap[22][37]);
+	void getDrink(int direction);
 	void showCharacter();
 	int detectCollision(int gameMap[22][37], Pos nextPosition);
 	Pos getPosition();

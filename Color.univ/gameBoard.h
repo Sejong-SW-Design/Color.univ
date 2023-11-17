@@ -112,7 +112,7 @@ void drawAttackdot(int dotNum);
 
 void removeAttackDot();
 
-void removeAttackTouchedWall();
+void removeAttackTouedWall();
 
 void removeBossLife();
 
