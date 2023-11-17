@@ -15,14 +15,6 @@
 #define DOWN 80 
 #define SPACEBAR 32
 
-typedef struct Position
-{
-	int x, y;
-	bool operator== (const Position other) {
-		return this->x == other.x && this->y == other.y;
-	}
-}Pos;
-
 class Move
 {
 protected:
@@ -62,7 +54,7 @@ public:
 	Player(Pos initPosition);
 	void movingProcess(int gameMap[22][37]);
 	void getItem(int gameMap[22][37]);
-	bool checkGoalIn();
+	bool checkGoalIn(int gameMap[22][37]);
 };
 
 class PatternNpc : public Move

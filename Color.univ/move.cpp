@@ -199,11 +199,11 @@ void Player::getItem(int gameMap[22][37])
     }
 }
 
-bool Player::checkGoalIn()
+bool Player::checkGoalIn(int gameMap[22][37])
 {
-    if (GBOARD_WIDTH - position.x <= 1 &&
-        (position.y >= 8 && position.y <= 14))
-        return true;
+    int sort = gameMap[position.y][position.x];
+
+    if (sort == GOAL) return true;
     return false;
 }
 

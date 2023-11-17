@@ -5,6 +5,22 @@ vector<pair<int, int>>Exits; //비상구 배열
 
 extern double score[5];
 
+Pos setInitpos(int stage)
+{
+    //1,10 - 1  // 16,1 - 2 // 1,10 - 3
+    switch (stage)
+    {
+    case 1: case 3:
+        return { 1,10 };
+    case 2:
+        return { 16,1 };
+    case 4:
+        return { 1,10 };
+    default:
+        return { 1,10 };
+    }
+}
+
 void drawGameBoard(int gameMap[22][37])
 {
     drawInfo(score, 1);

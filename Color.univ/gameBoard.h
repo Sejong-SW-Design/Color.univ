@@ -15,9 +15,16 @@
 #define GBOARD_ORIGIN_X 6
 #define GBOARD_ORIGIN_Y 4
 
-#define GBOARD_WIDTH 36
-#define GBOARD_HEIGHT 21
+#define GBOARD_WIDTH 37
+#define GBOARD_HEIGHT 22
 
+typedef struct Position
+{
+    int x, y;
+    bool operator== (const Position other) {
+        return this->x == other.x && this->y == other.y;
+    }
+}Pos;
 
 /*
 검정 0 어두운 파랑 1 어두운 초록 2 어두운 하늘 3
@@ -114,6 +121,8 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]);
 void drawGameResult();
 
 void removeGameResult();
+
+Pos setInitpos(int stage); // PC 위치 초기화 설정
 
 
 #endif

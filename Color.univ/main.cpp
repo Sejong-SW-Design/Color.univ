@@ -18,7 +18,7 @@ int main() {
 	drawGameBoard(gameMapHere); //gameMap1
 
     //초기위치 정해주세요! (게임보드 기준! 곱하기 2 이딴거 안해도됨)
-    Pos playerInitPos = { 1,10 }; //1,10 - 1  // 16,1 - 2 // 1,10 - 3
+    Pos playerInitPos = setInitpos(1); 
     Player* player = new Player(playerInitPos);
 
     //npc sleep time 설정해주세요!
@@ -38,7 +38,7 @@ int main() {
         for (int i = 0; i < 20; i++)
         {
             player->movingProcess(gameMapHere); //gameMap1
-            if (player->checkGoalIn())
+            if (player->checkGoalIn(gameMapHere))
             {
                 drawResultScreen(gameClear, 1);
                 return 0;
