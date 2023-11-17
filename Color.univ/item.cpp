@@ -2,9 +2,9 @@
 #include "manager.h"
 #include "move.h"
 
-
 Store myStore = { 0,0 };
 extern double score[5];
+
 
 void eraseColor(int posX, int posY, int gameMap[22][37]) {
 

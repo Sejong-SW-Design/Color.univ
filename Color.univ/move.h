@@ -9,12 +9,6 @@
 #include"util.h"
 #include"gameBoard.h"
 
-#define LEFT 75 
-#define RIGHT 77
-#define UP 72   
-#define DOWN 80 
-#define SPACEBAR 32
-
 static int changeD = 0;
 
 class Move

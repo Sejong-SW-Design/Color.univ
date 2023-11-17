@@ -5,316 +5,316 @@
 
 extern double score[5];
 
+
 Move::Move(Position initPos, int color, std::string shape)
 {
-    position = initPos;
-    this->color = color;
-    this->shape = shape;
-    showCharacter();
+	position = initPos;
+	this->color = color;
+	this->shape = shape;
+	showCharacter();
 }
 
 bool Move::shiftCharacter(int direction, int gameMap[22][37])
 {
-    deleteCharacter(gameMap);
+	deleteCharacter(gameMap);
 
-    Pos next = position;
-    
-    /*
-    if (changeD >= 1) {
-        getDrink(direction);
-    }
-    */
-    //else {
-        switch (direction)
-        {
-        case LEFT:
-            next.x -= 1; break;
-        case RIGHT:
-            next.x += 1; break;
-        case UP:
-            next.y -= 1; break;
-        case DOWN:
-            next.y += 1; break;
-        }
-    //}
+	Pos next = position;
 
-    //게임보드 밖을 벗어나지 않도록
-    if (next.x < 0 || next.x >= GBOARD_WIDTH || next.y < 0 || next.y >= GBOARD_HEIGHT)
-        next = position;
+	/*
+	if (changeD >= 1) {
+		getDrink(direction);
+	}
+	*/
+	//else {
+	switch (direction)
+	{
+	case LEFT:
+		next.x -= 1; break;
+	case RIGHT:
+		next.x += 1; break;
+	case UP:
+		next.y -= 1; break;
+	case DOWN:
+		next.y += 1; break;
+	}
+	//}
 
-    bool shifted = false;
+	//게임보드 밖을 벗어나지 않도록
+	if (next.x < 0 || next.x >= GBOARD_WIDTH || next.y < 0 || next.y >= GBOARD_HEIGHT)
+		next = position;
 
-    //벽이 아니면 움직일 수 있다
-    if (!isWall(detectCollision(gameMap, next)))
-    {
-        position = next;
-        shifted = true;
-    }
-    showCharacter();
+	bool shifted = false;
 
-    return shifted;
+	//벽이 아니면 움직일 수 있다
+	if (!isWall(detectCollision(gameMap, next)))
+	{
+		position = next;
+		shifted = true;
+	}
+	showCharacter();
+
+	return shifted;
 }
 
 void Move::deleteCharacter(int gameMap[22][37])
 {
-    Pos cursorPosition = getCursorPos(position);
-    setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
+	Pos cursorPosition = getCursorPos(position);
+	setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
 
-    switch (gameMap[position.y][position.x])
-    {
-    case BLANK: 
-        printf("  "); break;
-    case NORMAL_NPC: 
-        setBackgroundColor(0, 12); printf("▲"); break;
-    case ALCOHOL_NPC:
-        setBackgroundColor(0, 12); printf("§"); break;
-    case BLUE_BTN:
-        setBackgroundColor(0, 9); printf("⊙"); break;
-    case RED_BTN:
-        setBackgroundColor(0, 12); printf("⊙"); break;
-    case YELLOW_BTN:
-        setBackgroundColor(0, 14); printf("⊙"); break;
-    case PURPLE_BTN:
-        setBackgroundColor(0, 5); printf("⊙");  break;
-    case GREEN_BTN:
-        setBackgroundColor(0, 10); printf("⊙"); break;
-    case ORANGE_BTN:
-        setBackgroundColor(0, 6); printf("⊙");  break;
-    case DARKBLUE_BTN:
-        setBackgroundColor(0, 1); printf("⊙"); break;
-    case DARKGREEN_BTN:
-        setBackgroundColor(0, 2); printf("⊙");  break;
-    case DARKSKYBLUE_BTN:
-        setBackgroundColor(0, 3); printf("⊙");  break;
-    case DARKRED_BTN:
-        setBackgroundColor(0, 4); printf("⊙");  break;
-    case PINK_BTN:
-        setBackgroundColor(0,13); printf("⊙");  break;
-    case DARKYELLOW_BTN:
-        setBackgroundColor(0, 6); printf("⊙");  break;
-    case DARKGRAY_BTN:
-        setBackgroundColor(0, 8); printf("⊙");  break;
-    case SKYBLUE_BTN:
-        setBackgroundColor(0, 11); printf("⊙");  break;
-    case EMERGENCY_EXIT:
-        setBackgroundColor(0, 2); printf("▥"); break;
-    case PRIME:
-        setBackgroundColor(0, 6); printf("★"); break;
-    case ERASER:
-        setBackgroundColor(0, 15); printf("ⓔ"); break;
-    case HIDDEN:
-        // 교수님의 사랑
-    case STOP:
-        setBackgroundColor(0, 7); printf("※"); break;
-    }
+	switch (gameMap[position.y][position.x])
+	{
+	case BLANK:
+		printf("  "); break;
+	case NORMAL_NPC:
+		setBackgroundColor(0, 12); printf("▲"); break;
+	case ALCOHOL_NPC:
+		setBackgroundColor(0, 12); printf("§"); break;
+	case BLUE_BTN:
+		setBackgroundColor(0, 9); printf("⊙"); break;
+	case RED_BTN:
+		setBackgroundColor(0, 12); printf("⊙"); break;
+	case YELLOW_BTN:
+		setBackgroundColor(0, 14); printf("⊙"); break;
+	case PURPLE_BTN:
+		setBackgroundColor(0, 5); printf("⊙");  break;
+	case GREEN_BTN:
+		setBackgroundColor(0, 10); printf("⊙"); break;
+	case ORANGE_BTN:
+		setBackgroundColor(0, 6); printf("⊙");  break;
+	case DARKBLUE_BTN:
+		setBackgroundColor(0, 1); printf("⊙"); break;
+	case DARKGREEN_BTN:
+		setBackgroundColor(0, 2); printf("⊙");  break;
+	case DARKSKYBLUE_BTN:
+		setBackgroundColor(0, 3); printf("⊙");  break;
+	case DARKRED_BTN:
+		setBackgroundColor(0, 4); printf("⊙");  break;
+	case PINK_BTN:
+		setBackgroundColor(0, 13); printf("⊙");  break;
+	case DARKYELLOW_BTN:
+		setBackgroundColor(0, 6); printf("⊙");  break;
+	case DARKGRAY_BTN:
+		setBackgroundColor(0, 8); printf("⊙");  break;
+	case SKYBLUE_BTN:
+		setBackgroundColor(0, 11); printf("⊙");  break;
+	case EMERGENCY_EXIT:
+		setBackgroundColor(0, 2); printf("▥"); break;
+	case PRIME:
+		setBackgroundColor(0, 6); printf("★"); break;
+	case ERASER:
+		setBackgroundColor(0, 15); printf("ⓔ"); break;
+	case HIDDEN:
+		// 교수님의 사랑
+	case STOP:
+		setBackgroundColor(0, 7); printf("※"); break;
+	}
 }
 
 void Move::showCharacter()
 {
-    Pos cursorPosition = getCursorPos(position);
-    setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
-    setBackgroundColor(0, color);
-    printf("%s", shape.c_str());
+	Pos cursorPosition = getCursorPos(position);
+	setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
+	setBackgroundColor(0, color);
+	printf("%s", shape.c_str());
 }
 
 int Move::detectCollision(int gameMap[22][37], Pos nextPosition)
 {
-    return gameMap[nextPosition.y][nextPosition.x];
+	return gameMap[nextPosition.y][nextPosition.x];
 }
 
 Pos Move::getPosition()
 {
-    return position;
+	return position;
 }
 
 Player::Player(Pos initPosition)
-    :Move(initPosition, 15, "◈")
+	:Move(initPosition, 15, "◈")
 {
-    ;
+	;
 }
 
 void Player::movingProcess(int gameMap[22][37])
 {
-    if (_kbhit() != 0)
-    {
-        bool shifted = false;
-        int key = _getch();
-        switch (key)
-        {
-        case LEFT:
-            shifted = shiftCharacter(LEFT, gameMap);
-            break;
-        case RIGHT:
-            shifted = shiftCharacter(RIGHT, gameMap);
-            break;
-        case UP:
-            shifted = shiftCharacter(UP, gameMap);
-            break;
-        case DOWN:
-            shifted = shiftCharacter(DOWN, gameMap);
-            break;
-        case SPACEBAR:
-            collaborateColor(position.x, position.y, gameMap); 
-            break;
-        }
+	int key = keyControl();
 
-        if (!shifted)
-            return;
+	bool shifted = false;
+	switch (key)
+	{
+	case LEFT:
+		shifted = shiftCharacter(LEFT, gameMap);
+		break;
+	case RIGHT:
+		shifted = shiftCharacter(RIGHT, gameMap);
+		break;
+	case UP:
+		shifted = shiftCharacter(UP, gameMap);
+		break;
+	case DOWN:
+		shifted = shiftCharacter(DOWN, gameMap);
+		break;
+	case SPACEBAR:
+		collaborateColor(position.x, position.y, gameMap);
+		break;
+	}
 
-        //아이템 확인
-        getItem(gameMap);
+	if (!shifted)
+		return;
 
-        //npc와 충돌 확인
-        if (gameMap[position.y][position.x] == ALCOHOL_NPC
-            || gameMap[position.y][position.x] == NORMAL_NPC)
-        {
-            setScore(1, -1.5);
-        }
-    }
+	//아이템 확인
+	getItem(gameMap);
+
+	//npc와 충돌 확인
+	if (gameMap[position.y][position.x] == ALCOHOL_NPC
+		|| gameMap[position.y][position.x] == NORMAL_NPC)
+	{
+		setScore(1, -1.5);
+	}
+
 }
 
 void Player::getItem(int gameMap[22][37])
 {
-    int itemSort = gameMap[position.y][position.x];
+	int itemSort = gameMap[position.y][position.x];
 
-    if (itemSort >= BLUE_BTN && itemSort <= SKYBLUE_BTN)
-    {
-        getColor(itemSort, position.x, position.y, gameMap);
-    }
-    if (itemSort == EMERGENCY_EXIT)
-    {
-        deleteCharacter(gameMap);
-        pair<int, int> exitSort = randomEmergencyExit(position.x, position.y, gameMap);
-        Pos prevPos = position;
-        position.x = exitSort.second;
-        position.y = exitSort.first;
+	if (itemSort >= BLUE_BTN && itemSort <= SKYBLUE_BTN)
+	{
+		getColor(itemSort, position.x, position.y, gameMap);
+	}
+	if (itemSort == EMERGENCY_EXIT)
+	{
+		deleteCharacter(gameMap);
+		pair<int, int> exitSort = randomEmergencyExit(position.x, position.y, gameMap);
+		Pos prevPos = position;
+		position.x = exitSort.second;
+		position.y = exitSort.first;
 
-        Pos curPos = getCursorPos(prevPos);
-        setCurrentCursorPos(curPos.x, curPos.y);
-        setBackgroundColor(0, 2); printf("▥");
-        showCharacter();
-    }
-    if (itemSort == PRIME)      // 족보
-    {
-        primeItemCollision(position.x, position.y, gameMap);
-    }
-    if (itemSort == ERASER)
-    {
-        eraseColor(position.x, position.y, gameMap);
-    }
-    if (itemSort == ALCOHOL_NPC) {
-        changeD++;
-    }
+		Pos curPos = getCursorPos(prevPos);
+		setCurrentCursorPos(curPos.x, curPos.y);
+		setBackgroundColor(0, 2); printf("▥");
+		showCharacter();
+	}
+	if (itemSort == PRIME)      // 족보
+	{
+		primeItemCollision(position.x, position.y, gameMap);
+	}
+	if (itemSort == ERASER)
+	{
+		eraseColor(position.x, position.y, gameMap);
+	}
+	if (itemSort == ALCOHOL_NPC) {
+		changeD++;
+	}
 }
 
 bool Player::checkGoalIn(int gameMap[22][37])
 {
-    int sort = gameMap[position.y][position.x];
+	int sort = gameMap[position.y][position.x];
 
-    if (sort == GOAL) return true;
-    return false;
+	if (sort == GOAL) return true;
+	return false;
 }
 
 PatternNpc::PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSort)
-    :Move(initPosition, 12, (npcSort == NORMAL_NPC ? "▲" : "§"))
+	:Move(initPosition, 12, (npcSort == NORMAL_NPC ? "▲" : "§"))
 {
-    this->startPoint = startPoint;
-    this->endPoint = endPoint;
-    this->npcSort = npcSort;
+	this->startPoint = startPoint;
+	this->endPoint = endPoint;
+	this->npcSort = npcSort;
 
-    //게임 레벨 디자인할 때 초기 방향 설정이 필요하면 인자로 받자
-    //지금은 임의 설정 상태
-    if (startPoint.x != endPoint.x)
-        direction = RIGHT;
-    else
-        direction = DOWN;
+	//게임 레벨 디자인할 때 초기 방향 설정이 필요하면 인자로 받자
+	//지금은 임의 설정 상태
+	if (startPoint.x != endPoint.x)
+		direction = RIGHT;
+	else
+		direction = DOWN;
 }
 
 void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 {
-    //1. set direction
-    setNextDirection();
+	//1. set direction
+	setNextDirection();
 
-    //2. shift character 
-    gameMap[position.y][position.x] = BLANK;
-    shiftCharacter(this->direction, gameMap);
-    gameMap[position.y][position.x] = npcSort;
+	//2. shift character 
+	gameMap[position.y][position.x] = BLANK;
+	shiftCharacter(this->direction, gameMap);
+	gameMap[position.y][position.x] = npcSort;
 
-    //3. check collision
-    if (position == player.getPosition())
-    {
-        setScore(1, -1.5);
-        player.showCharacter(); //충돌 시, 플레이어를 앞으로
-    }
+	//3. check collision
+	if (position == player.getPosition())
+	{
+		setScore(1, -1.5);
+		player.showCharacter(); //충돌 시, 플레이어를 앞으로
+	}
 }
 
 void PatternNpc::setNextDirection()
 {
-    if (position == startPoint || position == endPoint)
-        direction = getOppositeDirection(direction);
+	if (position == startPoint || position == endPoint)
+		direction = getOppositeDirection(direction);
 }
 
 int PatternNpc::getOppositeDirection(int direction) {
-    switch (direction)
-    {
-    case RIGHT: return LEFT;
-    case LEFT: return RIGHT;
-    case UP: return DOWN;
-    case DOWN: return UP;
-    }
-    return 0;
+	switch (direction)
+	{
+	case RIGHT: return LEFT;
+	case LEFT: return RIGHT;
+	case UP: return DOWN;
+	case DOWN: return UP;
+	}
+	return 0;
 }
 
 ChasingNpc::ChasingNpc(Pos initPosition)
-    : Move(initPosition, 12, "▲")
+	: Move(initPosition, 12, "▲")
 {
-    ;
+	;
 }
 
 void ChasingNpc::movingProcess(int gameMap[22][37], Player player)
 {
-    //1. set direction
-    int result = getNextDirection(player.getPosition(), gameMap);
-    if (result == -1)
-        return;
-    
-    //2. shift character
-    gameMap[position.y][position.x] = BLANK;
-    shiftCharacter(result, gameMap);
-    gameMap[position.y][position.x] = NORMAL_NPC;
+	//1. set direction
+	int result = getNextDirection(player.getPosition(), gameMap);
+	if (result == -1)
+		return;
 
-    //3. check collision
-    if (position == player.getPosition())
-    {
-        setScore(1, -1.5);
-        player.showCharacter(); //충돌 시, 플레이어를 앞으로
-    }
+	//2. shift character
+	gameMap[position.y][position.x] = BLANK;
+	shiftCharacter(result, gameMap);
+	gameMap[position.y][position.x] = NORMAL_NPC;
+
+	//3. check collision
+	if (position == player.getPosition())
+	{
+		setScore(1, -1.5);
+		player.showCharacter(); //충돌 시, 플레이어를 앞으로
+	}
 }
 
 int ChasingNpc::getNextDirection(Pos playerPos, int gameMap[22][37])
 {
-    int filter[4][2] = { {0,1},{1,0},{0,-1},{-1,0} };
-    int ret[4] = { DOWN, RIGHT, UP, LEFT };
-    int minDist = -1; int direction = -1;
+	int filter[4][2] = { {0,1},{1,0},{0,-1},{-1,0} };
+	int ret[4] = { DOWN, RIGHT, UP, LEFT };
+	int minDist = -1; int direction = -1;
 
-    for (int i = 0; i < 4; i++)
-    {
-        int x = this->position.x + filter[i][0];
-        int y = this->position.y + filter[i][1];
+	for (int i = 0; i < 4; i++)
+	{
+		int x = this->position.x + filter[i][0];
+		int y = this->position.y + filter[i][1];
 
-        if (detectCollision(gameMap, { x,y }) != BLANK)
-            continue;
+		if (detectCollision(gameMap, { x,y }) != BLANK)
+			continue;
 
-        int dist = (x - playerPos.x) * (x - playerPos.x)
-            + (y - playerPos.y) * (y - playerPos.y);
-        if (minDist == -1 || minDist > dist)
-        {
-            minDist = dist;
-            direction = i;
-        }
-    }
+		int dist = (x - playerPos.x) * (x - playerPos.x)
+			+ (y - playerPos.y) * (y - playerPos.y);
+		if (minDist == -1 || minDist > dist)
+		{
+			minDist = dist;
+			direction = i;
+		}
+	}
 
-    if (direction == -1)
-        return -1;
-    return ret[direction];
+	if (direction == -1)
+		return -1;
+	return ret[direction];
 }

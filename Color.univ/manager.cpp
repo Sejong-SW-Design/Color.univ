@@ -5,6 +5,30 @@ extern int gameMap1[22][37];
 extern int gameMap2[22][37];
 extern int gameMap3[22][37];
 
+int keyControl() {
+    if (_kbhit() != 0) {
+        int key = _getch();
+        switch (key)
+        {
+        case LEFT:
+            return LEFT;
+            break;
+        case RIGHT:
+            return RIGHT;
+            break;
+        case UP:
+            return UP;
+            break;
+        case DOWN:
+            return DOWN;
+            break;
+        case SPACEBAR:
+            return SPACEBAR;
+            break;
+        }
+    }
+}
+
 
 void setScore(int gradeidx, double s) {
     //나 실험좀 해보려고 잠시 주석처리했으
