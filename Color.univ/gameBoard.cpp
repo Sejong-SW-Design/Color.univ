@@ -37,7 +37,7 @@ void drawGameBoard(int gameMap[22][37])
             {
             case NORMAL_WALL:
                 setBackgroundColor(0, 7); printf("■"); break;
-            case BLANK:
+            case BLANK: case GOAL:
                 printf("  "); break;
             case BLUE_WALL:
                 setBackgroundColor(0, 9); printf("■"); break;
@@ -163,7 +163,7 @@ void drawGameEdge()
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
 {
     bool didRemove = false;
-    gameMap[posY][posX] = BLANK; 
+    //gameMap[posY][posX] = BLANK;
     vector<Pos>ErasePos;
     int filter[8][2] = { {0,1},{1,0},{0,-1},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1} };
     queue<pair<int, int>> q;

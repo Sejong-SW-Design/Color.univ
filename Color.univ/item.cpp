@@ -17,12 +17,16 @@ void eraseColor(int posX, int posY, int gameMap[22][37]) {
 
 void getColor(int colorNum, int posX, int posY, int gameMap[22][37]) {
 
-	//일단 벽 해제를 시도한다. 벽 해제에 사용되지 않은 건 store에 저장된다.
-	bool didRemove = removeWall(colorNum - 14, posX, posY, gameMap);
-	if (didRemove)
-		return;
+	
 	
 	if (myStore.capacity < 2) {
+		
+		gameMap[posY][posX] = BLANK;//일단 스토어가 비어있으면 스토어가 찼든 안찼든 blank 만들기  
+		// 일단 벽 해제를 시도
+		bool didRemove = removeWall(colorNum - 14, posX, posY, gameMap);
+		if (didRemove)
+			return;
+		//벽 해제에 사용되지 않은 건 store에 저장
 		if (myStore.color1 == 0) { //1이 비어있으면
 			myStore.color1 = colorNum;
 			myStore.capacity++;
@@ -135,3 +139,8 @@ void primeItemCollision(int posX, int posY, int gameMap[22][37]) {
 	setScore(1, 0.5);
 	drawInfo(score, 1);
 }
+
+/*
+void getAlchol() {
+
+}*/

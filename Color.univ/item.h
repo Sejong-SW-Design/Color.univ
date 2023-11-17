@@ -23,4 +23,6 @@ void chageNumBTS(int color1, int color2);
 
 void primeItemCollision(int posX, int posY, int gameMap[22][37]);
 
+//void getAlchol();
+
 #endif __ITEM_H__
