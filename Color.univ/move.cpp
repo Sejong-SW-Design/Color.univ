@@ -165,10 +165,13 @@ void Player::movingProcess(int gameMap[22][37])
 	getItem(gameMap);
 
 	//npc와 충돌 확인
-	if (gameMap[position.y][position.x] == ALCOHOL_NPC
-		|| gameMap[position.y][position.x] == NORMAL_NPC)
+	if (gameMap[position.y][position.x] == NORMAL_NPC)
 	{
 		setScore(1, -1.5);
+	}
+	if (gameMap[position.y][position.x] == ALCOHOL_NPC)
+	{
+		changeD++;
 	}
 
 }
@@ -202,9 +205,11 @@ void Player::getItem(int gameMap[22][37])
 	{
 		eraseColor(position.x, position.y, gameMap);
 	}
-	if (itemSort == ALCOHOL_NPC) {
-		changeD++;
-	}
+
+	//지우야 여길 없애고 npc 충돌검사에서 changeD 부를게(이지호)
+	//if (itemSort == ALCOHOL_NPC) {
+	//	changeD++;
+	//}
 }
 
 bool Player::checkGoalIn(int gameMap[22][37])
@@ -239,14 +244,19 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 	gameMap[position.y][position.x] = BLANK;
 	shiftCharacter(this->direction, gameMap);
 	gameMap[position.y][position.x] = npcSort;
-	player.showCharacter();
 
 	//3. check collision
 	if (position == player.getPosition())
 	{
-		setScore(1, -1.5);
-		player.showCharacter(); //충돌 시, 플레이어를 앞으로
+		if (npcSort == ALCOHOL_NPC)
+		{
+			changeD++;
+		}
+		if (npcSort == NORMAL_NPC)
+			setScore(1, -1.5);
 	}
+
+	player.showCharacter(); //플레이어를 지워버리지 않도록
 }
 
 void PatternNpc::setNextDirection()
@@ -289,8 +299,9 @@ void ChasingNpc::movingProcess(int gameMap[22][37], Player player)
 	if (position == player.getPosition())
 	{
 		setScore(1, -1.5);
-		player.showCharacter(); //충돌 시, 플레이어를 앞으로
 	}
+
+	player.showCharacter(); //플레이어를 지워버리지 않도록
 }
 
 int ChasingNpc::getNextDirection(Pos playerPos, int gameMap[22][37])
