@@ -22,7 +22,7 @@ int main() {
     Player* player = new Player(playerInitPos);
 
     //npc sleep time 설정해주세요!
-    int npcSleepTime = 150; //npc 100 sleep -> pc 20회 이동 // npc 400 sleep -> pc 80회 이동
+    int npcSleepTime = 150; //pc는 5ms당 한번 입력 : npc 100 sleep -> pc 20회 이동 // npc 400 sleep -> pc 80회 이동
 
     //npc 위치 설정해주세요!
     vector<PatternNpc*>patternEnemies;
@@ -32,6 +32,8 @@ int main() {
 
     vector<ChasingNpc*> chasingEnemies;
     chasingEnemies.push_back(new ChasingNpc({ 26, 5 }));
+
+    EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies);
 
     while (true)
     {
@@ -49,8 +51,7 @@ int main() {
         }
 
         //적 돌아당기게 하고싶으면 이거 주석 풀면됨
-        EnemiesManager::enemyMoveProcess(patternEnemies, gameMapHere, *player);
-        EnemiesManager::enemyMoveProcess(chasingEnemies, gameMapHere, *player);
+        enemies->EnemyMoveProcess(gameMapHere, *player);
     }
        
     /*drawResultScreen(gameOver, 0);

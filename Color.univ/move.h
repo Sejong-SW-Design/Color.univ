@@ -80,17 +80,20 @@ public:
 
 class EnemiesManager
 {
+private:
+	vector<PatternNpc*>patternEnemies;
+	vector<ChasingNpc*> chasingEnemies;
 public:
-	//관리자 함수
-	static void enemyMoveProcess(vector<PatternNpc*>& enemies, int gameMap[22][37], Player player)
+	EnemiesManager(vector<PatternNpc*>p, vector<ChasingNpc*>c)
 	{
-		for (auto iter = enemies.begin(); iter != enemies.end(); iter++)
-			(*iter)->movingProcess(gameMap, player);
+		patternEnemies = p;
+		chasingEnemies = c;
 	}
-
-	static void enemyMoveProcess(vector<ChasingNpc*>& enemies, int gameMap[22][37], Player player)
+	void EnemyMoveProcess(int gameMap[22][37], Player player)
 	{
-		for (auto iter = enemies.begin(); iter != enemies.end(); iter++)
+		for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
+			(*iter)->movingProcess(gameMap, player);
+		for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
 			(*iter)->movingProcess(gameMap, player);
 	}
 };
