@@ -84,7 +84,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j)
 {
     drawOnePoint(gameMap, i, j, 0);
 }
-
+//게임보드 x y 좌표 기준으로 받는다!!
 void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
 {
     Pos cursorPosition = Move::getCursorPos({j, i});
@@ -171,6 +171,8 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
         setBackgroundColor(backGround, 12); printf("▲"); break;
     case ALCOHOL_NPC:
         setBackgroundColor(backGround, 12); printf("§"); break;
+    case CHASING_NPC:
+        setBackgroundColor(backGround, 12); printf("△"); break;
     }
 }
 
@@ -187,12 +189,8 @@ void drawGameBoard(int gameMap[22][37])
         {
             drawOnePoint(gameMap, i, j);
         }
-        
-        printf("\n");
-        
     }
 }
-
 
 void drawGameEdge()
 {
@@ -234,55 +232,53 @@ void drawGameEdge()
     }
 }
 
-////벽 해제 애니메이션 때문이 임시로 만들었었으(이지호)
-//int getWallColor(int GAMEBOARD_NUM)
-//{
-//    switch (GAMEBOARD_NUM)
-//    {
-//    case BLUE_WALL:
-//        return 9;
-//    case RED_WALL:
-//        return 12;
-//    case YELLOW_WALL:
-//        return 14;
-//    case PURPLE_WALL:
-//        return 5;
-//    case GREEN_WALL:
-//        return 10;
-//    case ORANGE_WALL:
-//        return 6;
-//    case DARKBLUE_WALL:
-//        return 1;
-//    case DARKGREEN_WALL:
-//        return 2;
-//    case DARKSKYBLUE_WALL:
-//        return 3;
-//    case DARKRED_WALL:
-//        return 4;
-//    case PINK_WALL:
-//        return 13;
-//    case DARKYELLOW_WALL:
-//        return 6;
-//    case DARKGRAY_WALL:
-//        return 8;
-//    case SKYBLUE_WALL:
-//        return 11;
-//    }
-//    return 0;
-//
-//}
+//벽 해제 애니메이션 때문이 임시로 만들었었으(이지호)
+int getWallColor(int gameBoardWallNumber)
+{
+    switch (gameBoardWallNumber)
+    {
+    case BLUE_WALL:
+        return 9;
+    case RED_WALL:
+        return 12;
+    case YELLOW_WALL:
+        return 14;
+    case PURPLE_WALL:
+        return 5;
+    case GREEN_WALL:
+        return 10;
+    case ORANGE_WALL:
+        return 6;
+    case DARKBLUE_WALL:
+        return 1;
+    case DARKGREEN_WALL:
+        return 2;
+    case DARKSKYBLUE_WALL:
+        return 3;
+    case DARKRED_WALL:
+        return 4;
+    case PINK_WALL:
+        return 13;
+    case DARKYELLOW_WALL:
+        return 6;
+    case DARKGRAY_WALL:
+        return 8;
+    case SKYBLUE_WALL:
+        return 11;
+    }
+    return 0;
+
+}
 
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
 {
-    bool didRemove = false;
-    //gameMap[posY][posX] = BLANK;
     vector<Pos>ErasePos;
     int filter[8][2] = { {0,1},{1,0},{0,-1},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1} };
     queue<pair<int, int>> q;
     bool visited[22][37] = { 0 };
 
-    //temptemp
-    vector<pair<int, int>>tempbackgrounds;
+    //벽 해제 애니메이션 관련
+    vector<pair<int, int>>outLines;
 
     //bfs
     q.push(make_pair(posY, posX));
@@ -292,10 +288,6 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
         pair<int, int>now = q.front();
         q.pop();
         
-        //벽 해제 애니메이션 관련
-        /*drawOnePoint(gameMap, now.first, now.second, mytemptemptemptempFunc(colorSort));
-        tempbackgrounds.push_back(now);*/
-
         for (int k = 0; k < 8; k++)
         {
             int nextY = now.first + filter[k][0];
@@ -306,34 +298,42 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
                 continue;
             if (gameMap[nextY][nextX] == colorSort)
             {
-                didRemove = true;
                 ErasePos.push_back({ nextX, nextY });
                 continue;
             }
             if (Move::isWall(gameMap[nextY][nextX]))
+            {
+                outLines.push_back(make_pair(nextY, nextX));
                 continue;
+            }
             q.push(make_pair(nextY, nextX));
             visited[nextY][nextX] = true;
             setCurrentCursorPos(2 * nextX + GBOARD_ORIGIN_X, nextY + GBOARD_ORIGIN_Y);
         }
     }
 
+    if (ErasePos.empty())
+        return false;
+
+    //벽을 해제한 경우만 애니메이션
+    for (auto e : outLines)
+    {
+        drawOnePoint(gameMap, e.first, e.second, getWallColor(colorSort));
+    }
+
     for (auto e : ErasePos)
     {
-        Pos cursorPos = Move::getCursorPos(e);
-        setCurrentCursorPos(cursorPos.x, cursorPos.y);
         gameMap[e.y][e.x] = 0;
         drawOnePoint(gameMap, e.y, e.x);
     }
 
-    //벽 해제 애니메이션 관련
-    //Sleep(50);
-    //for (auto e : tempbackgrounds)
-    //{
-    //    drawOnePoint(gameMap, e.first, e.second);
-    //}
+    Sleep(50);
+    for (auto e : outLines)
+    {
+        drawOnePoint(gameMap, e.first, e.second);
+    }
 
-    return didRemove;
+    return true;
 }
 
 void updateStore(int color1, int color2) // 새로 만듦 -> ppt에 추가해야함

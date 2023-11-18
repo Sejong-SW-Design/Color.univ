@@ -243,7 +243,7 @@ void ChasingNpc::movingProcess(int gameMap[22][37], Player player)
 	//2. shift character
 	gameMap[position.y][position.x] = BLANK;
 	shiftCharacter(result, gameMap);
-	gameMap[position.y][position.x] = NORMAL_NPC;
+	gameMap[position.y][position.x] = CHASING_NPC;
 	player.showCharacter();
 
 	//3. check collision

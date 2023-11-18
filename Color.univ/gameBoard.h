@@ -89,9 +89,10 @@ enum GAME_BOARD
     //PC NPC
     ALCOHOL_NPC,//35
     NORMAL_NPC,//36
+    CHASING_NPC, //37
 
     // goal
-    GOAL//37
+    GOAL//38
 };
 
 
