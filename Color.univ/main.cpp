@@ -22,7 +22,7 @@ int main() {
     Player* player = new Player(playerInitPos);
 
     //npc sleep time 설정해주세요!
-    int npcSleepTime = 50;
+    int npcSleepTime = 150; //npc 100 sleep -> pc 20회 이동 // npc 400 sleep -> pc 80회 이동
 
     //npc 위치 설정해주세요!
     vector<PatternNpc*>patternEnemies;
@@ -35,7 +35,8 @@ int main() {
 
     while (true)
     {
-        for (int i = 0; i < 20; i++)
+        int pcMoveCnt = npcSleepTime / 5;
+        for (int i = 0; i < pcMoveCnt; i++)
         {
             player->movingProcess(gameMapHere); //gameMap1
             if (player->checkGoalIn(gameMapHere))
@@ -44,7 +45,7 @@ int main() {
                 return 0;
             }
 
-            Sleep(npcSleepTime / 20);
+            Sleep(5);
         }
 
         //적 돌아당기게 하고싶으면 이거 주석 풀면됨
