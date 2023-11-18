@@ -18,7 +18,7 @@ int main() {
 	drawGameBoard(gameMapHere); //gameMap1
 
     //초기위치 정해주세요! (게임보드 기준! 곱하기 2 이딴거 안해도됨)
-    Pos playerInitPos = setInitpos(1); 
+    Pos playerInitPos = setPcInitPos(1); //stage
     Player* player = new Player(playerInitPos);
 
     //npc sleep time 설정해주세요!

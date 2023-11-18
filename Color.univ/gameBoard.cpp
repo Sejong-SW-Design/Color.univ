@@ -2,12 +2,11 @@
 #include "move.h"
 
 vector<pair<int, int>>Exits; //비상구 배열
-
+vector<pair<int, int>>dots; 
 extern double score[5];
 
-Pos setInitpos(int stage)
+Pos setPcInitPos(int stage)
 {
-    //1,10 - 1  // 16,1 - 2 // 1,10 - 3
     switch (stage)
     {
     case 1: case 3:
@@ -15,7 +14,7 @@ Pos setInitpos(int stage)
     case 2:
         return { 16,1 };
     case 4:
-        return { 1,10 };
+        return { 1,10 }; //  임시
     default:
         return { 1,10 };
     }
@@ -37,7 +36,9 @@ void drawGameBoard(int gameMap[22][37])
             {
             case NORMAL_WALL:
                 setBackgroundColor(0, 7); printf("■"); break;
-            case BLANK: case GOAL:
+            case BLANK: 
+                printf("  "); break;
+            case GOAL:
                 printf("  "); break;
             case BLUE_WALL:
                 setBackgroundColor(0, 9); printf("■"); break;
@@ -106,7 +107,7 @@ void drawGameBoard(int gameMap[22][37])
             case ERASER:
                 setBackgroundColor(0, 15); printf("ⓔ"); break;
             case HIDDEN:
-                // 교수님의 사랑
+                setBackgroundColor(0, 13); printf("♥"); break;
             case STOP:
                 setBackgroundColor(0, 7); printf("※"); break;
             }
@@ -333,7 +334,6 @@ void drawStore()
 }
 
 
-
 void drawInfo(double *score, int gradeIdx)
 {
     setCurrentCursorPos(14, 1);
@@ -345,7 +345,6 @@ void drawInfo(double *score, int gradeIdx)
     setCurrentCursorPos(58, 1);
     printf("평균 학점 : %.1f", score[0]);
 }
-
 
 
 void drawBossLife()
@@ -381,7 +380,14 @@ void drawBossLife()
 
 }
 
-//void drawAttackdot(int dotNum);
+void drawAttackdot(int gameMap[22][37])
+{
+    srand((unsigned int)time(NULL));
+
+    // 미완
+
+    return;
+}
 
 //void removeAttackDot();
 

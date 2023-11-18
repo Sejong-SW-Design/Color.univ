@@ -104,7 +104,7 @@ void Move::deleteCharacter(int gameMap[22][37])
 	case ERASER:
 		setBackgroundColor(0, 15); printf("¨Ñ"); break;
 	case HIDDEN:
-		// ±³¼ö´ÔÀÇ »ç¶û
+		setBackgroundColor(0, 13); printf("¢¾"); break;
 	case STOP:
 		setBackgroundColor(0, 7); printf("¡Ø"); break;
 	}

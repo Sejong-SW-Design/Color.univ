@@ -108,7 +108,7 @@ void drawInfo(double score[], int grade); // score[0]은 평균
 
 void drawBossLife();
 
-void drawAttackdot(int dotNum);
+void drawAttackdot();
 
 void removeAttackDot();
 
@@ -122,7 +122,7 @@ void drawGameResult();
 
 void removeGameResult();
 
-Pos setInitpos(int stage); // PC 위치 초기화 설정
+Pos setPcInitPos(int stage); // PC 위치 초기화 설정
 
 
 #endif

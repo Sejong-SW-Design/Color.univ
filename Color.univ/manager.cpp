@@ -4,6 +4,7 @@ double score[5] = { 4.5, 4.5, 4.5, 4.5, 4.5 };
 extern int gameMap1[22][37];
 extern int gameMap2[22][37];
 extern int gameMap3[22][37];
+extern int gameMap4[22][37];
 
 int keyControl() {
     if (_kbhit() != 0) {
@@ -222,5 +223,7 @@ void getStage(int gameMap[22][37], int stage)
                 gameMap[i][j] = gameMap2[i][j];
             else if (stage == 3)
                 gameMap[i][j] = gameMap3[i][j];
+            else if (stage == 4)
+                gameMap[i][j] = gameMap4[i][j];
         }
 }
