@@ -13,20 +13,21 @@ int main() {
 	removeCursor();
 
     int gameMapHere[22][37];
-    getStage(gameMapHere, 1);
+    int stage = 3; // stage 자리 원하는 곳에 옮겨주세요 - 전루피
+    getStage(gameMapHere, stage);
 
-	drawGameBoard(gameMapHere); //gameMap1
+	drawGameBoard(gameMapHere); 
 
-    //초기위치 정해주세요! (게임보드 기준! 곱하기 2 이딴거 안해도됨)
-    Pos playerInitPos = setPcInitPos(1); //stage
+    //초기위치
+    Pos playerInitPos = setPcInitPos(stage); 
     Player* player = new Player(playerInitPos);
 
-    //npc sleep time 설정해주세요!
+    //npc sleep time
     int npcSleepTime = 150; //pc는 5ms당 한번 입력 : npc 100 sleep -> pc 20회 이동 // npc 400 sleep -> pc 80회 이동
 
-    //npc 위치 설정해주세요!
-    vector<PatternNpc*> patternEnemies = setPatternNpcInitPos(1, patternEnemies);
-    vector<ChasingNpc*> chasingEnemies = setChasingNpcInitPos(1, chasingEnemies);
+    //npc 위치
+    vector<PatternNpc*> patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
+    vector<ChasingNpc*> chasingEnemies = setChasingNpcInitPos(stage, chasingEnemies);
 
     EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies);
 

@@ -5,14 +5,14 @@ vector<pair<int, int>>Exits; //비상구 배열
 vector<pair<int, int>>dots; 
 extern double score[5];
 
-Pos setPcInitPos(int stage)
+Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
 {
     switch (stage)
     {
     case 1: case 3:
         return { 1,10 };
     case 2:
-        return { 16,1 };
+        return { 18,0 };
     case 4:
         return { 1,10 }; //  임시
     default:
@@ -22,12 +22,41 @@ Pos setPcInitPos(int stage)
 
 vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
 {
+    //좌표 찍는 거 어렵네요...
     switch (stage)
     {
     case 1:
         P.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, ALCOHOL_NPC));
-        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, NORMAL_NPC));
+        break;
+    case 2:
+        P.push_back(new PatternNpc({ 32,8 }, { 32,7 }, { 32,14 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 23,8 }, { 22,8 }, { 26,8 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 23,13 }, { 22,13 }, { 26,13 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 22,10 }, { 22,9 }, { 22,12 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 26,10 }, { 26,9 }, { 26,12 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 11,11 }, { 10,11 }, { 14,11 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 4,10 }, { 4,7 }, { 4,14 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 19,8 }, { 19,6 }, { 19,15 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 17,1 }, { 16,1 }, { 20,1 }, ALCOHOL_NPC));
+
+        break;
+    case 3:
+        P.push_back(new PatternNpc({ 34,9 }, { 34,8 }, { 34,10 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 34,12 }, { 34,13 }, { 34,11 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 27, 2 }, { 27, 1 }, { 27, 4 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 29, 4 }, { 28, 4 }, { 30, 4 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 5, 17 }, { 4, 17 }, { 7, 17 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 5, 4 }, { 4, 4 }, { 7, 4 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 14, 13 }, { 11, 13 }, { 20, 13 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19, 13 }, { 11, 13 }, { 20, 13 }, NORMAL_NPC)); //  정신사나우면 주석
+        P.push_back(new PatternNpc({ 14, 16 }, { 11, 16 }, { 20, 16 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19, 16 }, { 11, 16 }, { 20, 16 }, NORMAL_NPC)); //  정신사나우면 주석
+        P.push_back(new PatternNpc({ 11, 15 }, { 11, 14 }, { 11, 15 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 20, 15 }, { 20, 14 }, { 20, 15 }, NORMAL_NPC));
+
+        break;
     }
 
     return P;
@@ -41,11 +70,11 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
         C.push_back(new ChasingNpc({ 26, 5 }));
         break;
     case 2:
-        C.push_back(new ChasingNpc({ 4, 17 }));
-        C.push_back(new ChasingNpc({ 4, 31 }));
+        C.push_back(new ChasingNpc({ 5, 17 }));
+        C.push_back(new ChasingNpc({ 31, 4 })); //  정신 사나우면 없애기 (일단 맵 그린대로 했음)
         break;
     case 3:
-        C.push_back(new ChasingNpc({ 26, 5 }));
+        C.push_back(new ChasingNpc({ 9, 4 }));
         break;
     }
     return C;

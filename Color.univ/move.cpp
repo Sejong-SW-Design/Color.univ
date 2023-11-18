@@ -228,7 +228,7 @@ int PatternNpc::getOppositeDirection(int direction) {
 }
 
 ChasingNpc::ChasingNpc(Pos initPosition)
-	: Move(initPosition, 12, "▲")
+	: Move(initPosition, 12, "△") // 다른 걸루 바꿔도 되어용 - 루피
 {
 	;
 }
