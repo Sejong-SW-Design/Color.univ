@@ -29,7 +29,6 @@ int main() {
     patternEnemies.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
     patternEnemies.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, ALCOHOL_NPC));
     patternEnemies.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, ALCOHOL_NPC));
-
     vector<ChasingNpc*> chasingEnemies;
     chasingEnemies.push_back(new ChasingNpc({ 26, 5 }));
 

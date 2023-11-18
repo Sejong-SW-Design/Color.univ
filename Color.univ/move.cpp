@@ -239,6 +239,7 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 	gameMap[position.y][position.x] = BLANK;
 	shiftCharacter(this->direction, gameMap);
 	gameMap[position.y][position.x] = npcSort;
+	player.showCharacter();
 
 	//3. check collision
 	if (position == player.getPosition())
@@ -282,6 +283,7 @@ void ChasingNpc::movingProcess(int gameMap[22][37], Player player)
 	gameMap[position.y][position.x] = BLANK;
 	shiftCharacter(result, gameMap);
 	gameMap[position.y][position.x] = NORMAL_NPC;
+	player.showCharacter();
 
 	//3. check collision
 	if (position == player.getPosition())
