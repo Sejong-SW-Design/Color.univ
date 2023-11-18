@@ -20,6 +20,100 @@ Pos setPcInitPos(int stage)
     }
 }
 
+void drawOnePoint(int gameMap[22][37], int i, int j)
+{
+    drawOnePoint(gameMap, i, j, 0);
+}
+
+void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
+{
+    Pos cursorPosition = Move::getCursorPos({j, i});
+    setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
+    switch (gameMap[i][j])
+    {
+    case NORMAL_WALL:
+        setBackgroundColor(backGround, 7); printf("■"); break;
+    case BLANK:
+        setBackgroundColor(backGround, backGround); printf("■"); break;
+    case GOAL:
+        setBackgroundColor(backGround, backGround); printf("■"); break;
+    case BLUE_WALL:
+        setBackgroundColor(backGround, 9); printf("■"); break;
+    case RED_WALL:
+        setBackgroundColor(backGround, 12); printf("■");  break;
+    case YELLOW_WALL:
+        setBackgroundColor(backGround, 14); printf("■");  break;
+    case PURPLE_WALL:
+        setBackgroundColor(backGround, 5); printf("■");  break;
+    case GREEN_WALL:
+        setBackgroundColor(backGround, 10); printf("■"); break;
+    case ORANGE_WALL:
+        setBackgroundColor(backGround, 6); printf("■");  break;
+    case DARKBLUE_WALL:
+        setBackgroundColor(backGround, 1); printf("■");  break;
+    case DARKGREEN_WALL:
+        setBackgroundColor(backGround, 2); printf("■");  break;
+    case DARKSKYBLUE_WALL:
+        setBackgroundColor(backGround, 3); printf("■");  break;
+    case DARKRED_WALL:
+        setBackgroundColor(backGround, 4); printf("■");  break;
+    case PINK_WALL:
+        setBackgroundColor(backGround, 13); printf("■");  break;
+    case DARKYELLOW_WALL:
+        setBackgroundColor(backGround, 6); printf("■");  break;
+    case DARKGRAY_WALL:
+        setBackgroundColor(backGround, 8); printf("■");  break;
+    case SKYBLUE_WALL:
+        setBackgroundColor(backGround, 11); printf("■");  break;
+
+    case BLUE_BTN:
+        setBackgroundColor(backGround, 9); printf("⊙"); break;
+    case RED_BTN:
+        setBackgroundColor(backGround, 12); printf("⊙"); break;
+    case YELLOW_BTN:
+        setBackgroundColor(backGround, 14); printf("⊙"); break;
+    case PURPLE_BTN:
+        setBackgroundColor(backGround, 5); printf("⊙");  break;
+    case GREEN_BTN:
+        setBackgroundColor(backGround, 10); printf("⊙"); break;
+    case ORANGE_BTN:
+        setBackgroundColor(backGround, 6); printf("⊙");  break;
+    case DARKBLUE_BTN:
+        setBackgroundColor(backGround, 1); printf("⊙"); break;
+    case DARKGREEN_BTN:
+        setBackgroundColor(backGround, 2); printf("⊙");  break;
+    case DARKSKYBLUE_BTN:
+        setBackgroundColor(backGround, 3); printf("⊙");  break;
+    case DARKRED_BTN:
+        setBackgroundColor(backGround, 4); printf("⊙");  break;
+    case PINK_BTN:
+        setBackgroundColor(backGround, 13); printf("⊙");  break;
+    case DARKYELLOW_BTN:
+        setBackgroundColor(backGround, 6); printf("⊙");  break;
+    case DARKGRAY_BTN:
+        setBackgroundColor(backGround, 8); printf("⊙");  break;
+    case SKYBLUE_BTN:
+        setBackgroundColor(backGround, 11); printf("⊙");  break;
+
+    case EMERGENCY_EXIT:
+        setBackgroundColor(backGround, 2); printf("▥");
+        Exits.push_back(make_pair(i, j));
+        break;
+    case PRIME:
+        setBackgroundColor(backGround, 6); printf("★"); break;
+    case ERASER:
+        setBackgroundColor(backGround, 15); printf("ⓔ"); break;
+    case HIDDEN:
+        setBackgroundColor(backGround, 13); printf("♥"); break;
+    case STOP:
+        setBackgroundColor(backGround, 7); printf("※"); break;
+    case NORMAL_NPC:
+        setBackgroundColor(backGround, 12); printf("▲"); break;
+    case ALCOHOL_NPC:
+        setBackgroundColor(backGround, 12); printf("§"); break;
+    }
+}
+
 void drawGameBoard(int gameMap[22][37])
 {
     drawInfo(score, 1);
@@ -29,88 +123,9 @@ void drawGameBoard(int gameMap[22][37])
 
     for (int i = 0; i < 22; i++)
     {
-        setCurrentCursorPos(GBOARD_ORIGIN_X, GBOARD_ORIGIN_Y+i); // 위치
         for (int j = 0; j < 37; j++)
         {
-            switch (gameMap[i][j])
-            {
-            case NORMAL_WALL:
-                setBackgroundColor(0, 7); printf("■"); break;
-            case BLANK: 
-                printf("  "); break;
-            case GOAL:
-                printf("  "); break;
-            case BLUE_WALL:
-                setBackgroundColor(0, 9); printf("■"); break;
-            case RED_WALL:
-                setBackgroundColor(0, 12); printf("■");  break;
-            case YELLOW_WALL:
-                setBackgroundColor(0, 14); printf("■");  break;
-            case PURPLE_WALL:
-                setBackgroundColor(0, 5); printf("■");  break;
-            case GREEN_WALL:
-                setBackgroundColor(0, 10); printf("■"); break;
-            case ORANGE_WALL:
-                setBackgroundColor(0, 6); printf("■");  break;
-            case DARKBLUE_WALL:
-                setBackgroundColor(0, 1); printf("■");  break;
-            case DARKGREEN_WALL:
-                setBackgroundColor(0, 2); printf("■");  break;
-            case DARKSKYBLUE_WALL:
-                setBackgroundColor(0, 3); printf("■");  break;
-            case DARKRED_WALL:
-                setBackgroundColor(0, 4); printf("■");  break;
-            case PINK_WALL:
-                setBackgroundColor(0,13); printf("■");  break;
-            case DARKYELLOW_WALL:
-                setBackgroundColor(0, 6); printf("■");  break;
-            case DARKGRAY_WALL:
-                setBackgroundColor(0, 8); printf("■");  break;
-            case SKYBLUE_WALL:
-                setBackgroundColor(0, 11); printf("■");  break;
-
-            case BLUE_BTN:
-                setBackgroundColor(0, 9); printf("⊙"); break;
-            case RED_BTN:
-                setBackgroundColor(0, 12); printf("⊙"); break;
-            case YELLOW_BTN:
-                setBackgroundColor(0, 14); printf("⊙"); break;
-            case PURPLE_BTN:
-                setBackgroundColor(0, 5); printf("⊙");  break;
-            case GREEN_BTN:
-                setBackgroundColor(0, 10); printf("⊙"); break;
-            case ORANGE_BTN:
-                setBackgroundColor(0, 6); printf("⊙");  break;
-            case DARKBLUE_BTN:
-                setBackgroundColor(0, 1); printf("⊙"); break;
-            case DARKGREEN_BTN:
-                setBackgroundColor(0, 2); printf("⊙");  break;
-            case DARKSKYBLUE_BTN:
-                setBackgroundColor(0, 3); printf("⊙");  break;
-            case DARKRED_BTN:
-                setBackgroundColor(0, 4); printf("⊙");  break;
-            case PINK_BTN:
-                setBackgroundColor(0,13); printf("⊙");  break;
-            case DARKYELLOW_BTN:
-                setBackgroundColor(0, 6); printf("⊙");  break;
-            case DARKGRAY_BTN:
-                setBackgroundColor(0, 8); printf("⊙");  break;
-            case SKYBLUE_BTN:
-                setBackgroundColor(0, 11); printf("⊙");  break;
-
-            case EMERGENCY_EXIT:
-                setBackgroundColor(0, 2); printf("▥");
-                Exits.push_back(make_pair(i, j));
-                break;
-            case PRIME:
-                setBackgroundColor(0, 6); printf("★"); break;
-            case ERASER:
-                setBackgroundColor(0, 15); printf("ⓔ"); break;
-            case HIDDEN:
-                setBackgroundColor(0, 13); printf("♥"); break;
-            case STOP:
-                setBackgroundColor(0, 7); printf("※"); break;
-            }
+            drawOnePoint(gameMap, i, j);
         }
         
         printf("\n");
@@ -159,8 +174,44 @@ void drawGameEdge()
     }
 }
 
+////벽 해제 애니메이션 때문이 임시로 만들었었으(이지호)
+//int getWallColor(int GAMEBOARD_NUM)
+//{
+//    switch (GAMEBOARD_NUM)
+//    {
+//    case BLUE_WALL:
+//        return 9;
+//    case RED_WALL:
+//        return 12;
+//    case YELLOW_WALL:
+//        return 14;
+//    case PURPLE_WALL:
+//        return 5;
+//    case GREEN_WALL:
+//        return 10;
+//    case ORANGE_WALL:
+//        return 6;
+//    case DARKBLUE_WALL:
+//        return 1;
+//    case DARKGREEN_WALL:
+//        return 2;
+//    case DARKSKYBLUE_WALL:
+//        return 3;
+//    case DARKRED_WALL:
+//        return 4;
+//    case PINK_WALL:
+//        return 13;
+//    case DARKYELLOW_WALL:
+//        return 6;
+//    case DARKGRAY_WALL:
+//        return 8;
+//    case SKYBLUE_WALL:
+//        return 11;
+//    }
+//    return 0;
+//
+//}
 
-//해제할 벽 해제 여부를 반환 -> 해제를 하나도 안 했다면 스토어에 저장, 해제한 게 있으면 저장노
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
 {
     bool didRemove = false;
@@ -170,6 +221,9 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
     queue<pair<int, int>> q;
     bool visited[22][37] = { 0 };
 
+    //temptemp
+    vector<pair<int, int>>tempbackgrounds;
+
     //bfs
     q.push(make_pair(posY, posX));
     visited[posY][posX] = true;
@@ -177,6 +231,10 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
     {
         pair<int, int>now = q.front();
         q.pop();
+        
+        //벽 해제 애니메이션 관련
+        /*drawOnePoint(gameMap, now.first, now.second, mytemptemptemptempFunc(colorSort));
+        tempbackgrounds.push_back(now);*/
 
         for (int k = 0; k < 8; k++)
         {
@@ -190,10 +248,6 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
             {
                 didRemove = true;
                 ErasePos.push_back({ nextX, nextY });
-                /*Pos cursorPos = Move::getCursorPos({nextX, nextY});
-                setCurrentCursorPos(cursorPos.x, cursorPos.y);
-                printf("  ");
-                gameMap[nextY][nextX] = 0;*/
                 continue;
             }
             if (Move::isWall(gameMap[nextY][nextX]))
@@ -208,9 +262,16 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
     {
         Pos cursorPos = Move::getCursorPos(e);
         setCurrentCursorPos(cursorPos.x, cursorPos.y);
-        printf("  ");
         gameMap[e.y][e.x] = 0;
+        drawOnePoint(gameMap, e.y, e.x);
     }
+
+    //벽 해제 애니메이션 관련
+    //Sleep(50);
+    //for (auto e : tempbackgrounds)
+    //{
+    //    drawOnePoint(gameMap, e.first, e.second);
+    //}
 
     return didRemove;
 }

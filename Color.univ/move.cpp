@@ -58,56 +58,7 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37])
 
 void Move::deleteCharacter(int gameMap[22][37])
 {
-	Pos cursorPosition = getCursorPos(position);
-	setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
-
-	switch (gameMap[position.y][position.x])
-	{
-	case BLANK:
-		printf("  "); break;
-	case NORMAL_NPC:
-		setBackgroundColor(0, 12); printf("¡ã"); break;
-	case ALCOHOL_NPC:
-		setBackgroundColor(0, 12); printf("¡×"); break;
-	case BLUE_BTN:
-		setBackgroundColor(0, 9); printf("¢Á"); break;
-	case RED_BTN:
-		setBackgroundColor(0, 12); printf("¢Á"); break;
-	case YELLOW_BTN:
-		setBackgroundColor(0, 14); printf("¢Á"); break;
-	case PURPLE_BTN:
-		setBackgroundColor(0, 5); printf("¢Á");  break;
-	case GREEN_BTN:
-		setBackgroundColor(0, 10); printf("¢Á"); break;
-	case ORANGE_BTN:
-		setBackgroundColor(0, 6); printf("¢Á");  break;
-	case DARKBLUE_BTN:
-		setBackgroundColor(0, 1); printf("¢Á"); break;
-	case DARKGREEN_BTN:
-		setBackgroundColor(0, 2); printf("¢Á");  break;
-	case DARKSKYBLUE_BTN:
-		setBackgroundColor(0, 3); printf("¢Á");  break;
-	case DARKRED_BTN:
-		setBackgroundColor(0, 4); printf("¢Á");  break;
-	case PINK_BTN:
-		setBackgroundColor(0, 13); printf("¢Á");  break;
-	case DARKYELLOW_BTN:
-		setBackgroundColor(0, 6); printf("¢Á");  break;
-	case DARKGRAY_BTN:
-		setBackgroundColor(0, 8); printf("¢Á");  break;
-	case SKYBLUE_BTN:
-		setBackgroundColor(0, 11); printf("¢Á");  break;
-	case EMERGENCY_EXIT:
-		setBackgroundColor(0, 2); printf("¢È"); break;
-	case PRIME:
-		setBackgroundColor(0, 6); printf("¡Ú"); break;
-	case ERASER:
-		setBackgroundColor(0, 15); printf("¨Ñ"); break;
-	case HIDDEN:
-		setBackgroundColor(0, 13); printf("¢¾"); break;
-	case STOP:
-		setBackgroundColor(0, 7); printf("¡Ø"); break;
-	}
+	drawOnePoint(gameMap, position.y, position.x);
 }
 
 void Move::showCharacter()
