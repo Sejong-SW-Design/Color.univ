@@ -25,12 +25,8 @@ int main() {
     int npcSleepTime = 150; //pc는 5ms당 한번 입력 : npc 100 sleep -> pc 20회 이동 // npc 400 sleep -> pc 80회 이동
 
     //npc 위치 설정해주세요!
-    vector<PatternNpc*>patternEnemies;
-    patternEnemies.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
-    patternEnemies.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, ALCOHOL_NPC));
-    patternEnemies.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, ALCOHOL_NPC));
-    vector<ChasingNpc*> chasingEnemies;
-    chasingEnemies.push_back(new ChasingNpc({ 26, 5 }));
+    vector<PatternNpc*> patternEnemies = setPatternNpcInitPos(1, patternEnemies);
+    vector<ChasingNpc*> chasingEnemies = setChasingNpcInitPos(1, chasingEnemies);
 
     EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies);
 

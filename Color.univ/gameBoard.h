@@ -11,12 +11,15 @@
 #include "manager.h"
 #include "item.h"
 
-
 #define GBOARD_ORIGIN_X 6
 #define GBOARD_ORIGIN_Y 4
 
 #define GBOARD_WIDTH 37
 #define GBOARD_HEIGHT 22
+
+class Player;
+class PatternNpc;
+class ChasingNpc;
 
 typedef struct Position
 {
@@ -126,6 +129,7 @@ void drawGameResult();
 void removeGameResult();
 
 Pos setPcInitPos(int stage); // PC 위치 초기화 설정
-
+vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P);
+vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C);
 
 #endif

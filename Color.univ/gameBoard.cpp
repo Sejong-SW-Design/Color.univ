@@ -20,6 +20,37 @@ Pos setPcInitPos(int stage)
     }
 }
 
+vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
+{
+    switch (stage)
+    {
+    case 1:
+        P.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, ALCOHOL_NPC));
+    }
+
+    return P;
+}
+
+vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
+{
+    switch (stage)
+    {
+    case 1:
+        C.push_back(new ChasingNpc({ 26, 5 }));
+        break;
+    case 2:
+        C.push_back(new ChasingNpc({ 4, 17 }));
+        C.push_back(new ChasingNpc({ 4, 31 }));
+        break;
+    case 3:
+        C.push_back(new ChasingNpc({ 26, 5 }));
+        break;
+    }
+    return C;
+}
+
 void drawOnePoint(int gameMap[22][37], int i, int j)
 {
     drawOnePoint(gameMap, i, j, 0);
