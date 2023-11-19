@@ -173,7 +173,7 @@ bool Player::checkGoalIn(int gameMap[22][37])
 }
 
 PatternNpc::PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSort)
-	:Move(initPosition, 12, (npcSort == NORMAL_NPC ? "▲" : "§"))
+	:Move(initPosition, 12, (npcSort == NORMAL_NPC ? "△" : "§"))
 {
 	this->startPoint = startPoint;
 	this->endPoint = endPoint;
@@ -229,7 +229,7 @@ int PatternNpc::getOppositeDirection(int direction) {
 }
 
 ChasingNpc::ChasingNpc(Pos initPosition)
-	: Move(initPosition, 12, "△") // 다른 걸루 바꿔도 되어용 - 루피
+	: Move(initPosition, 12, "▲") // 다른 걸루 바꿔도 되어용 - 루피
 {
 	;
 }

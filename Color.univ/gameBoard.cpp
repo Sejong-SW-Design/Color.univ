@@ -170,11 +170,11 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
     case STOP:
         setBackgroundColor(backGround, 7); printf("¡Ø"); break;
     case NORMAL_NPC:
-        setBackgroundColor(backGround, 12); printf("¡ã"); break;
+        setBackgroundColor(backGround, 12); printf("¡â"); break;
     case ALCOHOL_NPC:
         setBackgroundColor(backGround, 12); printf("¡×"); break;
     case CHASING_NPC:
-        setBackgroundColor(backGround, 12); printf("¡â"); break;
+        setBackgroundColor(backGround, 12); printf("¡ã"); break;
     }
 }
 

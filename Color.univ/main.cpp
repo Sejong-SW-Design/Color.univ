@@ -8,6 +8,20 @@
 
 extern Store myStore;
 
+//스테이지별로 속도 조절이 필요할 것 같아서 만든 함수(이지호)
+//매니저에서 가져가주세요!
+int getNpcSleeTime(int stage)
+{
+    switch (stage)
+    {
+    case 1: return 150;
+    case 2: return 150;
+    case 3: return 300;
+    case 4: return 150;
+    }
+    return 150;
+}
+
 int main() {
 	setConsoleSize();
 	removeCursor();
@@ -23,7 +37,7 @@ int main() {
     Player* player = new Player(playerInitPos);
 
     //npc sleep time
-    int npcSleepTime = 150; //pc는 5ms당 한번 입력 : npc 100 sleep -> pc 20회 이동 // npc 400 sleep -> pc 80회 이동
+    int npcSleepTime = getNpcSleeTime(stage); //pc는 5ms당 한번 입력 
 
     //npc 위치
     vector<PatternNpc*> patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
