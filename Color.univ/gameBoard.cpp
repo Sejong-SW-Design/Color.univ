@@ -50,9 +50,9 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
         P.push_back(new PatternNpc({ 5, 17 }, { 4, 17 }, { 7, 17 }, ALCOHOL_NPC));
         P.push_back(new PatternNpc({ 5, 4 }, { 4, 4 }, { 7, 4 }, ALCOHOL_NPC));
         P.push_back(new PatternNpc({ 14, 13 }, { 11, 13 }, { 20, 13 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 19, 13 }, { 11, 13 }, { 20, 13 }, NORMAL_NPC)); //  정신사나우면 주석
+        //P.push_back(new PatternNpc({ 19, 13 }, { 11, 13 }, { 20, 13 }, NORMAL_NPC)); //ChasingNpc로 변경함
         P.push_back(new PatternNpc({ 14, 16 }, { 11, 16 }, { 20, 16 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 19, 16 }, { 11, 16 }, { 20, 16 }, NORMAL_NPC)); //  정신사나우면 주석
+        //P.push_back(new PatternNpc({ 19, 16 }, { 11, 16 }, { 20, 16 }, NORMAL_NPC)); //ChasingNpc로 변경함
         P.push_back(new PatternNpc({ 11, 15 }, { 11, 14 }, { 11, 15 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 20, 15 }, { 20, 14 }, { 20, 15 }, NORMAL_NPC));
 
@@ -75,6 +75,8 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
         break;
     case 3:
         C.push_back(new ChasingNpc({ 9, 4 }));
+        C.push_back(new ChasingNpc({ 19, 13 }));
+        C.push_back(new ChasingNpc({ 19, 16 }));
         break;
     }
     return C;

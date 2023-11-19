@@ -19,12 +19,13 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37])
 	deleteCharacter(gameMap);
 
 	Pos next = position;
-
+	
 	/*
 	if (changeD >= 1) {
 		getDrink(direction);
 	}
 	*/
+
 	//else {
 	switch (direction)
 	{
