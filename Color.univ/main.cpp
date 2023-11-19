@@ -12,6 +12,7 @@ extern Store myStore;
 //매니저에서 가져가주세요!
 int getNpcSleeTime(int stage)
 {
+    //각 맵별로 속도 조절 필요하면 더 해주세요!
     switch (stage)
     {
     case 1: return 150;
@@ -67,7 +68,5 @@ int main() {
     /*drawResultScreen(gameOver, 0);
     drawResultScreen(gameClear, 1);*/
 
-	//after game over
-	setCurrentCursorPos(100, 100);
 	return 0;
 }

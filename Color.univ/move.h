@@ -8,8 +8,8 @@
 #include<string>
 #include"util.h"
 #include"gameBoard.h"
-
-static int changeD = 0;
+//
+//static int changeD = 0;
 
 class Move
 {
@@ -20,11 +20,12 @@ protected:
 public:
 	Move(Position initPos, int color, std::string shape);
 	bool shiftCharacter(int direction, int gameMap[22][37]);
+	bool shiftCharacter(int direction, int gameMap[22][37], int alcoholNum);
 	void deleteCharacter(int gameMap[22][37]);
-	void getDrink(int direction);
 	void showCharacter();
 	int detectCollision(int gameMap[22][37], Pos nextPosition);
 	Pos getPosition();
+	Pos getDrinkNextPos(int direction, Pos now, int alcoholNum);
 	//void movingProcess(int gameMap[22][37], Player player) = 0;
 
 	static Pos getGBoardPos(Pos cursorPos)
@@ -48,11 +49,13 @@ public:
 class Player : public Move
 {
 private:
+	int alcoholNumber = -1; // -1¿Ã ¡§ªÛ
 public:
 	Player(Pos initPosition);
 	void movingProcess(int gameMap[22][37]);
 	void getItem(int gameMap[22][37]);
 	bool checkGoalIn(int gameMap[22][37]);
+	void setAlcoholNumber();
 };
 
 class PatternNpc : public Move

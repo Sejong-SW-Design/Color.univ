@@ -16,29 +16,33 @@ Move::Move(Position initPos, int color, std::string shape)
 
 bool Move::shiftCharacter(int direction, int gameMap[22][37])
 {
+	return shiftCharacter(direction, gameMap, -1);
+}
+
+bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum)
+{
 	deleteCharacter(gameMap);
 
 	Pos next = position;
-	
-	/*
-	if (changeD >= 1) {
-		getDrink(direction);
-	}
-	*/
 
-	//else {
-	switch (direction)
+	if (alcoholNum != -1)
 	{
-	case LEFT:
-		next.x -= 1; break;
-	case RIGHT:
-		next.x += 1; break;
-	case UP:
-		next.y -= 1; break;
-	case DOWN:
-		next.y += 1; break;
+		next = getDrinkNextPos(direction, position, alcoholNum);
 	}
-	//}
+	else
+	{
+		switch (direction)
+		{
+		case LEFT:
+			next.x -= 1; break;
+		case RIGHT:
+			next.x += 1; break;
+		case UP:
+			next.y -= 1; break;
+		case DOWN:
+			next.y += 1; break;
+		}
+	}
 
 	//게임보드 밖을 벗어나지 않도록
 	if (next.x < 0 || next.x >= GBOARD_WIDTH || next.y < 0 || next.y >= GBOARD_HEIGHT)
@@ -94,16 +98,16 @@ void Player::movingProcess(int gameMap[22][37])
 	switch (key)
 	{
 	case LEFT:
-		shifted = shiftCharacter(LEFT, gameMap);
+		shifted = shiftCharacter(LEFT, gameMap, alcoholNumber);
 		break;
 	case RIGHT:
-		shifted = shiftCharacter(RIGHT, gameMap);
+		shifted = shiftCharacter(RIGHT, gameMap, alcoholNumber);
 		break;
 	case UP:
-		shifted = shiftCharacter(UP, gameMap);
+		shifted = shiftCharacter(UP, gameMap, alcoholNumber);
 		break;
 	case DOWN:
-		shifted = shiftCharacter(DOWN, gameMap);
+		shifted = shiftCharacter(DOWN, gameMap, alcoholNumber);
 		break;
 	case SPACEBAR:
 		collaborateColor(position.x, position.y, gameMap);
@@ -123,7 +127,8 @@ void Player::movingProcess(int gameMap[22][37])
 	}
 	if (gameMap[position.y][position.x] == ALCOHOL_NPC)
 	{
-		changeD++;
+		//changeD++;
+		setAlcoholNumber();
 	}
 
 }
@@ -172,6 +177,16 @@ bool Player::checkGoalIn(int gameMap[22][37])
 	return false;
 }
 
+void Player::setAlcoholNumber()
+{
+	srand((unsigned int)time(NULL));
+	int prev = alcoholNumber;
+	while (prev == alcoholNumber)
+	{
+		alcoholNumber = rand() % 23;
+	}
+}
+
 PatternNpc::PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSort)
 	:Move(initPosition, 12, (npcSort == NORMAL_NPC ? "△" : "§"))
 {
@@ -202,7 +217,7 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 	{
 		if (npcSort == ALCOHOL_NPC)
 		{
-			changeD++;
+			player.setAlcoholNumber();
 		}
 		if (npcSort == NORMAL_NPC)
 			setScore(1, -1.5);

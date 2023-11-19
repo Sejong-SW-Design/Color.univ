@@ -1,8 +1,8 @@
 #ifndef __ITEM_H__
 #define __ITEM_H__
 
-#include "gameBoard.h"
 #include <Windows.h>
+#include "gameBoard.h"
 
 typedef struct store {
 	int color1 = 0 , color2 = 0;

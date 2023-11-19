@@ -143,10 +143,11 @@ void primeItemCollision(int posX, int posY, int gameMap[22][37]) {
 }
 
 
-void Move::getDrink(int direction) {
-	Pos next = position;
+Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
+	Pos next = now;
 
-	int n = rand() % 23; 
+	//int n = rand() % 23; 
+	int n = alcoholNum;
 
 	if (n == 0) {
 		switch (direction){
@@ -332,5 +333,7 @@ void Move::getDrink(int direction) {
 		case DOWN: next.y -= 1; break;
 		}
 	}
+
+	return next;
 }
 
