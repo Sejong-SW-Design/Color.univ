@@ -7,6 +7,7 @@
 #include "manager.h"
 
 extern Store myStore;
+extern double score[5];
 
 //스테이지별로 속도 조절이 필요할 것 같아서 만든 함수(이지호)
 //매니저에서 가져가주세요!
@@ -28,7 +29,9 @@ int main() {
 	removeCursor();
 
     int gameMapHere[22][37];
-    int stage = 3; // stage 자리 원하는 곳에 옮겨주세요 - 전루피
+    int stage = 1; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
+
+    // 여기서부터 while문 돌게 하는 거 어뗘 - 뤂
     getStage(gameMapHere, stage);
 
 	drawGameBoard(gameMapHere); 
@@ -55,6 +58,9 @@ int main() {
             if (player->checkGoalIn(gameMapHere))
             {
                 drawResultScreen(gameClear, 1);
+                drawGameResult(score,stage); // 게임 점수 확인 -> 게임보드 헤더파일에 있어용
+                stage++;
+                //
                 return 0;
             }
 

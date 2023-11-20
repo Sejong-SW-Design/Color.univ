@@ -2,6 +2,8 @@
 #define __GAMEBOARD_H__
 
 #include <stdio.h>
+#include <cstring>
+#include <cstdlib>
 #include <iostream>
 #include <Windows.h>
 #include <ctime>
@@ -111,7 +113,7 @@ void drawStore();
 
 void updateStore(int color1,int color2); // 새로 생성
 
-void drawInfo(double score[], int grade); // score[0]은 평균
+void drawInfo(double *score, int grade); // score[0]은 평균
 
 void drawBossLife();
 
@@ -125,12 +127,12 @@ void removeBossLife();
 
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]);
 
-void drawGameResult();
-
-void removeGameResult();
+void drawGameResult(double* score, int stage);
 
 Pos setPcInitPos(int stage); // PC 위치 초기화 설정
 vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P);
 vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C);
+
+string calculate(double score);
 
 #endif

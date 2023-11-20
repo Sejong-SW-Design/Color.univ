@@ -1,6 +1,8 @@
 #include "gameBoard.h"
 #include "move.h"
 
+//점수 계산 맨 밑에 있어용
+
 vector<pair<int, int>>Exits; //비상구 배열
 vector<pair<int, int>>dots; 
 extern double score[5];
@@ -22,7 +24,8 @@ Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
 
 vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
 {
-    //좌표 찍는 거 어렵네요...
+    P.clear();
+
     switch (stage)
     {
     case 1:
@@ -64,6 +67,8 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
 
 vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
 {
+    C.clear();
+
     switch (stage)
     {
     case 1:
@@ -457,15 +462,15 @@ void drawStore()
 }
 
 
-void drawInfo(double *score, int gradeIdx)
+void drawInfo(double *score, int stage)
 {
     setCurrentCursorPos(14, 1);
-    printf("[%d 학년]", gradeIdx);
+    printf("[%d 학년]", stage);
 
-    setCurrentCursorPos(33, 1);
-    printf("현재 학점 : %.1f", score[gradeIdx]);
+    setCurrentCursorPos(34, 1);
+    printf("현재 학점 : %.1f", score[stage]);
 
-    setCurrentCursorPos(58, 1);
+    setCurrentCursorPos(60, 1);
     printf("평균 학점 : %.1f", score[0]);
 }
 
@@ -559,8 +564,65 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // �
     return Exits[idx];
 }
 
-//void drawGameResult();
+void drawGameResult(double* score, int stage)
+{
+    Sleep(1500);
 
-//void removeGameResult();
+    system("cls");
+
+    setBackgroundColor(0, 14);
+    setCurrentCursorPos(35, 10);
+    printf("[  %d 학년  ]",stage);
+
+
+    setBackgroundColor(0, 15);
+    setCurrentCursorPos(33, 13);
+    printf("최종 학점 : %.1f  %s", score[stage],calculate(score[stage]).c_str());
+
+
+    setCurrentCursorPos(33, 15);
+    printf("평균 학점 : %.1f", score[0]);
+
+    setCurrentCursorPos(28, 18);
+    printf("곧 다음 학년으로 넘어갑니다...");
+
+    Sleep(3000);
+
+}
+
+string calculate(double score) // 학점 계산
+{
+    string result;
+    if (score == 4.5)
+    {
+        result = "A+";
+    }
+    else if (score == 4.0)
+    {
+        result = "A0";
+    }
+    else if (score == 3.5)
+    {
+        result = "B+";
+    }
+    else if (score == 3.0)
+    {
+        result = "B0";
+    }
+    else if (score == 2.5)
+    {
+        result = "C+";
+    }
+    else if (score == 2.0)
+    {
+        result = "C-";
+    }
+    else
+    {
+        result = "F";
+    }
+    return result;
+}
+
 
 
