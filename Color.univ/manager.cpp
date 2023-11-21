@@ -1,6 +1,7 @@
 #include "manager.h"
 
 double score[5] = { 4.5, 4.5, 4.5, 4.5, 4.5 };
+int stage; //추가함요 - 뤂
 extern int gameMap1[22][37];
 extern int gameMap2[22][37];
 extern int gameMap3[22][37];

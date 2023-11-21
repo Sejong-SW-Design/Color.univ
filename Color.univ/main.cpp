@@ -8,6 +8,7 @@
 
 extern Store myStore;
 extern double score[5];
+extern int stage; // 추가해써요 - 뤂
 
 //스테이지별로 속도 조절이 필요할 것 같아서 만든 함수(이지호)
 //매니저에서 가져가주세요!
@@ -29,12 +30,13 @@ int main() {
 	removeCursor();
 
     int gameMapHere[22][37];
-    int stage = 1; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
+    stage = 1; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
-    // 여기서부터 while문 돌게 하는 거 어뗘 - 뤂
+    //while 문
     getStage(gameMapHere, stage);
 
 	drawGameBoard(gameMapHere,stage); 
+    eraseColor(0, 0, gameMapHere); // 게임 시작할 때 색저장소 초기화
 
     //초기위치
     Pos playerInitPos = setPcInitPos(stage); 

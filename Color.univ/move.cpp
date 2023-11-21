@@ -4,7 +4,7 @@
 #include "manager.h"
 
 extern double score[5];
-
+extern int stage;
 
 Move::Move(Position initPos, int color, std::string shape)
 {
@@ -124,11 +124,13 @@ void Player::movingProcess(int gameMap[22][37])
 	if (gameMap[position.y][position.x] == NORMAL_NPC)
 	{
 		setScore(1, -1.5);
+		//drawInfoHit(score, stage); // 미완
 	}
 	if (gameMap[position.y][position.x] == ALCOHOL_NPC)
 	{
 		//changeD++;
 		setAlcoholNumber();
+		//drawInfoHit(score, stage); // 미완
 	}
 
 }

@@ -113,7 +113,9 @@ void drawStore();
 
 void updateStore(int color1,int color2); // »õ·Î »ý¼º
 
-void drawInfo(double *score, int grade); // score[0]Àº Æò±Õ
+void drawInfo(double* score, int stage); // score[0]Àº Æò±Õ
+
+void drawInfoHit(double* score, int stage);
 
 void drawBossLife();
 

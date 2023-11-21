@@ -6,15 +6,16 @@
 vector<pair<int, int>>Exits; //비상구 배열
 
 extern double score[5];
+extern int stage;
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
 {
     switch (stage)
     {
-    case 1: case 3:
-        return { 1,10 };
-    case 2:
+    case 1:
         return { 18,0 };
+    case 2: case 3:
+        return  { 1, 10 };
     case 4:
         return { 1,10 }; //  임시
     default:
@@ -29,11 +30,6 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
     switch (stage)
     {
     case 1:
-        P.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, NORMAL_NPC));
-        break;
-    case 2:
         P.push_back(new PatternNpc({ 32,8 }, { 32,7 }, { 32,14 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 23,8 }, { 22,8 }, { 26,8 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 23,13 }, { 22,13 }, { 26,13 }, NORMAL_NPC));
@@ -44,6 +40,11 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
         P.push_back(new PatternNpc({ 19,8 }, { 19,6 }, { 19,15 }, ALCOHOL_NPC));
         P.push_back(new PatternNpc({ 17,1 }, { 16,1 }, { 20,1 }, ALCOHOL_NPC));
 
+        break;
+    case 2:
+        P.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, NORMAL_NPC));
         break;
     case 3:
         P.push_back(new PatternNpc({ 34,9 }, { 34,8 }, { 34,10 }, NORMAL_NPC));
@@ -72,11 +73,11 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
     switch (stage)
     {
     case 1:
-        C.push_back(new ChasingNpc({ 26, 5 }));
-        break;
-    case 2:
         C.push_back(new ChasingNpc({ 5, 17 }));
         C.push_back(new ChasingNpc({ 31, 4 })); //  정신 사나우면 없애기 (일단 맵 그린대로 했음)
+        break;
+    case 2:
+        C.push_back(new ChasingNpc({ 26, 5 }));
         break;
     case 3:
         C.push_back(new ChasingNpc({ 9, 4 }));
@@ -188,7 +189,7 @@ void drawGameBoard(int gameMap[22][37],int stage)
     drawInfo(score, stage);
     drawStore();
     drawGameEdge();
-    //if (gradeidx == 4) drawBossLife();
+    if (stage == 4) drawBossLife();
 
     Exits.clear();
 
@@ -466,6 +467,24 @@ void drawStore()
 
 void drawInfo(double *score, int stage)
 {
+    setCurrentCursorPos(14, 1); 
+
+    printf("[%d 학년]", stage);
+
+    setCurrentCursorPos(34, 1);
+
+    printf("현재 학점 : %.1f", score[stage]);
+
+    setCurrentCursorPos(60, 1);
+
+    printf("평균 학점 : %.1f", score[0]);
+}
+
+
+void drawInfoHit(double* score, int stage)
+{
+    setBackgroundColor(0, 12); // 빨간색
+
     setCurrentCursorPos(14, 1);
     printf("[%d 학년]", stage);
 
@@ -474,7 +493,12 @@ void drawInfo(double *score, int stage)
 
     setCurrentCursorPos(60, 1);
     printf("평균 학점 : %.1f", score[0]);
+
+    Sleep(50);
+    setBackgroundColor(0, 15); // 하얀색
+    drawInfo(score,stage);
 }
+
 
 
 void drawBossLife()
