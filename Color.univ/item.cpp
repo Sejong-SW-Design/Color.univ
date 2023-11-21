@@ -4,6 +4,7 @@
 
 Store myStore = { 0,0 };
 extern double score[5];
+extern int stage;
 
 
 void eraseColor(int posX, int posY, int gameMap[22][37]) {
@@ -138,8 +139,8 @@ void chageNumBTS(int color1, int color2) {
 
 void primeItemCollision(int posX, int posY, int gameMap[22][37]) {
 	gameMap[posY][posX] = 0;
-	setScore(1, 0.5);
-	drawInfo(score, 1);
+	setScore(stage, 0.5);
+	drawInfoOriginal(score, stage);
 }
 
 
