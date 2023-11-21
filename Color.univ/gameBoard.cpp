@@ -598,7 +598,7 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // �
 
 void drawGameResult(double* score, int stage)
 {
-    Sleep(1500);
+    Sleep(1300);
 
     system("cls");
 
@@ -615,11 +615,32 @@ void drawGameResult(double* score, int stage)
     setCurrentCursorPos(33, 15);
     printf("평균 학점 : %.1f", score[0]);
 
-    if (stage != 4)
+
+    if (stage == 1)
     {
-        setCurrentCursorPos(28, 18);
-        printf("곧 다음 학년으로 넘어갑니다...");
+        setCurrentCursorPos(29, 18);
+        setBackgroundColor(0, 7);
+        printf("2학년에는 술이 등장합니다");
     }
+    else if (stage == 2)
+    {
+        setCurrentCursorPos(32, 18);
+        setBackgroundColor(0, 7);
+        printf("3학년에는 몰라 아직");
+    }
+    else if (stage == 3)
+    {
+        setCurrentCursorPos(29, 18);
+        setBackgroundColor(0, 7);
+        printf("4학년에는 보스가 등장해요");
+    }
+    else if (stage == 4)
+    {
+        setCurrentCursorPos(37, 18);
+        setBackgroundColor(0, 3);
+        printf("축★졸업");
+    }
+
 
     Sleep(2500);
 
