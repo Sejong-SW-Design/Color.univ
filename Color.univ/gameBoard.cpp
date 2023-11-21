@@ -209,7 +209,7 @@ void drawGameEdge()
 {
     int x, y;
 
-    int origin_x1 = 4, origin_y1 = 2, h = 24, w = 38;
+    int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;
     for (y = 0; y <= h; y++)
     {
         setCurrentCursorPos(origin_x1, origin_y1 + y);
