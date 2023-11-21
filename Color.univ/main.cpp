@@ -30,7 +30,7 @@ int main() {
 	removeCursor();
 
     int gameMapHere[22][37];
-    stage = 4; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
+    stage = 2 ; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
     //while 문
     getStage(gameMapHere, stage);

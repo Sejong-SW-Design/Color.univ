@@ -123,7 +123,7 @@ void Player::movingProcess(int gameMap[22][37])
 	//npc와 충돌 확인
 	if (gameMap[position.y][position.x] == NORMAL_NPC)
 	{
-		setScore(1, -1.5);
+		setScore(stage, -1.5);
 		drawInfoMinus(score, stage); // 미완
 	}
 	if (gameMap[position.y][position.x] == ALCOHOL_NPC)
@@ -225,7 +225,7 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 		}
 		if (npcSort == NORMAL_NPC)
 		{
-			setScore(1, -1.5);
+			setScore(stage, -1.5);
 			drawInfoMinus(score, stage);
 		}
 	}
@@ -272,7 +272,7 @@ void ChasingNpc::movingProcess(int gameMap[22][37], Player player)
 	//3. check collision
 	if (position == player.getPosition())
 	{
-		setScore(1, -1.5);
+		setScore(stage, -1.5);
 		drawInfoMinus(score, stage);
 	}
 
