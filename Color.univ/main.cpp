@@ -30,7 +30,7 @@ int main() {
 	removeCursor();
 
     int gameMapHere[22][37];
-    stage = 1; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
+    stage = 4; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
     //while 문
     getStage(gameMapHere, stage);
@@ -56,11 +56,22 @@ int main() {
         int pcMoveCnt = npcSleepTime / 5;
         for (int i = 0; i < pcMoveCnt; i++)
         {
-            player->movingProcess(gameMapHere); //gameMap1
+            player->movingProcess(gameMapHere); 
+            // game over - 뤂
+            /*
+            if (score[stage] == 0)
+            {
+                drawResultScreen(gameOver, 0);
+                drawGameResult(score, stage);
+                stage++;
+                //
+                return 0;
+            }
+            */
             if (player->checkGoalIn(gameMapHere))
             {
                 drawResultScreen(gameClear, 1);
-                drawGameResult(score,stage); // 게임 점수 확인 -> 게임보드 헤더파일에 있어용
+                drawGameResult(score, stage); // 게임 점수 확인 -> 게임보드 헤더파일에 있어용
                 stage++;
                 //
                 return 0;

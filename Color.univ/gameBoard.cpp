@@ -74,8 +74,8 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
     switch (stage)
     {
     case 1:
-        C.push_back(new ChasingNpc({ 5, 17 }));
-        C.push_back(new ChasingNpc({ 31, 4 })); //  정신 사나우면 없애기 (일단 맵 그린대로 했음)
+        //C.push_back(new ChasingNpc({ 5, 17 })); //  정신 사나워서 주석
+        C.push_back(new ChasingNpc({ 31, 4 })); 
         break;
     case 2:
         C.push_back(new ChasingNpc({ 26, 5 }));
@@ -507,7 +507,7 @@ void drawInfoPlus(double* score, int stage)
 void drawBossLife()
 {
     int x, y;
-    int origin_x = 84, origin_y = 8, h = 15, w = 1;
+    int origin_x = 85, origin_y = 7, h = 15, w = 1;
     for (y = 0; y <= h; y++)
     {
         setCurrentCursorPos(origin_x, origin_y + y);
@@ -537,18 +537,7 @@ void drawBossLife()
 
 }
 
-void drawAttackdot(int gameMap[22][37])
-{
-    srand((unsigned int)time(NULL));
 
-    // 미완
-
-    return;
-}
-
-//void removeAttackDot();
-
-//void removeAttackTouchedWall();
 
 void removeBossLife()
 {
@@ -612,8 +601,11 @@ void drawGameResult(double* score, int stage)
     setCurrentCursorPos(33, 15);
     printf("평균 학점 : %.1f", score[0]);
 
-    setCurrentCursorPos(28, 18);
-    printf("곧 다음 학년으로 넘어갑니다...");
+    if (stage != 4)
+    {
+        setCurrentCursorPos(28, 18);
+        printf("곧 다음 학년으로 넘어갑니다...");
+    }
 
     Sleep(2500);
 
