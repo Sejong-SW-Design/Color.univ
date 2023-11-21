@@ -4,7 +4,7 @@
 //점수 계산 맨 밑에 있어용
 
 vector<pair<int, int>>Exits; //비상구 배열
-vector<pair<int, int>>dots; 
+
 extern double score[5];
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
@@ -183,12 +183,14 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
     }
 }
 
-void drawGameBoard(int gameMap[22][37])
+void drawGameBoard(int gameMap[22][37],int stage)
 {
-    drawInfo(score, 1);
+    drawInfo(score, stage);
     drawStore();
     drawGameEdge();
     //if (gradeidx == 4) drawBossLife();
+
+    Exits.clear();
 
     for (int i = 0; i < 22; i++)
     {
@@ -586,7 +588,7 @@ void drawGameResult(double* score, int stage)
     setCurrentCursorPos(28, 18);
     printf("곧 다음 학년으로 넘어갑니다...");
 
-    Sleep(3000);
+    Sleep(2500);
 
 }
 
@@ -615,7 +617,7 @@ string calculate(double score) // 학점 계산
     }
     else if (score == 2.0)
     {
-        result = "C-";
+        result = "C0";
     }
     else
     {

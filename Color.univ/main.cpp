@@ -34,7 +34,7 @@ int main() {
     // 여기서부터 while문 돌게 하는 거 어뗘 - 뤂
     getStage(gameMapHere, stage);
 
-	drawGameBoard(gameMapHere); 
+	drawGameBoard(gameMapHere,stage); 
 
     //초기위치
     Pos playerInitPos = setPcInitPos(stage); 

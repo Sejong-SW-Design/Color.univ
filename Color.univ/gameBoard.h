@@ -103,7 +103,7 @@ using namespace std;
 void drawOnePoint(int gameMap[22][37], int i, int j, int backGround);
 void drawOnePoint(int gameMap[22][37], int i, int j);
 
-void drawGameBoard(int gameMap[22][37]);
+void drawGameBoard(int gameMap[22][37], int stage);
 
 void drawGameEdge();
 
