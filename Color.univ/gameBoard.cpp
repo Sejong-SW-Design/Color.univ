@@ -30,14 +30,14 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
     switch (stage)
     {
     case 1:
-        P.push_back(new PatternNpc({ 32,8 }, { 32,7 }, { 32,14 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 32,13 }, { 32,12 }, { 32,14 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 23,8 }, { 22,8 }, { 26,8 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 23,13 }, { 22,13 }, { 26,13 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 22,10 }, { 22,9 }, { 22,12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 26,10 }, { 26,9 }, { 26,12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 11,11 }, { 10,11 }, { 14,11 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 4,10 }, { 4,7 }, { 4,14 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 19,8 }, { 19,6 }, { 19,15 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 4,13 }, { 4,12 }, { 4,14 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19,10 }, { 19,9 }, { 19,12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 17,1 }, { 16,1 }, { 20,1 }, NORMAL_NPC));
 
         break;
