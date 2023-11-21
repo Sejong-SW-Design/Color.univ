@@ -99,13 +99,13 @@ void drawPauseScreen() {
 }
 
 
-void setScore(int gradeidx, double s) {
+void setScore(int stage, double s) {
     //나 실험좀 해보려고 잠시 주석처리했으
 	//if (score[gradeidx] >= 4.5) return;
-	score[gradeidx] += s;
+	score[stage] += s;
 
     //언니 내가 충돌 확인하고싶어서 임시로 추가했어!!
-    drawInfo(score, 1);
+    drawInfo(score, stage);
 }
 
 //void drawStartScreen();

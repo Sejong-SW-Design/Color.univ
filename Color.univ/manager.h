@@ -21,7 +21,7 @@ int keyControl();
 
 void drawPauseScreen();
 
-void setScore(int gradeidx, double s);
+void setScore(int stage, double s);
 //
 //void drawStartScreen();
 //

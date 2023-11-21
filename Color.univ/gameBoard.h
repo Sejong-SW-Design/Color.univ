@@ -123,6 +123,8 @@ void drawInfoPlus(double* score, int stage);
 
 void drawBossLife();
 
+void updateBossLife(int damage);
+
 void drawAttackdot();
 
 void removeAttackDot();
@@ -140,5 +142,7 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P);
 vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C);
 
 string calculate(double score);
+
+
 
 #endif

@@ -245,6 +245,7 @@ void drawGameEdge()
     }
 }
 
+
 //벽 해제 애니메이션 때문이 임시로 만들었었으(이지호)
 int getWallColor(int gameBoardWallNumber)
 {
@@ -535,8 +536,21 @@ void drawBossLife()
     setCurrentCursorPos(origin_x, origin_y + h + 1);
     printf("[Boss]");
 
+
+    updateBossLife(0);
 }
 
+void updateBossLife(int damage)
+{
+    int y;
+    int origin_x = 87, origin_y = 6 + damage, h = 15, w = 1;
+    for (y = 1; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x, origin_y + y);
+        setBackgroundColor(0, 12);
+        printf("■");
+    }
+}
 
 
 void removeBossLife()
