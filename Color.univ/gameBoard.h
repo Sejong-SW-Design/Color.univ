@@ -115,7 +115,11 @@ void updateStore(int color1,int color2); // 새로 생성
 
 void drawInfo(double* score, int stage); // score[0]은 평균
 
-void drawInfoHit(double* score, int stage);
+void drawInfoOriginal(double* score, int stage);
+
+void drawInfoMinus(double* score, int stage);
+
+void drawInfoPlus(double* score, int stage);
 
 void drawBossLife();
 

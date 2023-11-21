@@ -15,7 +15,7 @@ Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
     case 1:
         return { 18,0 };
     case 2: case 3:
-        return  { 1, 10 };
+        return  { 1,10 };
     case 4:
         return { 1,10 }; //  임시
     default:
@@ -36,15 +36,16 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
         P.push_back(new PatternNpc({ 22,10 }, { 22,9 }, { 22,12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 26,10 }, { 26,9 }, { 26,12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 11,11 }, { 10,11 }, { 14,11 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 4,10 }, { 4,7 }, { 4,14 }, ALCOHOL_NPC));
-        P.push_back(new PatternNpc({ 19,8 }, { 19,6 }, { 19,15 }, ALCOHOL_NPC));
-        P.push_back(new PatternNpc({ 17,1 }, { 16,1 }, { 20,1 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 4,10 }, { 4,7 }, { 4,14 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19,8 }, { 19,6 }, { 19,15 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 17,1 }, { 16,1 }, { 20,1 }, NORMAL_NPC));
 
         break;
     case 2:
         P.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, ALCOHOL_NPC)); // 술 변경
+        P.push_back(new PatternNpc({ 12, 10 }, { 12, 8 }, { 12, 13 }, ALCOHOL_NPC)); // 술 추가
         break;
     case 3:
         P.push_back(new PatternNpc({ 34,9 }, { 34,8 }, { 34,10 }, NORMAL_NPC));
@@ -186,10 +187,12 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
 
 void drawGameBoard(int gameMap[22][37],int stage)
 {
-    drawInfo(score, stage);
-    drawStore();
     drawGameEdge();
+    drawStore();
     if (stage == 4) drawBossLife();
+
+    drawInfoOriginal(score, stage);
+
 
     Exits.clear();
 
@@ -468,38 +471,38 @@ void drawStore()
 void drawInfo(double *score, int stage)
 {
     setCurrentCursorPos(14, 1); 
-
     printf("[%d 학년]", stage);
 
     setCurrentCursorPos(34, 1);
-
     printf("현재 학점 : %.1f", score[stage]);
 
     setCurrentCursorPos(60, 1);
-
     printf("평균 학점 : %.1f", score[0]);
 }
 
+void drawInfoOriginal(double* score, int stage)
+{
+    setBackgroundColor(0, 15);
+    drawInfo(score, stage);
+}
 
-void drawInfoHit(double* score, int stage)
+void drawInfoMinus(double* score, int stage)
 {
     setBackgroundColor(0, 12); // 빨간색
+    drawInfo(score, stage);
 
-    setCurrentCursorPos(14, 1);
-    printf("[%d 학년]", stage);
-
-    setCurrentCursorPos(34, 1);
-    printf("현재 학점 : %.1f", score[stage]);
-
-    setCurrentCursorPos(60, 1);
-    printf("평균 학점 : %.1f", score[0]);
-
-    Sleep(50);
-    setBackgroundColor(0, 15); // 하얀색
-    drawInfo(score,stage);
+    Sleep(150);
+    drawInfoOriginal(score, stage);
 }
 
+void drawInfoPlus(double* score, int stage)
+{
+    setBackgroundColor(0, 9); // 파랑색
+    drawInfo(score, stage);
 
+    Sleep(150);
+    drawInfoOriginal(score, stage);
+}
 
 void drawBossLife()
 {

@@ -124,13 +124,13 @@ void Player::movingProcess(int gameMap[22][37])
 	if (gameMap[position.y][position.x] == NORMAL_NPC)
 	{
 		setScore(1, -1.5);
-		//drawInfoHit(score, stage); // 미완
+		drawInfoMinus(score, stage); // 미완
 	}
 	if (gameMap[position.y][position.x] == ALCOHOL_NPC)
 	{
 		//changeD++;
 		setAlcoholNumber();
-		//drawInfoHit(score, stage); // 미완
+		drawInfoMinus(score, stage); // 미완
 	}
 
 }
@@ -159,6 +159,7 @@ void Player::getItem(int gameMap[22][37])
 	if (itemSort == PRIME)      // 족보
 	{
 		primeItemCollision(position.x, position.y, gameMap);
+		drawInfoPlus(score, stage);
 	}
 	if (itemSort == ERASER)
 	{
@@ -220,9 +221,13 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 		if (npcSort == ALCOHOL_NPC)
 		{
 			player.setAlcoholNumber();
+			drawInfoMinus(score, stage);
 		}
 		if (npcSort == NORMAL_NPC)
+		{
 			setScore(1, -1.5);
+			drawInfoMinus(score, stage);
+		}
 	}
 
 	player.showCharacter(); //플레이어를 지워버리지 않도록
@@ -268,6 +273,7 @@ void ChasingNpc::movingProcess(int gameMap[22][37], Player player)
 	if (position == player.getPosition())
 	{
 		setScore(1, -1.5);
+		drawInfoMinus(score, stage);
 	}
 
 	player.showCharacter(); //플레이어를 지워버리지 않도록
