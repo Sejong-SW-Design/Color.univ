@@ -85,7 +85,7 @@ enum GAME_BOARD
     PRIME,//31
     ERASER,//32
     LIFE,//33
-    STOP,//34
+    SPEED,//34
 
 
     //PC NPC

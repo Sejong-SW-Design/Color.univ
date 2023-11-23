@@ -167,6 +167,10 @@ void Player::getItem(int gameMap[22][37])
 		eraseColor(position.x, position.y, gameMap);
 	}
 
+	// SPEED 추가
+
+	// LIFE 추가
+
 	//지우야 여길 없애고 npc 충돌검사에서 changeD 부를게(이지호)
 	//if (itemSort == ALCOHOL_NPC) {
 	//	changeD++;
