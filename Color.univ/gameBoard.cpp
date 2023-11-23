@@ -180,6 +180,13 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
 
     case EMERGENCY_EXIT:
         setBackgroundColor(backGround, 2); printf("▥");
+        for (int k = 0; k < Exits.size(); k++) // 이거 안해서 비상구 이상했음
+        {
+            if (Exits[k].first == j && Exits[k].second == i) //같은 것이 있다면
+            {
+                break;
+            }
+        }
         Exits.push_back(make_pair(i, j));
         break;
     case PRIME:
@@ -679,12 +686,12 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // �
 {
     srand((unsigned int)time(NULL));
     
-    int idx = rand() % Exits.size(); // 나올 비상구 idx
+    int idx = rand() % (Exits.size()); // 나올 비상구 idx
 
 
     while (Exits[idx].first == posY && Exits[idx].second == posX) //현재와 같은 위치로 나오면 안된다.
     {     
-        idx = rand() % Exits.size();
+        idx = rand() % (Exits.size());
     }
 
     return Exits[idx];
