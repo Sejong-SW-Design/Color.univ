@@ -138,10 +138,12 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]);
 void drawGameResult(double* score, int stage);
 
 Pos setPcInitPos(int stage); // PC 위치 초기화 설정
+
 vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P);
+
 vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C);
 
-string calculate(double score);
+string calculate(double score); // 점수 계산
 
 void drawLifeEdge();
 

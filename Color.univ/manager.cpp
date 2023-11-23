@@ -116,8 +116,11 @@ int drawPauseScreen() {
 
 
 void setScore(int stage, double s) {
-	if (score[stage] > 4.5 || score[stage] <= 0) return; // 4.5에서 점수가 안 내려가길래 4.5 부등호에서 "="만 뺐어요! -뤂
+	if (score[stage] > 4.5 || score[stage] <= 0) return; 
+    // 4.5에서 npc 부딪혀도 점수가 안 내려가길래 4.5 부등호에서 "="만 뺐어요! -뤂
+    // 근데 부등호 빼니까 족보 먹어서 5.0 되네...? 
 	score[stage] += s;
+    if (score[stage] > 4.5) score[stage] = 4.5; // 그래서 임시방편으로 이거 만들어놨어요! 나중에 마음대로 고쳐주세용 -뤂
 
     drawInfo(score, stage); 
 }

@@ -5,6 +5,7 @@
 Store myStore = { 0,0 };
 extern double score[5];
 extern int stage;
+extern vector<int>Life; // 하트 배열 -> gameboard.cpp 참고 .뤂
 
 
 void eraseColor(int posX, int posY, int gameMap[22][37]) {
@@ -14,7 +15,7 @@ void eraseColor(int posX, int posY, int gameMap[22][37]) {
 	myStore.color1 = 0;
 	myStore.color2 = 0;
 	myStore.capacity = 0;		// 용량 초기화
-	updateStore(myStore.color1, myStore.color2); // 게임보드 store 색상 업데이트  -지원-
+	updateStore(myStore.color1, myStore.color2); 
 }
 
 
