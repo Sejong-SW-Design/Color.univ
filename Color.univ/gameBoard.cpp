@@ -667,11 +667,12 @@ void removeBossLife()
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
 {
     srand((unsigned int)time(NULL));
-
+    
     int idx = rand() % Exits.size(); // 나올 비상구 idx
 
+
     while (Exits[idx].first == posY && Exits[idx].second == posX) //현재와 같은 위치로 나오면 안된다.
-    {
+    {     
         idx = rand() % Exits.size();
     }
 
