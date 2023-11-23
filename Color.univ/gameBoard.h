@@ -84,7 +84,7 @@ enum GAME_BOARD
     EMERGENCY_EXIT,//30
     PRIME,//31
     ERASER,//32
-    HIDDEN,//33
+    LIFE,//33
     STOP,//34
 
 
@@ -125,11 +125,11 @@ void drawBossLife();
 
 void updateBossLife(int damage);
 
-void drawAttackdot();
+//void drawAttackdot();
 
-void removeAttackDot();
+//void removeAttackDot();
 
-void removeAttackTouedWall();
+//void removeAttackTouedWall();
 
 void removeBossLife();
 
@@ -143,6 +143,9 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C);
 
 string calculate(double score);
 
+void drawLifeEdge();
+
+void updateLife();
 
 
 #endif

@@ -2,7 +2,7 @@
 #include <chrono>
 
 double score[5] = { 4.5, 4.5, 4.5, 4.5, 4.5 };
-int stage; //추가함요 - 뤂
+int stage; 
 extern int gameMap1[22][37];
 extern int gameMap2[22][37];
 extern int gameMap3[22][37];
@@ -116,10 +116,10 @@ int drawPauseScreen() {
 
 
 void setScore(int stage, double s) {
-	if (score[stage] >= 4.5 || score[stage] <= 0) return;
+	if (score[stage] > 4.5 || score[stage] <= 0) return; // 4.5에서 점수가 안 내려가길래 4.5 부등호에서 "="만 뺐어요! -뤂
 	score[stage] += s;
 
-    drawInfo(score, stage);
+    drawInfo(score, stage); 
 }
 
 //void drawStartScreen();
@@ -148,6 +148,9 @@ void drawDevInfo() { // 임시화면
 //
 //void drawStageEnding();
 //
+
+// 하트 지워지는 것도 넣어주세용~ -뤂
+
 void drawResultScreen(int gameResult[22][37], int check) {
     setCurrentCursorPos(12, 28);
     printf("                                     ");

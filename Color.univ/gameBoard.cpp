@@ -4,6 +4,7 @@
 //점수 계산 맨 밑에 있어용
 
 vector<pair<int, int>>Exits; //비상구 배열
+vector<int>Life; // 하트 배열
 
 extern double score[5];
 extern int stage;
@@ -30,14 +31,14 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
     switch (stage)
     {
     case 1:
-        P.push_back(new PatternNpc({ 32,13 }, { 32,12 }, { 32,14 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 32,13 }, { 32,7 }, { 32,14 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 23,8 }, { 22,8 }, { 26,8 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 23,13 }, { 22,13 }, { 26,13 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 22,10 }, { 22,9 }, { 22,12 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 26,10 }, { 26,9 }, { 26,12 }, NORMAL_NPC));
+        //P.push_back(new PatternNpc({ 22,10 }, { 22,9 }, { 22,12 }, NORMAL_NPC));
+        //P.push_back(new PatternNpc({ 26,10 }, { 26,9 }, { 26,12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 11,11 }, { 10,11 }, { 14,11 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 4,13 }, { 4,12 }, { 4,14 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 19,10 }, { 19,9 }, { 19,12 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 4,13 }, { 4,7 }, { 4,14 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19,10 }, { 19,6 }, { 19,15 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 17,1 }, { 16,1 }, { 20,1 }, NORMAL_NPC));
 
         break;
@@ -101,7 +102,9 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
     switch (gameMap[i][j])
     {
     case NORMAL_WALL:
-        setBackgroundColor(backGround, 7); printf("■"); break;
+        if (stage == 4) setBackgroundColor(backGround, 8); // 어두운 회색
+        else setBackgroundColor(backGround, 7); // 그냥 회색
+        printf("■"); break;
     case BLANK:
         setBackgroundColor(backGround, backGround); printf("■"); break;
     case GOAL:
@@ -172,8 +175,8 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
         setBackgroundColor(backGround, 6); printf("★"); break;
     case ERASER:
         setBackgroundColor(backGround, 15); printf("ⓔ"); break;
-    case HIDDEN:
-        setBackgroundColor(backGround, 13); printf("♥"); break;
+    case LIFE:
+        setBackgroundColor(backGround, 4); printf("♥"); break; // npc랑 헷갈릴까봐 다크 레드 사용
     case STOP:
         setBackgroundColor(backGround, 7); printf("※"); break;
     case NORMAL_NPC:
@@ -189,7 +192,8 @@ void drawGameBoard(int gameMap[22][37],int stage)
 {
     drawGameEdge();
     drawStore();
-    if (stage == 4) drawBossLife();
+    drawLifeEdge();
+    //if (stage == 4) drawBossLife();
 
     drawInfoOriginal(score, stage);
 
@@ -208,7 +212,6 @@ void drawGameBoard(int gameMap[22][37],int stage)
 void drawGameEdge()
 {
     int x, y;
-    setBackgroundColor(0, 15);
 
     int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;
     for (y = 0; y <= h; y++)
@@ -391,7 +394,6 @@ void updateStore(int color1, int color2) // 새로 만듦 -> ppt에 추가해야함
 void drawStore() 
 {
     int x, y;
-    setBackgroundColor(0, 15);
 
     // 첫번째 저장소
     int origin_x1 = 20, origin_y1 = 27, h = 2, w = 2;
@@ -471,6 +473,84 @@ void drawStore()
 }
 
 
+
+
+void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
+{
+    int x, y, h = 2, w = 6;
+
+    int origin_x = 57, origin_y = 27;
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x, origin_y + y);
+        if (y == h)
+            printf("└");
+        else if (y == 0)
+            printf("┌");
+        else
+            printf("│");
+    }
+
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x + (w + 1) * 2, origin_y + y);
+        if (y == h)
+            printf("┘");
+        else if (y == 0)
+            printf("┐");
+        else
+            printf("│");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x + x * 2, origin_y);
+        printf("─");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x + x * 2, origin_y + h);
+        printf("─");
+    }
+
+    setCurrentCursorPos(50, 28);
+    printf("[life]");
+
+
+    origin_x = 59, origin_y = 28;
+    for (x = 0; x < 3; x++)
+    {
+        setCurrentCursorPos(origin_x + (x * 3) + 2, origin_y);
+        setBackgroundColor(0, 4); // 어두운 빨강
+        printf("♥");
+
+        Life.push_back(1); // 하트 1,2,3 기억
+        // 1 -> 하트 있다. 0 -> 하트 없다
+    }
+}
+
+
+
+void updateLife() // 하트 업데이트
+{
+    int x;
+    int origin_x = 59, origin_y = 28;
+    for (x = 0; x < 3; x++)
+    {
+        if (Life.at(x) == 1) // 하트가 있다면
+        {
+            setCurrentCursorPos(origin_x + (x * 3) + 2, origin_y);
+            setBackgroundColor(0, 4); // 어두운 빨강
+            printf("♥");
+        }
+    }
+}
+
+// 하트 줄어드는 것, 늘어나는 것 아이템에서 구현!! -> 색저장소처럼
+
+
+
 void drawInfo(double *score, int stage)
 {
     setCurrentCursorPos(14, 1); 
@@ -485,7 +565,7 @@ void drawInfo(double *score, int stage)
 
 void drawInfoOriginal(double* score, int stage)
 {
-    setBackgroundColor(0, 15);
+    setBackgroundColor(0, 15); // 하얀색
     drawInfo(score, stage);
 }
 
@@ -605,7 +685,7 @@ void drawGameResult(double* score, int stage)
     system("cls");
 
     setBackgroundColor(0, 14);
-    setCurrentCursorPos(35, 10);
+    setCurrentCursorPos(36, 10);
     printf("[  %d 학년  ]",stage);
 
 
@@ -620,7 +700,7 @@ void drawGameResult(double* score, int stage)
 
     if (stage == 1)
     {
-        setCurrentCursorPos(29, 18);
+        setCurrentCursorPos(30, 18);
         setBackgroundColor(0, 7);
         printf("2학년에는 술이 등장합니다");
     }
@@ -632,9 +712,13 @@ void drawGameResult(double* score, int stage)
     }
     else if (stage == 3)
     {
-        setCurrentCursorPos(29, 18);
+        setCurrentCursorPos(33,18);
         setBackgroundColor(0, 7);
-        printf("4학년에는 보스가 등장해요");
+        printf("왜 이렇게 어둡지...?");
+
+        setCurrentCursorPos(34, 19);
+        setBackgroundColor(0, 7);
+        printf("내 미래인가...?");
     }
     else if (stage == 4)
     {
