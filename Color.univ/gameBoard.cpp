@@ -208,6 +208,7 @@ void drawGameBoard(int gameMap[22][37],int stage)
 void drawGameEdge()
 {
     int x, y;
+    setBackgroundColor(0, 15);
 
     int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;
     for (y = 0; y <= h; y++)
@@ -390,6 +391,7 @@ void updateStore(int color1, int color2) // 새로 만듦 -> ppt에 추가해야함
 void drawStore() 
 {
     int x, y;
+    setBackgroundColor(0, 15);
 
     // 첫번째 저장소
     int origin_x1 = 20, origin_y1 = 27, h = 2, w = 2;

@@ -1,4 +1,5 @@
 #include "manager.h"
+#include <chrono>
 
 double score[5] = { 4.5, 4.5, 4.5, 4.5, 4.5 };
 int stage; //추가함요 - 뤂
@@ -7,45 +8,60 @@ extern int gameMap2[22][37];
 extern int gameMap3[22][37];
 extern int gameMap4[22][37];
 
+extern int gameMapHere[22][37];
+
+int pKeyPressed = 0;
+
 int keyControl() {
+    static auto lastKeyPressTime = std::chrono::high_resolution_clock::now();
+    double keyInterval = 0.1;
+
+    int flag = -1;
     if (_kbhit() != 0) {
         int key = _getch();
-        switch (key)
-        {
-        case LEFT:
-            return LEFT;
-            break;
-        case RIGHT:
-            return RIGHT;
-            break;
-        case UP:
-            return UP;
-            break;
-        case DOWN:
-            return DOWN;
-            break;
-        case SPACEBAR:
-            return SPACEBAR;
+
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsedSeconds = currentTime - lastKeyPressTime;
+
+
+        switch (key) {
+        case 112:       // p: 112
+            pKeyPressed = 1;
+
+            flag = drawPauseScreen();
+            if (flag == 0) {
+                system("cls");
+                drawGameBoard(gameMapHere, 1);      // 플레이어가 출력되는데 딜레이 생김 
+
+                pKeyPressed = 0;
+            }
             break;
 
-        case 112:
-            drawPauseScreen();
+        case LEFT:
+        case RIGHT:
+        case UP:
+        case DOWN:
+            if (elapsedSeconds.count() >= keyInterval) {
+                lastKeyPressTime = currentTime;
+                
+                return key;
+            }
             break;
+        case SPACEBAR:
+            pKeyPressed = 0;
+            return key;
         }
+
+        return flag;
     }
 }
 
 
-/*
-* main에서 호출할거임
-* 아.. 모르겟다;
-* 
-*/
 //int modeControl() {
 //    
 //}
 
-void drawPauseScreen() {
+int drawPauseScreen() {
     system("cls");
 
     setBackgroundColor(0, 12);
@@ -90,9 +106,9 @@ void drawPauseScreen() {
                 break;
 
             // 화면 다 만들고 주석해제할거임
-            /*case SPACEBAR:
-                return y - 12;
-                */
+            case SPACEBAR:
+                if (y - 14 != 0) break;
+                return y - 14;      // 0: 이어하기, 2:재수강, 4: 메인 화면
             }
         }
     }
@@ -100,11 +116,9 @@ void drawPauseScreen() {
 
 
 void setScore(int stage, double s) {
-    //나 실험좀 해보려고 잠시 주석처리했으
-	//if (score[gradeidx] >= 4.5) return;
+	if (score[stage] >= 4.5 || score[stage] <= 0) return;
 	score[stage] += s;
 
-    //언니 내가 충돌 확인하고싶어서 임시로 추가했어!!
     drawInfo(score, stage);
 }
 

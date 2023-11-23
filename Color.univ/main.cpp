@@ -9,6 +9,8 @@
 extern Store myStore;
 extern double score[5];
 extern int stage; // 추가해써요 - 뤂
+int gameMapHere[22][37];
+
 
 //스테이지별로 속도 조절이 필요할 것 같아서 만든 함수(이지호)
 //매니저에서 가져가주세요!
@@ -29,7 +31,6 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-    int gameMapHere[22][37];
     stage = 2 ; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
     //while 문

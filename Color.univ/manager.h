@@ -19,7 +19,7 @@ using namespace std;
 
 int keyControl();
 
-void drawPauseScreen();
+int drawPauseScreen();
 
 void setScore(int stage, double s);
 //
