@@ -178,7 +178,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
     case LIFE:
         setBackgroundColor(backGround, 4); printf("¢¾"); break; // npc¶û Çò°¥¸±±îºÁ ´ÙÅ© ·¹µå »ç¿ë
     case SPEED:
-        setBackgroundColor(backGround, 3); printf("¨ß"); break; // eraser¶û Çò°¥¸±±îºÁ ¾îµÎ¿î ÇÏ´Ã »ç¿ë
+        setBackgroundColor(backGround, 7); printf("©ß"); break; // eraser¶û Çò°¥¸±±îºÁ
     case NORMAL_NPC:
         setBackgroundColor(backGround, 12); printf("¡â"); break;
     case ALCOHOL_NPC:
