@@ -108,6 +108,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j)
 //게임보드 x y 좌표 기준으로 받는다!!
 void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
 {
+    int flag = 0; // 비상구 때문에!
     Pos cursorPosition = Move::getCursorPos({j, i});
     setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
     switch (gameMap[i][j])
@@ -182,12 +183,12 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
         setBackgroundColor(backGround, 2); printf("▥");
         for (int k = 0; k < Exits.size(); k++) // 이거 안해서 비상구 이상했음
         {
-            if (Exits[k].first == j && Exits[k].second == i) //같은 것이 있다면
+            if (Exits[k].first == i && Exits[k].second == j) //같은 것이 있다면
             {
-                break;
+                flag = 1;
             }
         }
-        Exits.push_back(make_pair(i, j));
+        if(flag==0) Exits.push_back(make_pair(i, j));
         break;
     case PRIME:
         setBackgroundColor(backGround, 6); printf("★"); break;
@@ -684,6 +685,7 @@ void removeBossLife()
 
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
 {
+    /*
     srand((unsigned int)time(NULL));
     
     int idx = rand() % (Exits.size()); // 나올 비상구 idx
@@ -693,6 +695,22 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // �
     {     
         idx = rand() % (Exits.size());
     }
+
+    return Exits[idx];
+    */
+
+    int currIdx=0; 
+
+    for (int i = 0; i < Exits.size(); i++) // 순서대로 한 번씩 다 나오도록
+    {
+        if (Exits[i].first == posY && Exits[i].second == posX)
+        {
+            currIdx = i;
+            break;
+        }
+    }
+
+    int idx = (currIdx + 1) % Exits.size();
 
     return Exits[idx];
 }
