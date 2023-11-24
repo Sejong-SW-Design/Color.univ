@@ -22,10 +22,11 @@ public:
 	bool shiftCharacter(int direction, int gameMap[22][37]);
 	bool shiftCharacter(int direction, int gameMap[22][37], int alcoholNum);
 	void deleteCharacter(int gameMap[22][37]);
-	void showCharacter();
+	void showCharacter();	
 	int detectCollision(int gameMap[22][37], Pos nextPosition);
 	Pos getPosition();
 	Pos getDrinkNextPos(int direction, Pos now, int alcoholNum);
+	void updateAlcoholEffect(int alcoholNum);
 	//void movingProcess(int gameMap[22][37], Player player) = 0;
 
 	static Pos getGBoardPos(Pos cursorPos)
@@ -50,6 +51,7 @@ class Player : public Move
 {
 private:
 	int alcoholNumber = -1; // -1¿Ã ¡§ªÛ
+	int alcoholEffectTime;
 public:
 	Player(Pos initPosition);
 	void movingProcess(int gameMap[22][37]);

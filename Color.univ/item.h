@@ -3,6 +3,7 @@
 
 #include <Windows.h>
 #include "gameBoard.h"
+#include "time.h"
 
 typedef struct store {
 	int color1 = 0 , color2 = 0;

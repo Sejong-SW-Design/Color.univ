@@ -25,9 +25,12 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum)
 
 	Pos next = position;
 
+	
 	if (alcoholNum != -1)
 	{
+		
 		next = getDrinkNextPos(direction, position, alcoholNum);
+		updateAlcoholEffect(alcoholNum);
 	}
 	else
 	{
@@ -191,7 +194,7 @@ void Player::setAlcoholNumber()
 	int prev = alcoholNumber;
 	while (prev == alcoholNumber)
 	{
-		alcoholNumber = rand() % 23;
+		alcoholNumber = rand() % 3;
 	}
 }
 

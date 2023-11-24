@@ -1,6 +1,7 @@
 #include "item.h"
 #include "manager.h"
 #include "move.h"
+#include "time.h"
 
 Store myStore = { 0,0 };
 extern double score[5];
@@ -20,8 +21,6 @@ void eraseColor(int posX, int posY, int gameMap[22][37]) {
 
 
 void getColor(int colorNum, int posX, int posY, int gameMap[22][37]) {
-
-	
 	
 	if (myStore.capacity < 2) {
 		
@@ -148,33 +147,57 @@ void primeItemCollision(int posX, int posY, int gameMap[22][37]) {
 Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 	Pos next = now;
 
+	/*
+	srand((unsigned int)time(NULL));
+	int prev = alcoholNum;
+	while (prev == alcoholNum)
+	{
+		alcoholNum = rand() % 3;
+	}
+	*/
 	//int n = rand() % 23; 
 	int n = alcoholNum;
-
+	
 	if (n == 0) {
 		switch (direction){
-		case LEFT: next.x += 1; break;
-		case RIGHT: next.x -= 1; break;
-		case UP: next.y -= 1; break;
-		case DOWN: next.y += 1; break;
+		case LEFT: next.y += 1; break;
+		case RIGHT: next.y -= 1; break;
+		case UP: next.x -= 1; break;
+		case DOWN: next.x += 1; break;
 		}
 	}
 	else if (n == 1) {
 		switch (direction){
-		case LEFT: next.x -= 1; break;
-		case RIGHT: next.x += 1; break;
-		case UP: next.y -= 1; break;
-		case DOWN: next.y += 1; break;
+		case LEFT: next.x += 1; break;
+		case RIGHT: next.x -= 1; break;
+		case UP: next.y += 1; break;
+		case DOWN: next.y -= 1; break;
 		}
 	}
 	else if (n == 2) {
 		switch (direction){
-		case LEFT: next.x += 1; break;
+		case LEFT: next.y -= 1; break;
 		case RIGHT: next.y += 1; break;
-		case UP: next.y -= 1; break;
+		case UP: next.x += 1; break;
 		case DOWN: next.x -= 1; break;
 		}
 	}
+	else if (n == -1) {
+		switch (direction)
+		{
+		case LEFT:
+			next.x -= 1; break;
+		case RIGHT:
+			next.x += 1; break;
+		case UP:
+			next.y -= 1; break;
+		case DOWN:
+			next.y += 1; break;
+		}
+	}
+	//updateAlcoholEffect(alcoholNum);
+
+	/*
 	else if (n == 3) {
 		switch (direction){
 		case LEFT: next.y += 1; break;
@@ -193,9 +216,9 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 	}
 	else if (n == 5) {
 		switch (direction){
-		case LEFT: next.y -= 1; break;
+		case LEFT: next.x += 1; break;
 		case RIGHT: next.y += 1; break;
-		case UP: next.x += 1; break;
+		case UP: next.y -= 1; break;
 		case DOWN: next.x -= 1; break;
 		}
 	}
@@ -281,10 +304,10 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 	}
 	else if (n == 16) {
 		switch (direction) {
-		case LEFT: next.x += 1; break;
-		case RIGHT: next.x -= 1; break;
-		case UP: next.y += 1; break;
-		case DOWN: next.y -= 1; break;
+		case LEFT: next.x -= 1; break;
+		case RIGHT: next.x += 1; break;
+		case UP: next.y -= 1; break;
+		case DOWN: next.y += 1; break;
 		}
 	}
 	else if (n == 17) {
@@ -313,10 +336,10 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 	}
 	else if (n == 20) {
 		switch (direction) {
-		case LEFT: next.y += 1; break;
-		case RIGHT: next.y -= 1; break;
-		case UP: next.x -= 1; break;
-		case DOWN: next.x += 1; break;
+		case LEFT: next.x += 1; break;
+		case RIGHT: next.x -= 1; break;
+		case UP: next.y -= 1; break;
+		case DOWN: next.y += 1; break;
 		}
 	}
 	else if (n == 21) {
@@ -335,7 +358,45 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 		case DOWN: next.y -= 1; break;
 		}
 	}
+	*/
 
 	return next;
+}
+
+void Move::updateAlcoholEffect(int alcoholNum) {
+	
+	/*
+	time_t alcoholEffectTime, current;
+
+	time(&alcoholEffectTime);
+
+	while (1) {
+		time(&current);
+
+		if (difftime(current, alcoholEffectTime) >= 10) {
+			alcoholNum = -1;
+			//Sleep(10);
+			//printf("%d", difftime(current, alcoholEffectTime));
+			break;
+		}
+	}
+	*/
+
+	
+	/*
+	int alcoholEffectTime = (unsigned)time(NULL);
+	
+	alcoholEffectTime += 10;
+
+	while (1) {
+		int startTime = (unsigned)time(NULL);
+		Sleep(10);
+		if (alcoholEffectTime - startTime == 0) {
+			alcoholNum = -1;
+			break;
+		}
+	}
+	*/
+	
 }
 
