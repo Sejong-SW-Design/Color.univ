@@ -24,13 +24,12 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum)
 	deleteCharacter(gameMap);
 
 	Pos next = position;
-
 	
 	if (alcoholNum != -1)
 	{
 		
-		next = getDrinkNextPos(direction, position, alcoholNum);
-		updateAlcoholEffect(alcoholNum);
+		//next = getDrinkNextPos(direction, position, alcoholNum);
+		next = updateAlcoholEffect(direction, position, alcoholNum);
 	}
 	else
 	{

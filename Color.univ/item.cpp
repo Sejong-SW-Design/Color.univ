@@ -1,12 +1,13 @@
 #include "item.h"
 #include "manager.h"
 #include "move.h"
-#include "time.h"
+#include <time.h>
+#include <Windows.h>
 
 Store myStore = { 0,0 };
 extern double score[5];
 extern int stage;
-extern vector<int>Life; // 하트 배열 -> gameboard.cpp 참고 .뤂
+int life[3]={1,1,1}; // 하트 배열
 
 
 void eraseColor(int posX, int posY, int gameMap[22][37]) {
@@ -363,8 +364,7 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 	return next;
 }
 
-void Move::updateAlcoholEffect(int alcoholNum) {
-	
+Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) {
 	/*
 	time_t alcoholEffectTime, current;
 
@@ -379,24 +379,62 @@ void Move::updateAlcoholEffect(int alcoholNum) {
 			//printf("%d", difftime(current, alcoholEffectTime));
 			break;
 		}
+		return getDrinkNextPos(direction, position, alcoholNum);
 	}
+	
+	return getDrinkNextPos(direction, position, alcoholNum);
 	*/
-
 	
-	/*
-	int alcoholEffectTime = (unsigned)time(NULL);
 	
-	alcoholEffectTime += 10;
+	int endTime = (unsigned)time(NULL);
+	
+	endTime += 10;
 
 	while (1) {
+	
 		int startTime = (unsigned)time(NULL);
-		Sleep(10);
-		if (alcoholEffectTime - startTime == 0) {
+
+		if (endTime - startTime >= 10) {
 			alcoholNum = -1;
 			break;
 		}
+		return getDrinkNextPos(direction, position, alcoholNum);
 	}
-	*/
+	return getDrinkNextPos(direction, position, alcoholNum);
 	
+	
+
 }
+
+
+void minusLife() { //스코어가 0이 되면 minusLife()호출
+	
+	for (int i = 2; i >= 0; i--) {
+		if (life[i] == 1) {
+			setCurrentCursorPos(61 + i*3, 28);
+			setBackgroundColor(0, 4);
+			printf("  ");
+			life[i] = 0;
+			break;
+		}
+	}
+	if (life[0] == 0) {
+		//게임오버 띄우고 끝 -> 요기 민정언니가 이어주세여
+	}
+}
+
+void plusLife() {//하트아이템 먹으면 plusLife()호출
+	for (int i = 1; i < 3; i++) {
+		if (life[i] == 0) {
+			setCurrentCursorPos(61 + i * 3, 28);
+			setBackgroundColor(0, 4);
+			printf("♥");
+			life[i] = 1;
+			break;
+		}
+	}
+}
+
+
+
 

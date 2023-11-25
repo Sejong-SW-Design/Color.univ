@@ -26,7 +26,7 @@ public:
 	int detectCollision(int gameMap[22][37], Pos nextPosition);
 	Pos getPosition();
 	Pos getDrinkNextPos(int direction, Pos now, int alcoholNum);
-	void updateAlcoholEffect(int alcoholNum);
+	Pos updateAlcoholEffect(int direction, Pos position, int alcoholNum);
 	//void movingProcess(int gameMap[22][37], Player player) = 0;
 
 	static Pos getGBoardPos(Pos cursorPos)

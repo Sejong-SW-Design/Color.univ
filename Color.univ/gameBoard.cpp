@@ -1,13 +1,14 @@
 #include "gameBoard.h"
 #include "move.h"
+#include "item.h"
 
 //점수 계산 맨 밑에 있어용
 
 vector<pair<int, int>>Exits; //비상구 배열
-vector<int>Life; // 하트 배열
-
+//vector<int>Life;
 extern double score[5];
 extern int stage;
+ 
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
 {
@@ -542,7 +543,7 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
     setCurrentCursorPos(50, 28);
     printf("[life]");
 
-
+    
     origin_x = 59, origin_y = 28;
     for (x = 0; x < 3; x++)
     {
@@ -550,15 +551,20 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
         setBackgroundColor(0, 4); // 어두운 빨강
         printf("♥");
 
-        Life.push_back(1); // 하트 1,2,3 기억
+        //Life.push_back(1);
+        
+        // 하트 1,2,3 기억 
         // 1 -> 하트 있다. 0 -> 하트 없다
     }
+    
 }
 
 
 
+/*
 void updateLife() // 하트 업데이트
-{
+{   
+    
     int x;
     int origin_x = 59, origin_y = 28;
     for (x = 0; x < 3; x++)
@@ -570,9 +576,11 @@ void updateLife() // 하트 업데이트
             printf("♥");
         }
     }
+    
 }
-
+*/
 // 하트 줄어드는 것, 늘어나는 것 아이템에서 구현!! -> 색저장소처럼
+//이 부분은 없애고 아이템에서 할게여 - 지우
 
 
 
