@@ -23,6 +23,7 @@ public:
 	bool shiftCharacter(int direction, int gameMap[22][37], int alcoholNum);
 	void deleteCharacter(int gameMap[22][37]);
 	void showCharacter();	
+	void showBlinkCharacter(int backgroundColor);
 	int detectCollision(int gameMap[22][37], Pos nextPosition);
 	Pos getPosition();
 	Pos getDrinkNextPos(int direction, Pos now, int alcoholNum);

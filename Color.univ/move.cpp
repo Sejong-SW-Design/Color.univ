@@ -76,6 +76,14 @@ void Move::showCharacter()
 	printf("%s", shape.c_str());
 }
 
+void Move::showBlinkCharacter(int backgroundColor)
+{
+	Pos cursorPosition = getCursorPos(position);
+	setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
+	setBackgroundColor(backgroundColor, color);
+	printf("%s", shape.c_str());
+}
+
 int Move::detectCollision(int gameMap[22][37], Pos nextPosition)
 {
 	return gameMap[nextPosition.y][nextPosition.x];
@@ -157,6 +165,7 @@ void Player::getItem(int gameMap[22][37])
 		Pos curPos = getCursorPos(prevPos);
 		setCurrentCursorPos(curPos.x, curPos.y);
 		setBackgroundColor(0, 2); printf("▥");
+		showBlinkCharacter(14); Sleep(50);
 		showCharacter();
 	}
 	if (itemSort == PRIME)      // 족보
@@ -168,15 +177,16 @@ void Player::getItem(int gameMap[22][37])
 	{
 		eraseColor(position.x, position.y, gameMap);
 	}
-
-	// SPEED 추가
-
-	// LIFE 추가
-
-	//지우야 여길 없애고 npc 충돌검사에서 changeD 부를게(이지호)
-	//if (itemSort == ALCOHOL_NPC) {
-	//	changeD++;
-	//}
+	if (itemSort == SPEED)
+	{
+		gameMap[position.y][position.x] = 0;
+		//여기서 manager한테 연락해주면 speed 조절해줄거임!(조)
+	}
+	if (itemSort == LIFE)
+	{
+		gameMap[position.y][position.x] = 0;
+		plusLife();
+	}
 }
 
 bool Player::checkGoalIn(int gameMap[22][37])
