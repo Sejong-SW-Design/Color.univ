@@ -43,31 +43,35 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
 
         break;
     case 2:
-        P.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 12,17 }, { 12,15 }, { 12,17 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 19, 5 }, { 19, 4 }, { 19, 6 }, ALCOHOL_NPC)); // 술 변경
-        P.push_back(new PatternNpc({ 12, 10 }, { 12, 8 }, { 12, 13 }, ALCOHOL_NPC)); // 술 추가
+
+        P.push_back(new PatternNpc({ 6,18 }, { 4,18 }, { 7,18 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 12, 10 }, { 12, 8 }, { 12, 13 }, ALCOHOL_NPC)); 
         break;
     case 3:
         P.push_back(new PatternNpc({ 34,9 }, { 34,8 }, { 34,10 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 34,12 }, { 34,13 }, { 34,11 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 27, 2 }, { 27, 1 }, { 27, 4 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 29, 4 }, { 28, 4 }, { 30, 4 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 5, 17 }, { 4, 17 }, { 7, 17 }, ALCOHOL_NPC));
-        P.push_back(new PatternNpc({ 5, 4 }, { 4, 4 }, { 7, 4 }, ALCOHOL_NPC));
-        P.push_back(new PatternNpc({ 14, 13 }, { 11, 13 }, { 20, 13 }, NORMAL_NPC));
-        //P.push_back(new PatternNpc({ 19, 13 }, { 11, 13 }, { 20, 13 }, NORMAL_NPC)); //ChasingNpc로 변경함
-        P.push_back(new PatternNpc({ 14, 16 }, { 11, 16 }, { 20, 16 }, NORMAL_NPC));
-        //P.push_back(new PatternNpc({ 19, 16 }, { 11, 16 }, { 20, 16 }, NORMAL_NPC)); //ChasingNpc로 변경함
-        P.push_back(new PatternNpc({ 11, 15 }, { 11, 14 }, { 11, 15 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 20, 15 }, { 20, 14 }, { 20, 15 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 29, 4 }, { 28, 4 }, { 30, 4 }, NORMAL_NPC));   
+
+        P.push_back(new PatternNpc({ 14, 15 }, { 12, 15 }, { 21, 15 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 14, 18 }, { 12, 18 }, { 21, 18 }, NORMAL_NPC));
+
+        P.push_back(new PatternNpc({ 12, 17 }, { 12, 16 }, { 12, 17 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 21, 17 }, { 21, 16 }, { 21, 17 }, NORMAL_NPC));
     
+        P.push_back(new PatternNpc({ 5, 16 }, { 4, 16 }, { 7, 16 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 5, 5 }, { 4, 5 }, { 7, 5 }, ALCOHOL_NPC));
         break;
     case 4:
         P.push_back(new PatternNpc({ 18, 6 }, { 17, 6 }, { 20, 6 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 10, 15 }, { 9, 15 }, { 12, 15 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 15, 10 }, { 15, 9 }, { 15, 12 }, NORMAL_NPC));
+
         P.push_back(new PatternNpc({ 1, 7 }, { 0, 7 }, { 2, 7 }, ALCOHOL_NPC));
         P.push_back(new PatternNpc({ 26, 17 }, { 25, 17 }, { 28, 17 }, ALCOHOL_NPC));
+
         break;
     }
     
@@ -90,12 +94,12 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
         break;
     case 3:
         C.push_back(new ChasingNpc({ 9, 4 }));
-        C.push_back(new ChasingNpc({ 19, 13 }));
+        C.push_back(new ChasingNpc({ 19, 17 }));
         C.push_back(new ChasingNpc({ 19, 16 }));
         break;
     case 4:
     
-        //C.push_back(new ChasingNpc({ 12, 1 }));
+        C.push_back(new ChasingNpc({ 12, 1 }));
         break;
     }
     return C;
@@ -734,8 +738,13 @@ void drawGameResult(double* score, int stage)
     setCurrentCursorPos(33, 15);
     printf("평균 학점 : %.1f", score[0]);
 
-
-    if (stage == 1)
+    if (score[stage] == 0) // gameover일 때
+    {
+        setCurrentCursorPos(35, 18);
+        setBackgroundColor(0, 7);
+        printf("퇴학입니다.");
+    }
+    else if (stage == 1)
     {
         setCurrentCursorPos(30, 18);
         setBackgroundColor(0, 7);
@@ -743,9 +752,9 @@ void drawGameResult(double* score, int stage)
     }
     else if (stage == 2)
     {
-        setCurrentCursorPos(32, 18);
+        setCurrentCursorPos(27, 18);
         setBackgroundColor(0, 7);
-        printf("3학년에는 몰라 아직");
+        printf("벌써 3학년이라니..시간 참 빠르다");
     }
     else if (stage == 3)
     {
@@ -760,7 +769,7 @@ void drawGameResult(double* score, int stage)
     else if (stage == 4)
     {
         setCurrentCursorPos(37, 18);
-        setBackgroundColor(0, 3);
+        setBackgroundColor(0, 7);
         printf("축★졸업");
     }
 
