@@ -204,11 +204,19 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
     case SPEED:
         setBackgroundColor(backGround, 7); printf("©ß"); break; // eraser¶û Çò°¥¸±±îºÁ
     case NORMAL_NPC:
-        setBackgroundColor(backGround, 12); printf("¡â"); break;
+        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(NORMAL_NPC).c_str()); break;
     case ALCOHOL_NPC:
-        setBackgroundColor(backGround, 12); printf("¡×"); break;
+        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(ALCOHOL_NPC).c_str()); break;
     case CHASING_NPC:
-        setBackgroundColor(backGround, 12); printf("¡ã"); break;
+        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(CHASING_NPC).c_str()); break;
+    case SHOOT_NPC_LEFT:
+        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_LEFT).c_str()); break;
+    case SHOOT_NPC_RIGHT:
+        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_RIGHT).c_str()); break;
+    case SHOOT_NPC_UP:
+        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_UP).c_str()); break;
+    case SHOOT_NPC_DOWN:
+        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_DOWN).c_str()); break;
     }
 }
 

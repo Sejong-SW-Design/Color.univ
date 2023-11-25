@@ -46,6 +46,27 @@ public:
 	{
 		return sort >= NORMAL_WALL && sort <= SKYBLUE_WALL;
 	}
+	static string getNpcShape(int npcSort)
+	{
+		switch (npcSort)
+		{
+		case NORMAL_NPC:
+			return "¡â";
+		case ALCOHOL_NPC:
+			return "¡×";
+		case CHASING_NPC:
+			return "¡ã";
+		case SHOOT_NPC_LEFT:
+			return "¢¸";
+		case SHOOT_NPC_RIGHT:
+			return "¢º";
+		case SHOOT_NPC_UP:
+			return "¡ã";
+		case SHOOT_NPC_DOWN:
+			return "¡å";
+		}
+		return ""; 
+	}
 };
 
 class Player : public Move

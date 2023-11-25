@@ -92,9 +92,13 @@ enum GAME_BOARD
     ALCOHOL_NPC,//35
     NORMAL_NPC,//36
     CHASING_NPC, //37
+    SHOOT_NPC_LEFT, //38
+    SHOOT_NPC_RIGHT,//39
+    SHOOT_NPC_UP,//40
+    SHOOT_NPC_DOWN,//41
 
     // goal
-    GOAL//38
+    GOAL//42
 };
 
 
