@@ -121,17 +121,11 @@ void drawInfoMinus(double* score, int stage);
 
 void drawInfoPlus(double* score, int stage);
 
-void drawBossLife();
+void drawAlcoholTime();
 
-void updateBossLife(int damage);
+void updateAlcoholTime(int t);
 
-//void drawAttackdot();
-
-//void removeAttackDot();
-
-//void removeAttackTouedWall();
-
-void removeBossLife();
+void removeAlcoholTime();
 
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]);
 

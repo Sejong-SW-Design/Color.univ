@@ -214,9 +214,11 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
 void drawGameBoard(int gameMap[22][37],int stage)
 {
     drawGameEdge();
-    drawStore();
+    drawStore();  
+    if (stage != 1) drawAlcoholTime();
     drawLifeEdge();
-    //if (stage == 4) drawBossLife();
+    updateAlcoholTime(0); // 알코올 처음엔 X
+    // updateAlcoholTime(10); // 알코올 만땅
 
     drawInfoOriginal(score, stage);
 
@@ -610,10 +612,10 @@ void drawInfoPlus(double* score, int stage)
     drawInfoOriginal(score, stage);
 }
 
-void drawBossLife()
+void drawAlcoholTime()
 {
     int x, y;
-    int origin_x = 85, origin_y = 7, h = 15, w = 1;
+    int origin_x = 85, origin_y = 11, h = 10, w = 1;
     for (y = 0; y <= h; y++)
     {
         setCurrentCursorPos(origin_x, origin_y + y);
@@ -638,18 +640,15 @@ void drawBossLife()
         printf("─");
     }
 
-    setCurrentCursorPos(origin_x, origin_y + h + 1);
-    printf("[Boss]");
-
-
-    updateBossLife(0);
+    setCurrentCursorPos(origin_x-1, origin_y + h + 1);
+    printf("[Alcohol]");
 }
 
-void updateBossLife(int damage)
+void updateAlcoholTime(int t)
 {
-    int y;
-    int origin_x = 87, origin_y = 6 + damage, h = 15, w = 1;
-    for (y = 1; y <= h; y++)
+    int y, full = 10;
+    int origin_x = 87, origin_y = 11+full-t, h = t, w = 1;
+    for (y = 0; y < h; y++)
     {
         setCurrentCursorPos(origin_x, origin_y + y);
         setBackgroundColor(0, 12);
@@ -658,10 +657,10 @@ void updateBossLife(int damage)
 }
 
 
-void removeBossLife()
+void removeAlcoholTime()
 {
     int x, y;
-    int origin_x = 84, origin_y = 8, h = 15, w = 1;
+    int origin_x = 85, origin_y = 11, h = 10, w = 1;
     for (y = 0; y <= h; y++)
     {
         setCurrentCursorPos(origin_x, origin_y + y);
