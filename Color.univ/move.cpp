@@ -48,7 +48,10 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum)
 
 	//게임보드 밖을 벗어나지 않도록
 	if (next.x < 0 || next.x >= GBOARD_WIDTH || next.y < 0 || next.y >= GBOARD_HEIGHT)
+	{
 		next = position;
+		return false;
+	}
 
 	bool shifted = false;
 
@@ -322,4 +325,65 @@ int ChasingNpc::getNextDirection(Pos playerPos, int gameMap[22][37])
 	if (direction == -1)
 		return -1;
 	return ret[direction];
+}
+
+ShootNpc::ShootNpc(Pos initPosition, int npcSort)
+	:Move(initPosition, 12, getNpcShape(npcSort))
+{
+	this->isDead = false;
+	this->isFired = false; //임시
+	this->npcSort = npcSort;
+
+	int ret[4] = { LEFT, RIGHT, UP, DOWN };
+	this->npcDirection = ret[npcSort - SHOOT_NPC_LEFT];
+}
+
+void ShootNpc::movingProcess(int gameMap[22][37], Player player)
+{
+	if (isDead)
+		return;
+
+	if (isFired)
+	{
+		//shift character
+		gameMap[position.y][position.x] = BLANK;
+		bool moved = shiftCharacter(npcDirection, gameMap);
+
+		//check collision
+		if (position == player.getPosition()) //플레이어랑 부딪친 경우
+		{
+			setScore(stage, -1.5);
+			drawInfoMinus(score, stage);
+			isDead = true; deleteCharacter(gameMap);
+		}
+		else if (!moved || gameMap[position.y][position.x] != BLANK)  //벽이나 blank가 아닌 것에 부딪친 경우
+		{
+			isDead = true; deleteCharacter(gameMap);
+		}
+		else
+		{
+			gameMap[position.y][position.x] = npcSort;
+		}
+		player.showCharacter(); //플레이어를 지워버리지 않도록
+	}
+}
+
+void ShootNpc::updateFireFlag(int gameMap[22][37], Player player)
+{
+	if (isDead || isFired)
+		return;
+	//해당 방향에 플레이어가 있는지 확인한다.
+	int dx[4] = { -1,1,0,0 };
+	int dy[4] = { 0,0, -1,1 };
+	int idx = npcSort - SHOOT_NPC_LEFT;
+	Pos radar = { position.x + dx[idx], position.y + dy[idx] };
+	while (gameMap[radar.y][radar.x] == BLANK)
+	{
+		if (radar == player.getPosition())
+		{
+			isFired = true; break;
+		}
+		radar.x += dx[idx];
+		radar.y += dy[idx];
+	}
 }

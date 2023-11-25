@@ -105,16 +105,31 @@ public:
 	void movingProcess(int gameMap[22][37], Player player);
 };
 
+class ShootNpc : public Move
+{
+private:
+	bool isDead;
+	bool isFired;
+	int npcSort;
+	int npcDirection;
+public:
+	ShootNpc(Pos initPosition, int npcSort);
+	void movingProcess(int gameMap[22][37], Player player);
+	void updateFireFlag(int gameMap[22][37], Player player);
+};
+
 class EnemiesManager
 {
 private:
 	vector<PatternNpc*>patternEnemies;
-	vector<ChasingNpc*> chasingEnemies;
+	vector<ChasingNpc*>chasingEnemies;
+	vector<ShootNpc*>shootEnemies;
 public:
-	EnemiesManager(vector<PatternNpc*>p, vector<ChasingNpc*>c)
+	EnemiesManager(vector<PatternNpc*>p, vector<ChasingNpc*>c, vector<ShootNpc*>s)
 	{
 		patternEnemies = p;
 		chasingEnemies = c;
+		shootEnemies = s;
 	}
 	void EnemyMoveProcess(int gameMap[22][37], Player player)
 	{
@@ -122,6 +137,13 @@ public:
 			(*iter)->movingProcess(gameMap, player);
 		for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
 			(*iter)->movingProcess(gameMap, player);
+		for (auto iter = shootEnemies.begin(); iter != shootEnemies.end(); iter++)
+			(*iter)->movingProcess(gameMap, player);
+	}
+	void updateShootNpcFlags(int gameMap[22][37], Player player)
+	{
+		for (auto iter = shootEnemies.begin(); iter != shootEnemies.end(); iter++)
+			(*iter)->updateFireFlag(gameMap, player);
 	}
 };
 

@@ -106,6 +106,34 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
     return C;
 }
 
+vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S)
+{
+    S.clear();
+
+    switch (stage)
+    {
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        S.push_back(new ShootNpc({ 16, 8 }, SHOOT_NPC_UP));
+        S.push_back(new ShootNpc({ 17, 8 }, SHOOT_NPC_UP));
+        S.push_back(new ShootNpc({ 18, 8 }, SHOOT_NPC_UP));
+        S.push_back(new ShootNpc({ 15, 9 }, SHOOT_NPC_LEFT));
+        S.push_back(new ShootNpc({ 15, 10}, SHOOT_NPC_LEFT));
+        S.push_back(new ShootNpc({ 19, 9 }, SHOOT_NPC_RIGHT));
+        S.push_back(new ShootNpc({ 19, 10 }, SHOOT_NPC_RIGHT));
+        S.push_back(new ShootNpc({ 16, 11 }, SHOOT_NPC_DOWN));
+        S.push_back(new ShootNpc({ 17, 11 }, SHOOT_NPC_DOWN));
+        S.push_back(new ShootNpc({ 18, 11 }, SHOOT_NPC_DOWN));
+        break;
+    case 4:
+        break;
+    }
+    return S;
+}
+
 void drawOnePoint(int gameMap[22][37], int i, int j)
 {
     drawOnePoint(gameMap, i, j, 0);

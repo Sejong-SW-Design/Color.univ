@@ -49,8 +49,9 @@ int main() {
     //npc 위치
     vector<PatternNpc*> patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
     vector<ChasingNpc*> chasingEnemies = setChasingNpcInitPos(stage, chasingEnemies);
+    vector<ShootNpc*> shootEnemies = setShootNpcInitPos(stage, shootEnemies);
 
-    EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies);
+    EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies);
 
     while (true)
     {
@@ -58,6 +59,9 @@ int main() {
         for (int i = 0; i < pcMoveCnt; i++)
         {
             player->movingProcess(gameMapHere); 
+
+            if (i % 5 == 0) //너무 매번 반복하면 비효율적인것같아서 ㅎㅎ
+               enemies->updateShootNpcFlags(gameMapHere, *player);
             // game over - 뤂
             /*
             if (score[stage] == 0)

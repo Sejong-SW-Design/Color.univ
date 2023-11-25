@@ -22,6 +22,7 @@
 class Player;
 class PatternNpc;
 class ChasingNpc;
+class ShootNpc;
 
 typedef struct Position
 {
@@ -140,6 +141,8 @@ Pos setPcInitPos(int stage); // PC 위치 초기화 설정
 vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P);
 
 vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C);
+
+vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S);
 
 string calculate(double score); // 점수 계산
 
