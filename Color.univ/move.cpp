@@ -251,7 +251,7 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player* player)
 		{
 			IsAlcoholTime = 10;
 			player->setAlcoholNumber();
-			updateAlcoholTime(IsAlcoholTime); // °íÄ§
+			updateAlcoholTime(IsAlcoholTime); 
 		}
 		if (npcSort == NORMAL_NPC)
 		{

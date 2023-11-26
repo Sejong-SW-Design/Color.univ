@@ -81,7 +81,7 @@ int main() {
     // 바꾼거
     while (true)
     {
-        if (IsAlcoholTime != -1)
+        if (IsAlcoholTime != -1) // 술 먹으면
         {
             drawCheckTime(); // 이거 추가함
         }
@@ -93,7 +93,7 @@ int main() {
 
             if (IsAlcoholTime == 0) 
             {
-                player->setNoAlcohol();
+                player->setNoAlcohol(); // 다시 돌아오게
             }
             
    
