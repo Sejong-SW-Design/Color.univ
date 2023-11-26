@@ -133,6 +133,29 @@ vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S)
     return S;
 }
 
+void drawGameBoard(int gameMap[22][37], int stage)
+{
+    
+    drawGameEdge();
+    drawStore();
+    if (stage != 1) drawAlcoholTime();
+
+    drawLifeEdge();
+
+    drawInfoOriginal(score, stage);
+
+
+    Exits.clear();
+
+    for (int i = 0; i < 22; i++)
+    {
+        for (int j = 0; j < 37; j++)
+        {
+            drawOnePoint(gameMap, i, j);
+        }
+    }
+}
+
 void drawOnePoint(int gameMap[22][37], int i, int j)
 {
     drawOnePoint(gameMap, i, j, 0);
@@ -245,29 +268,6 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
         setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_UP).c_str()); break;
     case SHOOT_NPC_DOWN:
         setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_DOWN).c_str()); break;
-    }
-}
-
-void drawGameBoard(int gameMap[22][37],int stage)
-{
-    //setBackgroundColor(0, 15); // го╬А╩Ж
-    drawGameEdge();
-    drawStore();  
-    if (stage != 1) drawAlcoholTime();
-
-    drawLifeEdge();
-
-    drawInfoOriginal(score, stage);
-
-
-    Exits.clear();
-
-    for (int i = 0; i < 22; i++)
-    {
-        for (int j = 0; j < 37; j++)
-        {
-            drawOnePoint(gameMap, i, j);
-        }
     }
 }
 

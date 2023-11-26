@@ -31,7 +31,7 @@ int keyControl() {
             flag = drawPauseScreen();
             if (flag == 0) {
                 system("cls");
-                drawGameBoard(gameMapHere, 1);      // 플레이어가 출력되는데 딜레이 생김 
+                drawGameBoard(gameMapHere, stage);      // 플레이어가 출력되는데 딜레이 생김 
 
                 pKeyPressed = 0;
             }
@@ -78,6 +78,8 @@ int drawPauseScreen() {
     setCurrentCursorPos(32, 18);
     printf("메인화면으로 돌아가기");
 
+    setBackgroundColor(0, 15); // 하얀색 : 게임보드 때문에 색깔 다시 돌려놓았어요! -뤂
+
     while (1) {
         int x = 32;
         int y = 14;
@@ -112,6 +114,7 @@ int drawPauseScreen() {
             }
         }
     }
+
 }
 
 
