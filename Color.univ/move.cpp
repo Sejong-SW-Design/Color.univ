@@ -145,6 +145,7 @@ void Player::movingProcess(int gameMap[22][37])
 		//changeD++;
 		setAlcoholNumber();
 		IsAlcoholTime = 10;
+		updateAlcoholTime(IsAlcoholTime);
 	}
 
 }
@@ -225,7 +226,7 @@ PatternNpc::PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSo
 		direction = DOWN;
 }
 
-void PatternNpc::movingProcess(int gameMap[22][37], Player player)
+void PatternNpc::movingProcess(int gameMap[22][37], Player* player)
 {
 	//1. set direction
 	setNextDirection();
@@ -236,12 +237,13 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 	gameMap[position.y][position.x] = npcSort;
 
 	//3. check collision
-	if (position == player.getPosition())
+	if (position == player->getPosition())
 	{
 		if (npcSort == ALCOHOL_NPC)
 		{
-			player.setAlcoholNumber();
+			player->setAlcoholNumber();
 			IsAlcoholTime = 10;
+			updateAlcoholTime(IsAlcoholTime);
 		}
 		if (npcSort == NORMAL_NPC)
 		{
@@ -250,7 +252,7 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 		}
 	}
 
-	player.showCharacter(); //플레이어를 지워버리지 않도록
+	player->showCharacter(); //플레이어를 지워버리지 않도록
 }
 
 void PatternNpc::setNextDirection()

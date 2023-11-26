@@ -365,14 +365,14 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 }
 
 Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) {
-	/*
+	
 	time_t alcoholEffectTime, current;
 
 	time(&alcoholEffectTime);
 
 	while (1) {
 		time(&current);
-
+		
 		if (difftime(current, alcoholEffectTime) >= 10) {
 			alcoholNum = -1;
 			//Sleep(10);
@@ -381,28 +381,27 @@ Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) {
 		}
 		return getDrinkNextPos(direction, position, alcoholNum);
 	}
-	
-	return getDrinkNextPos(direction, position, alcoholNum);
-	*/
-	
-	
-	int endTime = (unsigned)time(NULL);
-	
-	endTime += 10;
-
-	while (1) {
-	
-		int startTime = (unsigned)time(NULL);
-
-		if (endTime - startTime >= 10) {
-			alcoholNum = -1;
-			break;
-		}
-		return getDrinkNextPos(direction, position, alcoholNum);
-	}
 	return getDrinkNextPos(direction, position, alcoholNum);
 	
 	
+	
+	//int endTime = (unsigned)time(NULL);
+	//
+	//endTime += 10;
+
+	//while (1) {
+	//
+	//	int startTime = (unsigned)time(NULL);
+
+	//	if (endTime - startTime >= 10) {
+	//		alcoholNum = -1;
+	//		break;
+	//	}
+	//	return getDrinkNextPos(direction, position, alcoholNum);
+	//}
+	//return getDrinkNextPos(direction, position, alcoholNum);
+	//
+	//
 
 }
 

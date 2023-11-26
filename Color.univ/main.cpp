@@ -31,7 +31,7 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-    stage = 2; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
+    stage = 3; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
     //while 문
     getStage(gameMapHere, stage);
@@ -69,6 +69,10 @@ int main() {
             {
                 updateAlcoholTime(IsAlcoholTime); 
                 IsAlcoholTime--; // 전역
+                if (IsAlcoholTime == 0)
+                {
+                    player->setNoAlcohol();
+                }
             }
         }
 
@@ -106,7 +110,7 @@ int main() {
         }
 
         //적 돌아당기게 하고싶으면 이거 주석 풀면됨
-        enemies->EnemyMoveProcess(gameMapHere, *player);
+        enemies->EnemyMoveProcess(gameMapHere, player);
        
     }
        
