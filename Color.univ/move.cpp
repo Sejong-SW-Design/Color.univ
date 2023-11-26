@@ -5,7 +5,7 @@
 
 extern double score[5];
 extern int stage;
-extern int IsAlcoholTime; // 없애도 되어요 - 뤂
+extern int IsAlcoholTime; //뤂
 
 Move::Move(Position initPos, int color, std::string shape)
 {

@@ -31,7 +31,7 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-    stage = 3; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
+    stage = 2; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
     //while 문
     getStage(gameMapHere, stage);
@@ -53,23 +53,35 @@ int main() {
 
     EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies);
 
+    int alcohol_time = 1000 - npcSleepTime; // while문에 들어가기 위해 조정
+    auto lastUpdateTime = chrono::high_resolution_clock::now(); // 마지막 업데이트 시간을 지금으로.
+    chrono::milliseconds alcoholUpdateTime(alcohol_time); // 알코올 업데이트 간격을 ms로 변환
 
     while (true)
     {
+        auto currTime = chrono::high_resolution_clock::now(); // 현재 시간
+        auto elapsedTime = chrono::duration_cast<chrono::milliseconds>(currTime - lastUpdateTime); // 현재 시간과 마지막 업데이트 시간의 차이
+
+        if (elapsedTime >= alcoholUpdateTime) // 시간 되면
+        {
+            lastUpdateTime = currTime; // 갱신
+            if (IsAlcoholTime != -1) // move에서 술 부딪히면 IsAlcoholTime 변하도록 설정함. 별로면 바꿔주세요..ㅎㅎ
+            {
+                updateAlcoholTime(IsAlcoholTime); 
+                IsAlcoholTime--; // 전역
+            }
+        }
+
         int pcMoveCnt = npcSleepTime / 5;
+
         
         for (int i = 0; i < pcMoveCnt; i++)
         {
             player->movingProcess(gameMapHere); 
-            if (i % npcSleepTime == 0 && IsAlcoholTime != -1)  // 일단 구현만 해놓음
-            {
-                updateAlcoholTime(IsAlcoholTime); 
-                IsAlcoholTime--;
-            }
+            
             if (i % 5 == 0) //너무 매번 반복하면 비효율적인것같아서 ㅎㅎ
             {
                 enemies->updateShootNpcFlags(gameMapHere, *player);    
-  
             }
             // game over - 뤂
             /*
