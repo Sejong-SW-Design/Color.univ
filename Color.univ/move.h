@@ -73,8 +73,8 @@ class Player : public Move
 {
 private:
 	int alcoholNumber = -1; // -1¿Ã ¡§ªÛ
-	int alcoholEffectTime;
 public:
+	time_t alcoholStartTime = 0;
 	Player(Pos initPosition);
 	void movingProcess(int gameMap[22][37]);
 	void getItem(int gameMap[22][37]);

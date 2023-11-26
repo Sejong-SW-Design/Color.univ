@@ -31,7 +31,7 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-    stage = 1; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
+    stage = 3; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
     //while 문
     getStage(gameMapHere, stage);
@@ -81,15 +81,12 @@ int main() {
     // 바꾼거
     while (true)
     {
-        if (IsAlcoholTime != -1) // 술 먹으면
-        {
-            drawCheckTime(); // 이거 추가함
-        }
         int pcMoveCnt = npcSleepTime / 5;
 
         for (int i = 0; i < pcMoveCnt; i++)
         {
             player->movingProcess(gameMapHere); 
+            drawCheckTime(player);
 
             if (IsAlcoholTime == 0) 
             {

@@ -448,31 +448,20 @@ void updateAlcoholTime(int t)
 }
 
 
-void drawCheckTime() // 나중에 ppt에 추가해야함
+void drawCheckTime(Player *player) // 나중에 ppt에 추가해야함
 {
-    time_t alcoholEffectTime, current;
-    time(&alcoholEffectTime);
-
-    while (1) {
-        time(&current);
-
-        // 이거 추가함
-        
-        for (int i = 0; i < 10; i++) // 이렇게 안 하면 IsAlcoholTime-- 계속 안하고 지나가버림
-        {
-            if (difftime(current, alcoholEffectTime) >= i)
-            {
-                IsAlcoholTime--;
-                updateAlcoholTime(IsAlcoholTime);
-            }
-            else
-            {
-                continue; // 조건에 계속 맞는지 확인하게 만들어줌
-            }
-        }
-        break;
+    time_t current;
+    time(&current);
+    if (player->alcoholStartTime!=0 && player->alcoholStartTime != current)
+    {
+        IsAlcoholTime--;
+        updateAlcoholTime(IsAlcoholTime);
+        player->alcoholStartTime = current;
     }
-    return;
+    if (current - player->alcoholStartTime == 10)
+    {
+        player->alcoholStartTime = 0;
+    }
 }
 
 

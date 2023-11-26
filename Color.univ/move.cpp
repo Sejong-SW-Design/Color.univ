@@ -217,6 +217,7 @@ void Player::setAlcoholNumber()
 	{
 		alcoholNumber = rand() % 3;
 	}
+	time(&alcoholStartTime);
 }
 
 PatternNpc::PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSort)
