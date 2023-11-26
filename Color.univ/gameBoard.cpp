@@ -446,18 +446,6 @@ void updateAlcoholTime(int t)
     }
 }
 
-
-/*
-void playerMoveThread(Player* player, int gameMapHere[22][37], EnemiesManager* enemies)
-{
-    while (true) {
-        player->movingProcess(gameMapHere);
-        player->checkGoalIn(gameMapHere);
-        enemies->EnemyMoveProcess(gameMapHere, *player);
-    }
-}
-*/
-
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
 {
     // 랜덤
