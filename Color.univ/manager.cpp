@@ -11,10 +11,10 @@ extern int gameMap4[22][37];
 extern int gameMapHere[22][37];
 
 int pKeyPressed = 0;
+double keyInterval = 0.2;
 
 int keyControl() {
     static auto lastKeyPressTime = std::chrono::high_resolution_clock::now();
-    double keyInterval = 0.1;
 
     int flag = -1;
     if (_kbhit() != 0) {
@@ -57,10 +57,6 @@ int keyControl() {
 }
 
 
-//int modeControl() {
-//    
-//}
-
 int drawPauseScreen() {
     system("cls");
 
@@ -77,8 +73,6 @@ int drawPauseScreen() {
 
     setCurrentCursorPos(32, 18);
     printf("메인화면으로 돌아가기");
-
-    setBackgroundColor(0, 15); // 하얀색 : 게임보드 때문에 색깔 다시 돌려놓았어요! -뤂
 
     while (1) {
         int x = 32;
@@ -107,9 +101,9 @@ int drawPauseScreen() {
                 }
                 break;
 
-            // 화면 다 만들고 주석해제할거임
             case SPACEBAR:
                 if (y - 14 != 0) break;
+                setBackgroundColor(0, 15);
                 return y - 14;      // 0: 이어하기, 2:재수강, 4: 메인 화면
             }
         }

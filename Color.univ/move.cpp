@@ -6,6 +6,7 @@
 extern double score[5];
 extern int stage;
 extern int IsAlcoholTime; //뤂
+extern double keyInterval;
 
 Move::Move(Position initPos, int color, std::string shape)
 {
@@ -183,7 +184,7 @@ void Player::getItem(int gameMap[22][37])
 	if (itemSort == SPEED)
 	{
 		gameMap[position.y][position.x] = 0;
-		//여기서 manager한테 연락해주면 speed 조절해줄거임!(조)
+		keyInterval = 0.05;
 	}
 	if (itemSort == LIFE)
 	{
