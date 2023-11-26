@@ -150,6 +150,7 @@ string calculate(double score); // 점수 계산
 
 void drawLifeEdge();
 
+
 //void updateLife();
 
 //void playerMoveThread(Player* player, int gameMapHere[22][37]);

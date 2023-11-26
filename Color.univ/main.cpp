@@ -10,7 +10,7 @@ extern Store myStore;
 extern double score[5];
 extern int stage; // 추가해써요 - 뤂
 int gameMapHere[22][37];
-
+int IsAlcoholTime = -1;
 
 //스테이지별로 속도 조절이 필요할 것 같아서 만든 함수(이지호)
 //매니저에서 가져가주세요!
@@ -53,15 +53,24 @@ int main() {
 
     EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies);
 
+
     while (true)
     {
         int pcMoveCnt = npcSleepTime / 5;
+        
         for (int i = 0; i < pcMoveCnt; i++)
         {
             player->movingProcess(gameMapHere); 
-
+            if (i % npcSleepTime == 0 && IsAlcoholTime != -1)  // 일단 구현만 해놓음
+            {
+                updateAlcoholTime(IsAlcoholTime); 
+                IsAlcoholTime--;
+            }
             if (i % 5 == 0) //너무 매번 반복하면 비효율적인것같아서 ㅎㅎ
-               enemies->updateShootNpcFlags(gameMapHere, *player);
+            {
+                enemies->updateShootNpcFlags(gameMapHere, *player);    
+  
+            }
             // game over - 뤂
             /*
             if (score[stage] == 0)
@@ -75,7 +84,7 @@ int main() {
             if (player->checkGoalIn(gameMapHere))
             {
                 drawResultScreen(gameClear, 1);
-                drawGameResult(score, stage); // 게임 점수 확인 -> 게임보드 헤더파일에 있어용
+                drawGameResult(score, stage); 
                 stage++;
                 //
                 return 0;
@@ -86,6 +95,7 @@ int main() {
 
         //적 돌아당기게 하고싶으면 이거 주석 풀면됨
         enemies->EnemyMoveProcess(gameMapHere, *player);
+       
     }
        
     /*drawResultScreen(gameOver, 0);

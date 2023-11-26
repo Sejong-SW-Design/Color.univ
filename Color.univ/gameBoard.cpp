@@ -446,6 +446,8 @@ void updateAlcoholTime(int t)
     }
 }
 
+void 
+
 /*
 void playerMoveThread(Player* player, int gameMapHere[22][37], EnemiesManager* enemies)
 {

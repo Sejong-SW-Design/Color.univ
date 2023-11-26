@@ -5,6 +5,7 @@
 
 extern double score[5];
 extern int stage;
+extern int IsAlcoholTime; // 없애도 되어요 - 뤂
 
 Move::Move(Position initPos, int color, std::string shape)
 {
@@ -144,6 +145,7 @@ void Player::movingProcess(int gameMap[22][37])
 	{
 		//changeD++;
 		setAlcoholNumber();
+		IsAlcoholTime = 10;
 	}
 
 }
@@ -240,6 +242,7 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 		if (npcSort == ALCOHOL_NPC)
 		{
 			player.setAlcoholNumber();
+			IsAlcoholTime = 10;
 		}
 		if (npcSort == NORMAL_NPC)
 		{
