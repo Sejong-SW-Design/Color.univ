@@ -398,18 +398,12 @@ void giveTimeInfo()
 Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) {
 	
 	time_t alcoholEffectTime, current;
-
+	
 	time(&alcoholEffectTime);
 
 	while (1) {
 		time(&current);
 
-		// 이거 추가함
-		if ((difftime(current, alcoholEffectTime)) >= (11 - IsAlcoholTime))
-		{
-			IsAlcoholTime--; // 추가함
-		}
-		
 		if (difftime(current, alcoholEffectTime) >= 10) {
 			alcoholNum = -1;
 			//Sleep(10);

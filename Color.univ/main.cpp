@@ -81,18 +81,22 @@ int main() {
     // 바꾼거
     while (true)
     {
-        
-        int pcMoveCnt = npcSleepTime / 5;
-
-        if (IsAlcoholTime == 0)
+        if (IsAlcoholTime != -1)
         {
-            player->setNoAlcohol();
+            drawCheckTime(); // 이거 추가함
         }
+        int pcMoveCnt = npcSleepTime / 5;
 
         for (int i = 0; i < pcMoveCnt; i++)
         {
             player->movingProcess(gameMapHere); 
+
+            if (IsAlcoholTime == 0) // 이것도 안됨
+            {
+                player->setNoAlcohol();
+            }
             
+   
             if (i % 5 == 0) //너무 매번 반복하면 비효율적인것같아서 ㅎㅎ
             {
                 enemies->updateShootNpcFlags(gameMapHere, *player);    

@@ -150,6 +150,7 @@ string calculate(double score); // 점수 계산
 
 void drawLifeEdge();
 
+void drawCheckTime();
 
 //void updateLife();
 

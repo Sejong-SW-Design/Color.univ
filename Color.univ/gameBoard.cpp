@@ -8,6 +8,7 @@ vector<pair<int, int>>Exits; //비상구 배열
 extern double score[5];
 extern int stage;
 extern int life[3];
+extern int IsAlcoholTime;
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
 {
@@ -445,6 +446,42 @@ void updateAlcoholTime(int t)
         printf("  ");
     }
 }
+
+
+void drawCheckTime() // 이거 추가함
+{
+
+    time_t alcoholEffectTime, current;
+    time(&alcoholEffectTime);
+
+    while (1) {
+        time(&current);
+
+        // 이거 추가함
+        
+        for (int i = 0; i < 10; i++)
+        {
+            if (difftime(current, alcoholEffectTime) >= i)
+            {
+                IsAlcoholTime--;
+                updateAlcoholTime(IsAlcoholTime);
+            }
+            else
+            {
+                continue;
+            }
+        }
+
+        if (difftime(current, alcoholEffectTime) >= 10) {
+            IsAlcoholTime--;
+            break;
+        }
+        return;
+    }
+    return;
+}
+
+
 
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
 {

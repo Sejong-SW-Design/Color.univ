@@ -107,6 +107,7 @@ Player::Player(Pos initPosition)
 
 void Player::movingProcess(int gameMap[22][37])
 {
+
 	int key = keyControl();
 
 	bool shifted = false;
@@ -148,13 +149,13 @@ void Player::movingProcess(int gameMap[22][37])
 		setAlcoholNumber();
 		updateAlcoholTime(IsAlcoholTime);
 	}
-
+	/*
 	// 여기 고침
 	if (IsAlcoholTime != -1) // item에서 IsAlcoholTime 줄어든다.
 	{
 		updateAlcoholTime(IsAlcoholTime);
 	}
-
+	*/
 }
 
 void Player::getItem(int gameMap[22][37])
