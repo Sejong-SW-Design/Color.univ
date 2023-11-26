@@ -344,6 +344,9 @@ void ShootNpc::movingProcess(int gameMap[22][37], Player player)
 	if (isDead)
 		return;
 
+	if (!isFired)
+		showCharacter();
+
 	if (isFired)
 	{
 		//shift character
