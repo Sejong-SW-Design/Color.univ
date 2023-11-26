@@ -53,6 +53,7 @@ int main() {
 
     EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies);
 
+    /* 원래
     int alcohol_time = 1000 - npcSleepTime; // while문에 들어가기 위해 조정
     auto lastUpdateTime = chrono::high_resolution_clock::now(); // 마지막 업데이트 시간을 지금으로.
     chrono::milliseconds alcoholUpdateTime(alcohol_time); // 알코올 업데이트 간격을 ms로 변환
@@ -75,10 +76,19 @@ int main() {
                 }
             }
         }
+*/
 
+    // 바꾼거
+    while (true)
+    {
+        
         int pcMoveCnt = npcSleepTime / 5;
 
-        
+        if (IsAlcoholTime == 0)
+        {
+            player->setNoAlcohol();
+        }
+
         for (int i = 0; i < pcMoveCnt; i++)
         {
             player->movingProcess(gameMapHere); 

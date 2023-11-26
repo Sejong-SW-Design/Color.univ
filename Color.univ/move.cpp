@@ -144,8 +144,14 @@ void Player::movingProcess(int gameMap[22][37])
 	if (gameMap[position.y][position.x] == ALCOHOL_NPC)
 	{
 		//changeD++;
-		setAlcoholNumber();
 		IsAlcoholTime = 10;
+		setAlcoholNumber();
+		updateAlcoholTime(IsAlcoholTime);
+	}
+
+	// 여기 고침
+	if (IsAlcoholTime != -1) // item에서 IsAlcoholTime 줄어든다.
+	{
 		updateAlcoholTime(IsAlcoholTime);
 	}
 
@@ -242,9 +248,9 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player* player)
 	{
 		if (npcSort == ALCOHOL_NPC)
 		{
-			player->setAlcoholNumber();
 			IsAlcoholTime = 10;
-			updateAlcoholTime(IsAlcoholTime);
+			player->setAlcoholNumber();
+			updateAlcoholTime(IsAlcoholTime); // 고침
 		}
 		if (npcSort == NORMAL_NPC)
 		{
