@@ -6,7 +6,6 @@
 
 Store myStore = { 0,0 };
 extern double score[5];
-extern int IsAlcoholTime;
 extern int stage;
 int life[3]={1,1,1}; // 하트 배열
 

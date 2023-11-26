@@ -450,7 +450,6 @@ void updateAlcoholTime(int t)
 
 void drawCheckTime() // 나중에 ppt에 추가해야함
 {
-
     time_t alcoholEffectTime, current;
     time(&alcoholEffectTime);
 
@@ -471,7 +470,7 @@ void drawCheckTime() // 나중에 ppt에 추가해야함
                 continue; // 조건에 계속 맞는지 확인하게 만들어줌
             }
         }
-        return;
+        break;
     }
     return;
 }

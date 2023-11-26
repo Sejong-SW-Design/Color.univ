@@ -118,7 +118,7 @@ void setScore(int stage, double s) {
     // 근데 부등호 빼니까 족보 먹어서 5.0 되네...? 
 	score[stage] += s;
     if (score[stage] > 4.5) score[stage] = 4.5; // 그래서 임시방편으로 이거 만들어놨어요! 나중에 마음대로 고쳐주세용 -뤂
-
+    //if (score[stage] < 0) score[stage] = 0; // 이거도 추가했어요 뤂 족보먹고 계속 부딪히면 -1.0점이 생기길래!!
     drawInfo(score, stage); 
 }
 
