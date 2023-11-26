@@ -107,7 +107,6 @@ Player::Player(Pos initPosition)
 void Player::movingProcess(int gameMap[22][37])
 {
 	int key = keyControl();
-	if (key == -1) return;
 
 	bool shifted = false;
 	switch (key)
