@@ -5,10 +5,9 @@
 //점수 계산 맨 밑에 있어용
 
 vector<pair<int, int>>Exits; //비상구 배열
-//vector<int>Life;
 extern double score[5];
 extern int stage;
- 
+extern int life[3];
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
 {
@@ -214,11 +213,12 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
 
     case EMERGENCY_EXIT:
         setBackgroundColor(backGround, 2); printf("▥");
-        for (int k = 0; k < Exits.size(); k++) // 이거 안해서 비상구 이상했음
+        for (int k = 0; k < Exits.size(); k++) 
         {
             if (Exits[k].first == i && Exits[k].second == j) //같은 것이 있다면
             {
                 flag = 1;
+                break;
             }
         }
         if(flag==0) Exits.push_back(make_pair(i, j));
@@ -250,12 +250,12 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
 
 void drawGameBoard(int gameMap[22][37],int stage)
 {
+    //setBackgroundColor(0, 15); // 하얀색
     drawGameEdge();
     drawStore();  
     if (stage != 1) drawAlcoholTime();
+
     drawLifeEdge();
-    updateAlcoholTime(0); // 알코올 처음엔 X
-    // updateAlcoholTime(10); // 알코올 만땅
 
     drawInfoOriginal(score, stage);
 
@@ -271,84 +271,6 @@ void drawGameBoard(int gameMap[22][37],int stage)
     }
 }
 
-void drawGameEdge()
-{
-    int x, y;
-
-    int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;
-    for (y = 0; y <= h; y++)
-    {
-        setCurrentCursorPos(origin_x1, origin_y1 + y);
-        if (y == h)
-            printf("└");
-        else if (y == 0)
-            printf("┌");
-        else
-            printf("│");
-    }
-
-    for (y = 0; y <= h; y++)
-    {
-        setCurrentCursorPos(origin_x1 + (w + 1) * 2, origin_y1 + y);
-        if (y == h)
-            printf("┘");
-        else if (y == 0)
-            printf("┐");
-        else
-            printf("│");
-    }
-
-    for (x = 1; x < w + 1; x++)
-    {
-        setCurrentCursorPos(origin_x1 + x * 2, origin_y1);
-        printf("─");
-    }
-
-    for (x = 1; x < w + 1; x++)
-    {
-        setCurrentCursorPos(origin_x1 + x * 2, origin_y1 + h);
-        printf("─");
-    }
-}
-
-
-//벽 해제 애니메이션 때문이 임시로 만들었었으(이지호)
-int getWallColor(int gameBoardWallNumber)
-{
-    switch (gameBoardWallNumber)
-    {
-    case BLUE_WALL:
-        return 9;
-    case RED_WALL:
-        return 12;
-    case YELLOW_WALL:
-        return 14;
-    case PURPLE_WALL:
-        return 5;
-    case GREEN_WALL:
-        return 10;
-    case ORANGE_WALL:
-        return 6;
-    case DARKBLUE_WALL:
-        return 1;
-    case DARKGREEN_WALL:
-        return 2;
-    case DARKSKYBLUE_WALL:
-        return 3;
-    case DARKRED_WALL:
-        return 4;
-    case PINK_WALL:
-        return 13;
-    case DARKYELLOW_WALL:
-        return 6;
-    case DARKGRAY_WALL:
-        return 8;
-    case SKYBLUE_WALL:
-        return 11;
-    }
-    return 0;
-
-}
 
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
 {
@@ -416,126 +338,6 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
     return true;
 }
 
-void updateStore(int color1, int color2) // 새로 만듦 -> ppt에 추가해야함
-{
-    int x, y;
-    int origin_x1 = 20, origin_y1 = 27, h = 2, w = 2;
-
-    for (y = 1; y < h; y++)
-    {
-        for (x = 2; x <= w * 2; x++)
-        {
-            setCurrentCursorPos(origin_x1 + x, origin_y1 + y);
-            if (color1 == 0) printf("  ");
-            else 
-            {
-                setBackgroundColor(0, color1);
-                printf("■");
-            }
-        }
-    }
-
-    int origin_x2 = 28, origin_y2 = 27;
-
-    for (y = 1; y < h; y++)
-    {
-        for (x = 2; x <= w * 2; x++)
-        {
-            setCurrentCursorPos(origin_x2 + x, origin_y2 + y);
-            if (color2 == 0) printf("  ");
-            else
-            {
-                setBackgroundColor(0, color2);
-                printf("■");
-            }
-        }
-    }
-
-}
-
-void drawStore() 
-{
-    int x, y;
-
-    // 첫번째 저장소
-    int origin_x1 = 20, origin_y1 = 27, h = 2, w = 2;
-    for (y = 0; y <= h; y++)
-    {
-        setCurrentCursorPos(origin_x1, origin_y1 + y);
-        if (y == h)
-            printf("└");
-        else if (y == 0)
-            printf("┌");
-        else
-            printf("│");
-    }
-
-    for (y = 0; y <= h; y++)
-    {
-        setCurrentCursorPos(origin_x1 + (w + 1) * 2, origin_y1 + y);
-        if (y == h)
-            printf("┘");
-        else if (y == 0)
-            printf("┐");
-        else
-            printf("│");
-    }
-
-    for (x = 1; x < w + 1; x++)
-    {
-        setCurrentCursorPos(origin_x1 + x * 2, origin_y1);
-        printf("─");
-    }
-
-    for (x = 1; x < w + 1; x++)
-    {
-        setCurrentCursorPos(origin_x1 + x * 2, origin_y1 + h);
-        printf("─");
-    }
-
-    // 두 번째 저장소
-
-    int origin_x2 = 28, origin_y2 = 27;
-    for (y = 0; y <= h; y++)
-    {
-        setCurrentCursorPos(origin_x2, origin_y2 + y);
-        if (y == h)
-            printf("└");
-        else if (y == 0)
-            printf("┌");
-        else
-            printf("│");
-    }
-
-    for (y = 0; y <= h; y++)
-    {
-        setCurrentCursorPos(origin_x2 + (w + 1) * 2, origin_y2 + y);
-        if (y == h)
-            printf("┘");
-        else if (y == 0)
-            printf("┐");
-        else
-            printf("│");
-    }
-
-    for (x = 1; x < w + 1; x++)
-    {
-        setCurrentCursorPos(origin_x2 + x * 2, origin_y2);
-        printf("─");
-    }
-
-    for (x = 1; x < w + 1; x++)
-    {
-        setCurrentCursorPos(origin_x2 + x * 2, origin_y2 + h);
-        printf("─");
-    }
-
-    setCurrentCursorPos(12,28);
-    printf("[store]");
-}
-
-
-
 
 void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
 {
@@ -586,75 +388,10 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
         setCurrentCursorPos(origin_x + (x * 3) + 2, origin_y);
         setBackgroundColor(0, 4); // 어두운 빨강
         printf("♥");
-
-        //Life.push_back(1);
-        
-        // 하트 1,2,3 기억 
-        // 1 -> 하트 있다. 0 -> 하트 없다
     }
     
 }
 
-
-
-/*
-void updateLife() // 하트 업데이트
-{   
-    
-    int x;
-    int origin_x = 59, origin_y = 28;
-    for (x = 0; x < 3; x++)
-    {
-        if (Life.at(x) == 1) // 하트가 있다면
-        {
-            setCurrentCursorPos(origin_x + (x * 3) + 2, origin_y);
-            setBackgroundColor(0, 4); // 어두운 빨강
-            printf("♥");
-        }
-    }
-    
-}
-*/
-// 하트 줄어드는 것, 늘어나는 것 아이템에서 구현!! -> 색저장소처럼
-//이 부분은 없애고 아이템에서 할게여 - 지우
-
-
-
-void drawInfo(double *score, int stage)
-{
-    setCurrentCursorPos(14, 1); 
-    printf("[%d 학년]", stage);
-
-    setCurrentCursorPos(34, 1);
-    printf("현재 학점 : %.1f", score[stage]);
-
-    setCurrentCursorPos(60, 1);
-    printf("평균 학점 : %.1f", score[0]);
-}
-
-void drawInfoOriginal(double* score, int stage)
-{
-    setBackgroundColor(0, 15); // 하얀색
-    drawInfo(score, stage);
-}
-
-void drawInfoMinus(double* score, int stage)
-{
-    setBackgroundColor(0, 12); // 빨간색
-    drawInfo(score, stage);
-
-    Sleep(150);
-    drawInfoOriginal(score, stage);
-}
-
-void drawInfoPlus(double* score, int stage)
-{
-    setBackgroundColor(0, 9); // 파랑색
-    drawInfo(score, stage);
-
-    Sleep(150);
-    drawInfoOriginal(score, stage);
-}
 
 void drawAlcoholTime()
 {
@@ -688,51 +425,41 @@ void drawAlcoholTime()
     printf("[Alcohol]");
 }
 
+
 void updateAlcoholTime(int t)
 {
-    int y, full = 10;
-    int origin_x = 87, origin_y = 11+full-t, h = t, w = 1;
-    for (y = 0; y < h; y++)
+    int y = 0, full = 10;
+    int origin_x = 87, origin_y = 11 + full - t, h = t, w = 1;
+    if (t == full) // 처음 술 먹었을 때(만땅)
     {
-        setCurrentCursorPos(origin_x, origin_y + y);
-        setBackgroundColor(0, 12);
-        printf("■");
+        for (y = 0; y < h; y++)
+        {
+            setCurrentCursorPos(origin_x, origin_y + y);
+            setBackgroundColor(0, 12);
+            printf("■");
+        }
     }
-}
-
-
-void removeAlcoholTime()
-{
-    int x, y;
-    int origin_x = 85, origin_y = 11, h = 10, w = 1;
-    for (y = 0; y <= h; y++)
+    else // 게이지 하나씩 없어짐
     {
-        setCurrentCursorPos(origin_x, origin_y + y);
-        if (y == h)
-            printf("  ");
-        else
-            printf("  ");
-    }
-
-    for (y = 0; y <= h; y++)
-    {
-        setCurrentCursorPos(origin_x + (w + 1) * 2, origin_y + y);
-        if (y == h)
-            printf("  ");
-        else
-            printf("  ");
-    }
-
-    for (x = 1; x < w + 1; x++)
-    {
-        setCurrentCursorPos(origin_x + x * 2, origin_y + h);
+        setCurrentCursorPos(origin_x, origin_y - 1);
         printf("  ");
     }
 }
 
+/*
+void playerMoveThread(Player* player, int gameMapHere[22][37], EnemiesManager* enemies)
+{
+    while (true) {
+        player->movingProcess(gameMapHere);
+        player->checkGoalIn(gameMapHere);
+        enemies->EnemyMoveProcess(gameMapHere, *player);
+    }
+}
+*/
+
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
 {
-    /*
+    // 랜덤
     srand((unsigned int)time(NULL));
     
     int idx = rand() % (Exits.size()); // 나올 비상구 idx
@@ -744,11 +471,12 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // �
     }
 
     return Exits[idx];
-    */
 
+    // 순서대로 한 번씩 다 나오도록
+    /*
     int currIdx=0; 
 
-    for (int i = 0; i < Exits.size(); i++) // 순서대로 한 번씩 다 나오도록
+    for (int i = 0; i < Exits.size(); i++) 
     {
         if (Exits[i].first == posY && Exits[i].second == posX)
         {
@@ -760,6 +488,7 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // �
     int idx = (currIdx + 1) % Exits.size();
 
     return Exits[idx];
+    */
 }
 
 void drawGameResult(double* score, int stage)
@@ -857,3 +586,236 @@ string calculate(double score) // 학점 계산
 
 
 
+void updateStore(int color1, int color2)
+{
+    int x, y;
+    int origin_x1 = 20, origin_y1 = 27, h = 2, w = 2;
+
+    for (y = 1; y < h; y++)
+    {
+        for (x = 2; x <= w * 2; x++)
+        {
+            setCurrentCursorPos(origin_x1 + x, origin_y1 + y);
+            if (color1 == 0) printf("  ");
+            else
+            {
+                setBackgroundColor(0, color1);
+                printf("■");
+            }
+        }
+    }
+
+    int origin_x2 = 28, origin_y2 = 27;
+
+    for (y = 1; y < h; y++)
+    {
+        for (x = 2; x <= w * 2; x++)
+        {
+            setCurrentCursorPos(origin_x2 + x, origin_y2 + y);
+            if (color2 == 0) printf("  ");
+            else
+            {
+                setBackgroundColor(0, color2);
+                printf("■");
+            }
+        }
+    }
+
+}
+
+void drawStore()
+{
+    int x, y;
+
+    // 첫번째 저장소
+    int origin_x1 = 20, origin_y1 = 27, h = 2, w = 2;
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x1, origin_y1 + y);
+        if (y == h)
+            printf("└");
+        else if (y == 0)
+            printf("┌");
+        else
+            printf("│");
+    }
+
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x1 + (w + 1) * 2, origin_y1 + y);
+        if (y == h)
+            printf("┘");
+        else if (y == 0)
+            printf("┐");
+        else
+            printf("│");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x1 + x * 2, origin_y1);
+        printf("─");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x1 + x * 2, origin_y1 + h);
+        printf("─");
+    }
+
+    // 두 번째 저장소
+
+    int origin_x2 = 28, origin_y2 = 27;
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x2, origin_y2 + y);
+        if (y == h)
+            printf("└");
+        else if (y == 0)
+            printf("┌");
+        else
+            printf("│");
+    }
+
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x2 + (w + 1) * 2, origin_y2 + y);
+        if (y == h)
+            printf("┘");
+        else if (y == 0)
+            printf("┐");
+        else
+            printf("│");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x2 + x * 2, origin_y2);
+        printf("─");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x2 + x * 2, origin_y2 + h);
+        printf("─");
+    }
+
+    setCurrentCursorPos(12, 28);
+    printf("[store]");
+}
+
+void drawGameEdge()
+{
+    int x, y;
+
+    int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x1, origin_y1 + y);
+        if (y == h)
+            printf("└");
+        else if (y == 0)
+            printf("┌");
+        else
+            printf("│");
+    }
+
+    for (y = 0; y <= h; y++)
+    {
+        setCurrentCursorPos(origin_x1 + (w + 1) * 2, origin_y1 + y);
+        if (y == h)
+            printf("┘");
+        else if (y == 0)
+            printf("┐");
+        else
+            printf("│");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x1 + x * 2, origin_y1);
+        printf("─");
+    }
+
+    for (x = 1; x < w + 1; x++)
+    {
+        setCurrentCursorPos(origin_x1 + x * 2, origin_y1 + h);
+        printf("─");
+    }
+}
+
+
+
+void drawInfo(double* score, int stage)
+{
+    setCurrentCursorPos(14, 1);
+    printf("[%d 학년]", stage);
+
+    setCurrentCursorPos(34, 1);
+    printf("현재 학점 : %.1f", score[stage]);
+
+    setCurrentCursorPos(60, 1);
+    printf("평균 학점 : %.1f", score[0]);
+}
+
+void drawInfoOriginal(double* score, int stage)
+{
+    setBackgroundColor(0, 15); // 하얀색
+    drawInfo(score, stage);
+}
+
+void drawInfoMinus(double* score, int stage)
+{
+    setBackgroundColor(0, 12); // 빨간색
+    drawInfo(score, stage);
+
+    Sleep(130);
+    drawInfoOriginal(score, stage);
+}
+
+void drawInfoPlus(double* score, int stage)
+{
+    setBackgroundColor(0, 9); // 파랑색
+    drawInfo(score, stage);
+
+    Sleep(130);
+    drawInfoOriginal(score, stage);
+}
+
+//벽 해제 애니메이션 때문이 임시로 만들었었으(이지호)
+int getWallColor(int gameBoardWallNumber)
+{
+    switch (gameBoardWallNumber)
+    {
+    case BLUE_WALL:
+        return 9;
+    case RED_WALL:
+        return 12;
+    case YELLOW_WALL:
+        return 14;
+    case PURPLE_WALL:
+        return 5;
+    case GREEN_WALL:
+        return 10;
+    case ORANGE_WALL:
+        return 6;
+    case DARKBLUE_WALL:
+        return 1;
+    case DARKGREEN_WALL:
+        return 2;
+    case DARKSKYBLUE_WALL:
+        return 3;
+    case DARKRED_WALL:
+        return 4;
+    case PINK_WALL:
+        return 13;
+    case DARKYELLOW_WALL:
+        return 6;
+    case DARKGRAY_WALL:
+        return 8;
+    case SKYBLUE_WALL:
+        return 11;
+    }
+    return 0;
+
+}

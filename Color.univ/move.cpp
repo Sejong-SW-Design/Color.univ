@@ -138,13 +138,12 @@ void Player::movingProcess(int gameMap[22][37])
 	if (gameMap[position.y][position.x] == NORMAL_NPC)
 	{
 		setScore(stage, -1.5);
-		drawInfoMinus(score, stage); // 미완
+		drawInfoMinus(score, stage); 
 	}
 	if (gameMap[position.y][position.x] == ALCOHOL_NPC)
 	{
 		//changeD++;
 		setAlcoholNumber();
-		drawInfoMinus(score, stage); // 미완
 	}
 
 }
@@ -241,7 +240,6 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player player)
 		if (npcSort == ALCOHOL_NPC)
 		{
 			player.setAlcoholNumber();
-			drawInfoMinus(score, stage);
 		}
 		if (npcSort == NORMAL_NPC)
 		{
@@ -271,7 +269,7 @@ int PatternNpc::getOppositeDirection(int direction) {
 }
 
 ChasingNpc::ChasingNpc(Pos initPosition)
-	: Move(initPosition, 12, getNpcShape(CHASING_NPC)) // 다른 걸루 바꿔도 되어용 - 루피
+	: Move(initPosition, 12, getNpcShape(CHASING_NPC)) 
 {
 	;
 }

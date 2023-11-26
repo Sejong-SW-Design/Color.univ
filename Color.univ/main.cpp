@@ -31,7 +31,7 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-    stage = 3 ; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
+    stage = 3; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
     //while 문
     getStage(gameMapHere, stage);

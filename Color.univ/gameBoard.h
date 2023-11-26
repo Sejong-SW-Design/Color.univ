@@ -1,17 +1,19 @@
 #ifndef __GAMEBOARD_H__
 #define __GAMEBOARD_H__
 
-#include <stdio.h>
+
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
 #include <Windows.h>
+#include <chrono>
+#include <thread>
 #include <ctime>
 #include <queue>
 #include <vector>
 #include "util.h"
 #include "manager.h"
-#include "item.h"
+
 
 #define GBOARD_ORIGIN_X 6
 #define GBOARD_ORIGIN_Y 4
@@ -130,7 +132,7 @@ void drawAlcoholTime();
 
 void updateAlcoholTime(int t);
 
-void removeAlcoholTime();
+int getWallColor(int gameBoardWallNumber);
 
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]);
 
@@ -148,7 +150,8 @@ string calculate(double score); // 점수 계산
 
 void drawLifeEdge();
 
-void updateLife();
+//void updateLife();
 
+//void playerMoveThread(Player* player, int gameMapHere[22][37]);
 
 #endif
