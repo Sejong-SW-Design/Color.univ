@@ -80,6 +80,10 @@ public:
 	void getItem(int gameMap[22][37]);
 	bool checkGoalIn(int gameMap[22][37]);
 	void setAlcoholNumber();
+	void setNoAlcohol()
+	{
+		alcoholNumber = -1;
+	}
 };
 
 class PatternNpc : public Move
@@ -93,7 +97,7 @@ private:
 	int getOppositeDirection(int direction);
 public:
 	PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSort);
-	void movingProcess(int gameMap[22][37], Player player);
+	void movingProcess(int gameMap[22][37], Player* player);
 };
 
 class ChasingNpc : public Move
@@ -131,14 +135,14 @@ public:
 		chasingEnemies = c;
 		shootEnemies = s;
 	}
-	void EnemyMoveProcess(int gameMap[22][37], Player player)
+	void EnemyMoveProcess(int gameMap[22][37], Player *player)
 	{
 		for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
 			(*iter)->movingProcess(gameMap, player);
 		for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
-			(*iter)->movingProcess(gameMap, player);
+			(*iter)->movingProcess(gameMap, *player);
 		for (auto iter = shootEnemies.begin(); iter != shootEnemies.end(); iter++)
-			(*iter)->movingProcess(gameMap, player);
+			(*iter)->movingProcess(gameMap, *player);
 	}
 	void updateShootNpcFlags(int gameMap[22][37], Player player)
 	{
