@@ -91,7 +91,7 @@ int main() {
         {
             player->movingProcess(gameMapHere); 
 
-            if (IsAlcoholTime == 0) // ÀÌ°Íµµ ¾ÈµÊ
+            if (IsAlcoholTime == 0) 
             {
                 player->setNoAlcohol();
             }

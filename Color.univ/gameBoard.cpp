@@ -440,7 +440,7 @@ void updateAlcoholTime(int t)
             printf("■");
         }
     }
-    else // 게이지 하나씩 없어짐
+    else if (t >= 0)
     {
         setCurrentCursorPos(origin_x, origin_y - 1);
         printf("  ");
@@ -472,7 +472,8 @@ void drawCheckTime() // 이거 추가함
             }
         }
 
-        if (difftime(current, alcoholEffectTime) >= 10) {
+        if (difftime(current, alcoholEffectTime) >= 10)
+        {
             IsAlcoholTime--;
             break;
         }
