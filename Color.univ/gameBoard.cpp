@@ -382,13 +382,17 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
     setCurrentCursorPos(50, 28);
     printf("[life]");
 
-    
+
     origin_x = 59, origin_y = 28;
+
     for (x = 0; x < 3; x++)
     {
-        setCurrentCursorPos(origin_x + (x * 3) + 2, origin_y);
-        setBackgroundColor(0, 4); // 어두운 빨강
-        printf("♥");
+        if (life[x] == 1) // 스테이지마다 불러오기 때문에 추가.
+        {
+            setCurrentCursorPos(origin_x + (x * 3) + 2, origin_y);
+            setBackgroundColor(0, 4); // 어두운 빨강
+            printf("♥");
+        }
     }
     
 }
