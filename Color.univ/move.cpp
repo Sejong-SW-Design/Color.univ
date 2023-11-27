@@ -147,7 +147,7 @@ void Player::movingProcess(int gameMap[22][37])
 		//changeD++;
 		IsAlcoholTime = 10;
 		setAlcoholNumber();
-		updateAlcoholTime(IsAlcoholTime);
+		drawAlcoholTime(IsAlcoholTime);
 	}
 	/*
 	// 여기 고침
@@ -189,6 +189,7 @@ void Player::getItem(int gameMap[22][37])
 	{
 		eraseColor(position.x, position.y, gameMap);
 	}
+	
 	if (itemSort == SPEED)
 	{
 		gameMap[position.y][position.x] = 0;
@@ -252,7 +253,7 @@ void PatternNpc::movingProcess(int gameMap[22][37], Player* player)
 		{
 			IsAlcoholTime = 10;
 			player->setAlcoholNumber();
-			updateAlcoholTime(IsAlcoholTime); 
+			drawAlcoholTime(IsAlcoholTime); 
 		}
 		if (npcSort == NORMAL_NPC)
 		{

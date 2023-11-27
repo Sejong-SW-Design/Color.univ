@@ -53,8 +53,8 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
     case 3:
         P.push_back(new PatternNpc({ 34,9 }, { 34,8 }, { 34,10 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 34,12 }, { 34,13 }, { 34,11 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 27, 2 }, { 27, 1 }, { 27, 4 }, NORMAL_NPC));
-        P.push_back(new PatternNpc({ 29, 4 }, { 28, 4 }, { 30, 4 }, NORMAL_NPC));   
+        P.push_back(new PatternNpc({ 26, 2 }, { 26, 1 }, { 26, 4 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 29, 4 }, { 27, 4 }, { 30, 4 }, NORMAL_NPC));   
 
         P.push_back(new PatternNpc({ 14, 15 }, { 12, 15 }, { 21, 15 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 14, 18 }, { 12, 18 }, { 21, 18 }, NORMAL_NPC));
@@ -427,7 +427,7 @@ void drawAlcoholTime()
 }
 
 
-void updateAlcoholTime(int t)
+void drawAlcoholTime(int t)
 {
     int y = 0, full = 10;
     int origin_x = 87, origin_y = 11 + full - t, h = t, w = 1;
@@ -455,7 +455,7 @@ void drawCheckTime(Player *player) // 나중에 ppt에 추가해야함
     if (player->alcoholStartTime!=0 && player->alcoholStartTime != current)
     {
         IsAlcoholTime--;
-        updateAlcoholTime(IsAlcoholTime);
+        drawAlcoholTime(IsAlcoholTime);
         player->alcoholStartTime = current;
     }
     if (current - player->alcoholStartTime == 10)

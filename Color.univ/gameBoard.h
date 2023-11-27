@@ -130,7 +130,7 @@ void drawInfoPlus(double* score, int stage);
 
 void drawAlcoholTime();
 
-void updateAlcoholTime(int t);
+void drawAlcoholTime(int t);
 
 int getWallColor(int gameBoardWallNumber);
 
