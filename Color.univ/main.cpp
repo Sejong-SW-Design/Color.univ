@@ -48,7 +48,7 @@ int main() {
                     playerInitPos = setPcInitPos(stage);
                     player = new Player(playerInitPos);
 
-                    npcSleepTime = getNpcSleeTime(stage);
+                    npcSleepTime = getNpcSleepTime(stage);
 
                     calculateAvgScore();
 

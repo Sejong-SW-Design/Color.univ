@@ -49,7 +49,7 @@ void drawResultScreen(int gameResult[22][37], int check);
 
 void getStage(int gameMap[22][37], int stage);
 
-int getNpcSleeTime(int stage);
+int getNpcSleepTime(int stage);
 
 void calculateAvgScore();
 
