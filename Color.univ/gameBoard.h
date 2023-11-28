@@ -12,6 +12,7 @@
 #include <queue>
 #include <vector>
 #include "util.h"
+#include <clocale>
 #include "manager.h"
 
 
@@ -107,8 +108,11 @@ enum GAME_BOARD
 
 using namespace std;
 
-void drawOnePoint(int gameMap[22][37], int i, int j, int backGround);
 void drawOnePoint(int gameMap[22][37], int i, int j);
+
+void drawOnePoint(int gameMap[22][37], int i, int j, int backGround);
+
+void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textColor);
 
 void drawGameBoard(int gameMap[22][37], int stage);
 
@@ -128,7 +132,7 @@ void drawInfoMinus(double* score, int stage);
 
 void drawInfoPlus(double* score, int stage);
 
-void drawAlcoholTime();
+void drawAlcoholTimeEdge();
 
 void drawAlcoholTime(int t);
 
@@ -151,6 +155,8 @@ string calculate(double score); // 점수 계산
 void drawLifeEdge();
 
 void drawCheckTime(Player* player);
+
+int getColor(int gameBoardNumber);
 
 //void updateLife();
 

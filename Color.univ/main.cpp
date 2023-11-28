@@ -25,7 +25,7 @@ int main() {
             stage = 1;
 
             //초기위치
-            Pos playerInitPos;;
+            Pos playerInitPos;
             Player* player = nullptr;
 
             //npc sleep time

@@ -135,16 +135,14 @@ vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S)
 }
 
 void drawGameBoard(int gameMap[22][37], int stage)
-{
-    
+{   
     drawGameEdge();
     drawStore();
-    if (stage != 1) drawAlcoholTime();
+    if (stage != 1) drawAlcoholTimeEdge();
 
     drawLifeEdge();
 
     drawInfoOriginal(score, stage);
-
 
     Exits.clear();
 
@@ -159,84 +157,113 @@ void drawGameBoard(int gameMap[22][37], int stage)
 
 void drawOnePoint(int gameMap[22][37], int i, int j)
 {
-    drawOnePoint(gameMap, i, j, 0);
+    int textColor = getColor(gameMap[i][j]);
+    drawOnePoint(gameMap, i, j, 0, textColor);
 }
-//게임보드 x y 좌표 기준으로 받는다!!
-void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
+
+void drawOnePoint(int gameMap[22][37], int i, int j, int backGround) // 새로 만듦 -> 혹시 함수를 합치고 싶다면 합치세요.
+{
+    int textColor = getColor(gameMap[i][j]);
+    drawOnePoint(gameMap, i, j, backGround, textColor);
+}
+
+
+//새로 만듦
+void drawDarkGameBoard(int gameMap[22][37],Pos PCposition) // 변수 일단 아무거나 넣었으니 바꿔주세요. 구조 바꾸고 싶으면 마음대로 바꾸기. 아직 헤더 파일에 선언 안해놓음요 -뤂
+// getColor 함수는 맨 밑에 있습니다.
+{
+    int textColor;
+
+    for (int i = 0; i < 22; i++)
+    {
+        for (int j = 0; j < 37; j++)
+        {
+            if (1) // if PC 반경이라면? (걍 아무거나 넣어놓음. 바꿔주세용)
+            {
+                textColor = getColor(gameMap[i][j]);
+            }
+            else textColor = 0; // 반경이 아니라면 검정색
+
+            drawOnePoint(gameMap, i, j, 0, textColor);
+        }
+    }
+}
+
+
+void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textColor)
 {
     int flag = 0; // 비상구 때문에!
     Pos cursorPosition = Move::getCursorPos({j, i});
     setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
+
     switch (gameMap[i][j])
     {
     case NORMAL_WALL:
-        if (stage == 4) setBackgroundColor(backGround, 8); // 어두운 회색
-        else setBackgroundColor(backGround, 7); // 그냥 회색
-        printf("■"); break;
+        setBackgroundColor(backGround, textColor); printf("■"); break;
     case BLANK:
         setBackgroundColor(backGround, backGround); printf("■"); break;
     case GOAL:
         setBackgroundColor(backGround, backGround); printf("■"); break;
     case BLUE_WALL:
-        setBackgroundColor(backGround, 9); printf("■"); break;
+        setBackgroundColor(backGround, textColor); printf("■"); break;
     case RED_WALL:
-        setBackgroundColor(backGround, 12); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case YELLOW_WALL:
-        setBackgroundColor(backGround, 14); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case PURPLE_WALL:
-        setBackgroundColor(backGround, 5); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case GREEN_WALL:
-        setBackgroundColor(backGround, 10); printf("■"); break;
+        setBackgroundColor(backGround, textColor); printf("■"); break;
     case ORANGE_WALL:
-        setBackgroundColor(backGround, 6); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case DARKBLUE_WALL:
-        setBackgroundColor(backGround, 1); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case DARKGREEN_WALL:
-        setBackgroundColor(backGround, 2); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case DARKSKYBLUE_WALL:
-        setBackgroundColor(backGround, 3); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case DARKRED_WALL:
-        setBackgroundColor(backGround, 4); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case PINK_WALL:
-        setBackgroundColor(backGround, 13); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case DARKYELLOW_WALL:
-        setBackgroundColor(backGround, 6); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case DARKGRAY_WALL:
-        setBackgroundColor(backGround, 8); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
     case SKYBLUE_WALL:
-        setBackgroundColor(backGround, 11); printf("■");  break;
+        setBackgroundColor(backGround, textColor); printf("■");  break;
 
     case BLUE_BTN:
-        setBackgroundColor(backGround, 9); printf("⊙"); break;
+        setBackgroundColor(backGround, textColor); printf("⊙"); break;
     case RED_BTN:
-        setBackgroundColor(backGround, 12); printf("⊙"); break;
+        setBackgroundColor(backGround, textColor); printf("⊙"); break;
     case YELLOW_BTN:
-        setBackgroundColor(backGround, 14); printf("⊙"); break;
+        setBackgroundColor(backGround, textColor); printf("⊙"); break;
     case PURPLE_BTN:
-        setBackgroundColor(backGround, 5); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
     case GREEN_BTN:
-        setBackgroundColor(backGround, 10); printf("⊙"); break;
+        setBackgroundColor(backGround, textColor); printf("⊙"); break;
     case ORANGE_BTN:
-        setBackgroundColor(backGround, 6); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
     case DARKBLUE_BTN:
-        setBackgroundColor(backGround, 1); printf("⊙"); break;
+        setBackgroundColor(backGround, textColor); printf("⊙"); break;
     case DARKGREEN_BTN:
-        setBackgroundColor(backGround, 2); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
     case DARKSKYBLUE_BTN:
-        setBackgroundColor(backGround, 3); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
     case DARKRED_BTN:
-        setBackgroundColor(backGround, 4); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
     case PINK_BTN:
-        setBackgroundColor(backGround, 13); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
     case DARKYELLOW_BTN:
-        setBackgroundColor(backGround, 6); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
     case DARKGRAY_BTN:
-        setBackgroundColor(backGround, 8); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
     case SKYBLUE_BTN:
-        setBackgroundColor(backGround, 11); printf("⊙");  break;
+        setBackgroundColor(backGround, textColor); printf("⊙");  break;
 
     case EMERGENCY_EXIT:
-        setBackgroundColor(backGround, 2); printf("▥");
+        setBackgroundColor(backGround, textColor); printf("▥");
         for (int k = 0; k < Exits.size(); k++) 
         {
             if (Exits[k].first == i && Exits[k].second == j) //같은 것이 있다면
@@ -248,27 +275,27 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
         if(flag==0) Exits.push_back(make_pair(i, j));
         break;
     case PRIME:
-        setBackgroundColor(backGround, 6); printf("★"); break;
+        setBackgroundColor(backGround, textColor); printf("★"); break;
     case ERASER:
-        setBackgroundColor(backGround, 15); printf("ⓔ"); break;
+        setBackgroundColor(backGround, textColor); printf("ⓔ"); break;
     case LIFE:
-        setBackgroundColor(backGround, 4); printf("♥"); break; // npc랑 헷갈릴까봐 다크 레드 사용
+        setBackgroundColor(backGround, textColor); printf("♥"); break; // npc랑 헷갈릴까봐 다크 레드 사용
     case SPEED:
-        setBackgroundColor(backGround, 7); printf("⒮"); break; // eraser랑 헷갈릴까봐
+        setBackgroundColor(backGround, textColor); printf("⒮"); break; // eraser랑 헷갈릴까봐
     case NORMAL_NPC:
-        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(NORMAL_NPC).c_str()); break;
+        setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(NORMAL_NPC).c_str()); break;
     case ALCOHOL_NPC:
-        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(ALCOHOL_NPC).c_str()); break;
+        setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(ALCOHOL_NPC).c_str()); break;
     case CHASING_NPC:
-        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(CHASING_NPC).c_str()); break;
+        setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(CHASING_NPC).c_str()); break;
     case SHOOT_NPC_LEFT:
-        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_LEFT).c_str()); break;
+        setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(SHOOT_NPC_LEFT).c_str()); break;
     case SHOOT_NPC_RIGHT:
-        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_RIGHT).c_str()); break;
+        setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(SHOOT_NPC_RIGHT).c_str()); break;
     case SHOOT_NPC_UP:
-        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_UP).c_str()); break;
+        setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(SHOOT_NPC_UP).c_str()); break;
     case SHOOT_NPC_DOWN:
-        setBackgroundColor(backGround, 12); printf("%s", Move::getNpcShape(SHOOT_NPC_DOWN).c_str()); break;
+        setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(SHOOT_NPC_DOWN).c_str()); break;
     }
 }
 
@@ -344,12 +371,13 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
 {
     int x, y, h = 2, w = 6;
 
+
     int origin_x = 57, origin_y = 27;
     for (y = 0; y <= h; y++)
     {
         setCurrentCursorPos(origin_x, origin_y + y);
         if (y == h)
-            printf("└");
+            printf("└"); 
         else if (y == 0)
             printf("┌");
         else
@@ -398,7 +426,7 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
 }
 
 
-void drawAlcoholTime()
+void drawAlcoholTimeEdge()
 {
     int x, y;
     int origin_x = 85, origin_y = 11, h = 10, w = 1;
@@ -832,3 +860,64 @@ int getWallColor(int gameBoardWallNumber)
     return 0;
 
 }
+
+
+// 새로 만듦
+int getColor(int gameBoardNumber) // enum 색 얻어오는 함수
+{
+    switch (gameBoardNumber)
+    {
+    case NORMAL_WALL:
+        if (stage == 4) return 8; 
+        else return 7; 
+    case BLANK:
+        return 0;
+    case GOAL:
+        return 0;
+    case BLUE_WALL: case BLUE_BTN:
+        return 9;
+    case RED_WALL: case RED_BTN:
+        return 12;
+    case YELLOW_WALL: case YELLOW_BTN:
+        return 14;
+    case PURPLE_WALL: case PURPLE_BTN:
+        return 5;
+    case GREEN_WALL: case GREEN_BTN:
+        return 10;
+    case ORANGE_WALL: case ORANGE_BTN:
+        return 6;
+    case DARKBLUE_WALL: case DARKBLUE_BTN:
+        return 1;
+    case DARKGREEN_WALL: case DARKGREEN_BTN:
+        return 2;
+    case DARKSKYBLUE_WALL: case DARKSKYBLUE_BTN:
+        return 3;
+    case DARKRED_WALL: case DARKRED_BTN:
+        return 4;
+    case PINK_WALL: case PINK_BTN:
+        return 13;
+    case DARKYELLOW_WALL: case DARKYELLOW_BTN:
+        return 6;
+    case DARKGRAY_WALL: case DARKGRAY_BTN:
+        return 8;
+    case SKYBLUE_WALL: case SKYBLUE_BTN:
+        return 11;
+
+    case EMERGENCY_EXIT:
+        return 2;
+    case PRIME:
+        return 6;
+    case ERASER:
+        return 15;
+    case LIFE:
+        return 4;
+    case SPEED:
+        return 7;
+    case NORMAL_NPC: case ALCOHOL_NPC: case CHASING_NPC: case SHOOT_NPC_LEFT: case SHOOT_NPC_RIGHT: case SHOOT_NPC_UP: case SHOOT_NPC_DOWN:
+        return 12;
+    }
+    return 0;
+}
+
+
+
