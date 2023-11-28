@@ -11,122 +11,119 @@ extern double score[5];
 extern int stage; // 추가해써요 - 뤂
 int gameMapHere[22][37];
 int IsAlcoholTime = -1;
+extern int life[3];
 
-//스테이지별로 속도 조절이 필요할 것 같아서 만든 함수(이지호)
-//매니저에서 가져가주세요!
-int getNpcSleeTime(int stage)
-{
-    //각 맵별로 속도 조절 필요하면 더 해주세요!
-    switch (stage)
-    {
-    case 1: return 150;
-    case 2: return 150;
-    case 3: return 300;
-    case 4: return 150;
-    }
-    return 150;
-}
 
 int main() {
 	setConsoleSize();
 	removeCursor();
 
-    stage = 3; // stage 자리 원하는 곳에 옮겨주세요 - 뤂
 
-    //while 문
-    getStage(gameMapHere, stage);
+    while (1) {
+        int flag = initGame();
+        if (flag == 0) {
+            stage = 1;
 
-	drawGameBoard(gameMapHere,stage); 
-    eraseColor(0, 0, gameMapHere); // 게임 시작할 때 색저장소 초기화
+            //초기위치
+            Pos playerInitPos;;
+            Player* player = nullptr;
 
-    //초기위치
-    Pos playerInitPos = setPcInitPos(stage); 
-    Player* player = new Player(playerInitPos);
+            //npc sleep time
+            int npcSleepTime = 0; //pc는 5ms당 한번 입력 
 
-    //npc sleep time
-    int npcSleepTime = getNpcSleeTime(stage); //pc는 5ms당 한번 입력 
+            //npc 위치
+            vector<PatternNpc*> patternEnemies;
+            vector<ChasingNpc*> chasingEnemies;
+            vector<ShootNpc*> shootEnemies;
 
-    //npc 위치
-    vector<PatternNpc*> patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
-    vector<ChasingNpc*> chasingEnemies = setChasingNpcInitPos(stage, chasingEnemies);
-    vector<ShootNpc*> shootEnemies = setShootNpcInitPos(stage, shootEnemies);
+            EnemiesManager* enemies = nullptr;
 
-    EnemiesManager* enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies);
+            int checkGoal = 1;
 
-    /* 원래
-    int alcohol_time = 1000 - npcSleepTime; // while문에 들어가기 위해 조정
-    auto lastUpdateTime = chrono::high_resolution_clock::now(); // 마지막 업데이트 시간을 지금으로.
-    chrono::milliseconds alcoholUpdateTime(alcohol_time); // 알코올 업데이트 간격을 ms로 변환
-
-    while (true)
-    {
-        auto currTime = chrono::high_resolution_clock::now(); // 현재 시간
-        auto elapsedTime = chrono::duration_cast<chrono::milliseconds>(currTime - lastUpdateTime); // 현재 시간과 마지막 업데이트 시간의 차이
-
-        if (elapsedTime >= alcoholUpdateTime) // 시간 되면
-        {
-            lastUpdateTime = currTime; // 갱신
-            if (IsAlcoholTime != -1) // move에서 술 부딪히면 IsAlcoholTime 변하도록 설정함. 별로면 바꿔주세요..ㅎㅎ
+            while (true)
             {
-                updateAlcoholTime(IsAlcoholTime); 
-                IsAlcoholTime--; // 전역
-                if (IsAlcoholTime == 0)
-                {
-                    player->setNoAlcohol();
+                int pcMoveCnt = npcSleepTime / 5;
+
+                if (checkGoal == 1) {
+                    playerInitPos = setPcInitPos(stage);
+                    player = new Player(playerInitPos);
+
+                    npcSleepTime = getNpcSleeTime(stage);
+
+                    calculateAvgScore();
+
+                    getStage(gameMapHere, stage);
+                    drawGameBoard(gameMapHere, stage);
+                    eraseColor(0, 0, gameMapHere);
+
+                    patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
+                    chasingEnemies = setChasingNpcInitPos(stage, chasingEnemies);
+                    shootEnemies = setShootNpcInitPos(stage, shootEnemies);
+                    enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies);
+
+
+                    checkGoal = 0;
                 }
+
+                for (int i = 0; i < pcMoveCnt; i++)
+                {
+                    player->movingProcess(gameMapHere);
+                    drawCheckTime(player);
+
+                    if (IsAlcoholTime == 0)
+                    {
+                        player->setNoAlcohol(); // 다시 돌아오게
+                    }
+
+
+                    if (i % 5 == 0) //너무 매번 반복하면 비효율적인것같아서 ㅎㅎ
+                    {
+                        enemies->updateShootNpcFlags(gameMapHere, *player);
+                    }
+
+                    if (score[stage] == 0)
+                    {
+                        if (life[0] == 0) {
+                            drawResultScreen(gameOver, 0);
+                            drawGameResult(score, stage);
+                            return -1;
+                        }
+                        else {
+                            drawResultScreen(stageOver, 0);
+                            score[stage] = 4.5;
+                            checkGoal = 1;
+                            break;
+                        }
+                    }
+
+                    if (player->checkGoalIn(gameMapHere))
+                    {
+                        if (stage == 4) {
+                            drawResultScreen(gameClear, 0);
+                            return -1;
+                        }
+                        else {
+                            drawResultScreen(stageClear, 1);
+                            drawGameResult(score, stage);
+
+                            checkGoal = 1;
+                            stage++;
+
+                            break;
+                        }
+                    }
+
+                    Sleep(5);
+                }
+
+                //적 돌아당기게 하고싶으면 이거 주석 풀면됨
+                enemies->EnemyMoveProcess(gameMapHere, player);
+
             }
         }
-*/
-
-    // 바꾼거
-    while (true)
-    {
-        int pcMoveCnt = npcSleepTime / 5;
-
-        for (int i = 0; i < pcMoveCnt; i++)
-        {
-            player->movingProcess(gameMapHere); 
-            drawCheckTime(player);
-
-            if (IsAlcoholTime == 0) 
-            {
-                player->setNoAlcohol(); // 다시 돌아오게
-            }
-            
-   
-            if (i % 5 == 0) //너무 매번 반복하면 비효율적인것같아서 ㅎㅎ
-            {
-                enemies->updateShootNpcFlags(gameMapHere, *player);    
-            }
-            // game over - 뤂
-            /*
-            if (score[stage] == 0)
-            {
-                drawResultScreen(gameOver, 0);
-                drawGameResult(score, stage);
-                
-                return 0;
-            }
-            */
-            if (player->checkGoalIn(gameMapHere))
-            {
-                drawResultScreen(stageClear, 1);
-                drawGameResult(score, stage); 
-                stage++;
-                //
-                return 0;
-            }
-
-            Sleep(5);
-        }
-
-        //적 돌아당기게 하고싶으면 이거 주석 풀면됨
-        enemies->EnemyMoveProcess(gameMapHere, player);
-       
     }
-       
-    /*drawResultScreen(gameOver, 0);
-    drawResultScreen(gameClear, 1);*/
+
+    
 
 	return 0;
 }

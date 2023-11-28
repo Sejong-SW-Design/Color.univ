@@ -8,6 +8,7 @@
 #include "gameBoard.h"
 #include <Windows.h>
 #include <conio.h>
+#include "item.h"
 
 using namespace std;
 
@@ -25,8 +26,13 @@ void setScore(int stage, double s);
 //
 //void drawStartScreen();
 //
-//void drawMenu();
-//
+
+int initGame();
+
+int drawMenu();
+
+void drawPrologue();
+
 void drawDevInfo();
 //
 //void drawStageIntroInfo();
@@ -43,5 +49,8 @@ void drawResultScreen(int gameResult[22][37], int check);
 
 void getStage(int gameMap[22][37], int stage);
 
+int getNpcSleeTime(int stage);
+
+void calculateAvgScore();
 
 #endif
