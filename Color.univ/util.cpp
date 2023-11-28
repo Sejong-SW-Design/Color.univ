@@ -2,7 +2,7 @@
 
 void setConsoleSize() {
 	// con cols: 가로, lines: 세로
-	system("mode con cols=100 lines=35 | title Color.univ");
+	system("mode con cols=95 lines=31 | title Color.univ");
 }
 
 void removeCursor() {

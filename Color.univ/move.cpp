@@ -105,6 +105,7 @@ Player::Player(Pos initPosition)
 	;
 }
 
+
 void Player::movingProcess(int gameMap[22][37])
 {
 

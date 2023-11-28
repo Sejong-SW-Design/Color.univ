@@ -447,9 +447,6 @@ void minusLife() { //스코어가 0이 되면 minusLife()호출
 			break;
 		}
 	}
-	if (life[0] == 0) {
-		//게임오버 띄우고 끝 -> 요기 민정언니가 이어주세여
-	}
 }
 
 void plusLife() {//하트아이템 먹으면 plusLife()호출
