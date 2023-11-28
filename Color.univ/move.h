@@ -51,11 +51,11 @@ public:
 		switch (npcSort)
 		{
 		case NORMAL_NPC:
-			return "¡â";
+			return "¢Ì";
 		case ALCOHOL_NPC:
 			return "¡×";
 		case CHASING_NPC:
-			return "¡ã";
+			return "¥÷";
 		case SHOOT_NPC_LEFT:
 			return "¢¸";
 		case SHOOT_NPC_RIGHT:
@@ -65,7 +65,7 @@ public:
 		case SHOOT_NPC_DOWN:
 			return "¡å";
 		}
-		return ""; 
+		return "";
 	}
 };
 
