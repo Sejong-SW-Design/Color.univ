@@ -110,7 +110,7 @@ int main() {
             */
             if (player->checkGoalIn(gameMapHere))
             {
-                drawResultScreen(gameClear, 1);
+                drawResultScreen(stageClear, 1);
                 drawGameResult(score, stage); 
                 stage++;
                 //
