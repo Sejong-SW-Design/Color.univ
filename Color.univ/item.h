@@ -14,11 +14,11 @@ typedef struct store {
 
 void eraseColor(int posX, int posY, int gameMap[22][37]);
 
-void getColor(int colorNum, int posX, int posY, int gameMap[22][37]);
+void getColor(int colorNum, int posX, int posY, int gameMap[22][37], bool isStage4);
 
 // int checkStore();
 
-void collaborateColor(int posX, int posY, int gameMap[22][37]);
+void collaborateColor(int posX, int posY, int gameMap[22][37], bool isStage4);
 
 void chageNumBTS(int color1, int color2);
 

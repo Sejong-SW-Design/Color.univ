@@ -29,6 +29,16 @@ public:
 	Pos getDrinkNextPos(int direction, Pos now, int alcoholNum);
 	Pos updateAlcoholEffect(int direction, Pos position, int alcoholNum);
 	//void movingProcess(int gameMap[22][37], Player player) = 0;
+	void setDarkColor()
+	{
+		color = 0;
+		showCharacter();
+	}
+	void setOriginColor()
+	{
+		color = 12;
+		showCharacter();
+	}
 
 	static Pos getGBoardPos(Pos cursorPos)
 	{
@@ -73,16 +83,26 @@ class Player : public Move
 {
 private:
 	int alcoholNumber = -1; // -1이 정상
+	int visibleDist = -1;
+	int getMax(int a, int b) { return a > b ? a : b; }
+	int getMin(int a, int b) { return a < b ? a : b; }
 public:
 	time_t alcoholStartTime = 0;
-	Player(Pos initPosition);
+	Player(Pos initPosition, int stage);
 	void movingProcess(int gameMap[22][37]);
 	void getItem(int gameMap[22][37]);
 	bool checkGoalIn(int gameMap[22][37]);
 	void setAlcoholNumber();
-	void setNoAlcohol()
-	{
-		alcoholNumber = -1;
+	void setNoAlcohol();
+	bool isVisiblePos(Pos pos) {
+		//일단 사각형 반경으로 해둠. 다이아 반경으로 바꾸고 싶으면 여기만 수정
+		int dx = position.x - pos.x;
+		int dy = position.y - pos.y;
+		dx = dx < 0 ? -dx : dx;
+		dy = dy < 0 ? -dy : dy;
+		if (dx <= visibleDist && dy <= visibleDist)
+			return true;
+		return false;
 	}
 };
 
@@ -148,6 +168,23 @@ public:
 	{
 		for (auto iter = shootEnemies.begin(); iter != shootEnemies.end(); iter++)
 			(*iter)->updateFireFlag(gameMap, player);
+	}
+	void updateVisible(int gameMap[22][37], Player player)
+	{
+		for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
+		{
+			if (player.isVisiblePos((*iter)->getPosition()))
+				(*iter)->setOriginColor();
+			else
+				(*iter)->setDarkColor();
+		}
+		for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
+		{
+			if (player.isVisiblePos((*iter)->getPosition()))
+				(*iter)->setOriginColor();
+			else
+				(*iter)->setDarkColor();
+		}
 	}
 };
 

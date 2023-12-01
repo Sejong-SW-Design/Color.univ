@@ -99,17 +99,22 @@ Pos Move::getPosition()
 	return position;
 }
 
-Player::Player(Pos initPosition)
+Player::Player(Pos initPosition, int stage)
 	:Move(initPosition, 15, "◈")
 {
-	;
+	if (stage == 4)
+		visibleDist = 2;
 }
 
+void Player::setNoAlcohol()
+{
+	alcoholNumber = -1;
+}
 
 void Player::movingProcess(int gameMap[22][37])
 {
-
 	int key = keyControl();
+	Pos prev = position;
 
 	bool shifted = false;
 	switch (key)
@@ -127,12 +132,13 @@ void Player::movingProcess(int gameMap[22][37])
 		shifted = shiftCharacter(DOWN, gameMap, alcoholNumber);
 		break;
 	case SPACEBAR:
-		collaborateColor(position.x, position.y, gameMap);
+		collaborateColor(position.x, position.y, gameMap, visibleDist != -1);
 		break;
 	}
 
 	if (!shifted)
 		return;
+
 
 	//아이템 확인
 	getItem(gameMap);
@@ -157,6 +163,20 @@ void Player::movingProcess(int gameMap[22][37])
 		updateAlcoholTime(IsAlcoholTime);
 	}
 	*/
+
+	//visible 위치 조정
+	if (visibleDist != -1)
+	{
+		for (int i = getMax(0, prev.y - visibleDist); i <= getMin(21, prev.y + visibleDist); i++)
+			for (int j = getMax(0, prev.x - visibleDist); j <= getMin(36, prev.x + visibleDist); j++)
+				drawOnePoint(gameMap, i, j, 0, 0);
+
+		for (int i = getMax(0, position.y - visibleDist); i <= getMin(21, position.y + visibleDist); i++)
+			for (int j = getMax(0, position.x - visibleDist); j <= getMin(36, position.x + visibleDist); j++)
+				drawOnePoint(gameMap, i, j, 0, getColor(gameMap[i][j]));
+
+		this->showCharacter();
+	}
 }
 
 void Player::getItem(int gameMap[22][37])
@@ -165,7 +185,7 @@ void Player::getItem(int gameMap[22][37])
 
 	if (itemSort >= BLUE_BTN && itemSort <= SKYBLUE_BTN)
 	{
-		getColor(itemSort, position.x, position.y, gameMap);
+		getColor(itemSort, position.x, position.y, gameMap, visibleDist != -1);
 	}
 	if (itemSort == EMERGENCY_EXIT)
 	{

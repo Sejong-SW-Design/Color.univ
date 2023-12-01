@@ -116,9 +116,11 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
 
 void drawGameBoard(int gameMap[22][37], int stage);
 
+void drawDarkGameBoard(int gameMap[22][37], Player player);
+
 void drawGameEdge();
 
-bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]);
+bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37], bool isStage4);
 
 void drawStore();
 

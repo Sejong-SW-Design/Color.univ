@@ -21,13 +21,13 @@ void eraseColor(int posX, int posY, int gameMap[22][37]) {
 }
 
 
-void getColor(int colorNum, int posX, int posY, int gameMap[22][37]) {
+void getColor(int colorNum, int posX, int posY, int gameMap[22][37], bool isStage4) {
 	
 	if (myStore.capacity < 2) {
 		
 		gameMap[posY][posX] = BLANK;//일단 스토어가 비어있으면 스토어가 찼든 안찼든 blank 만들기  
 		// 일단 벽 해제를 시도
-		bool didRemove = removeWall(colorNum - 14, posX, posY, gameMap);
+		bool didRemove = removeWall(colorNum - 14, posX, posY, gameMap, isStage4);
 		if (didRemove)
 			return;
 		//벽 해제에 사용되지 않은 건 store에 저장
@@ -45,7 +45,7 @@ void getColor(int colorNum, int posX, int posY, int gameMap[22][37]) {
 	else return;
 }
 
-void collaborateColor(int posX, int posY,int gameMap[22][37]) {//스페이스바 누르면 호출됨
+void collaborateColor(int posX, int posY,int gameMap[22][37], bool isStage4) {//스페이스바 누르면 호출됨
 	if (myStore.capacity < 2) return;
 	
 	int mixColor = 0;
@@ -54,7 +54,7 @@ void collaborateColor(int posX, int posY,int gameMap[22][37]) {//스페이스바 누르
 		mixColor = myStore.color1 + myStore.color2;
 	}
 
-	bool didRemove = removeWall(mixColor - 28, posX, posY, gameMap);
+	bool didRemove = removeWall(mixColor - 28, posX, posY, gameMap, isStage4);
 	if (didRemove) {
 		//벽해제를 완료하면 스토어에서 지워야 함
 		myStore.color1 = 0;

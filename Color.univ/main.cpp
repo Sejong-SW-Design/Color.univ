@@ -22,7 +22,7 @@ int main() {
     while (1) {
         int flag = initGame();
         if (flag == 0) {
-            stage = 1;
+            stage = 4;
 
             //초기위치
             Pos playerInitPos;
@@ -46,14 +46,17 @@ int main() {
 
                 if (checkGoal == 1) {
                     playerInitPos = setPcInitPos(stage);
-                    player = new Player(playerInitPos);
+                    player = new Player(playerInitPos, stage);
 
                     npcSleepTime = getNpcSleepTime(stage);
 
                     calculateAvgScore();
 
                     getStage(gameMapHere, stage);
-                    drawGameBoard(gameMapHere, stage);
+                    if (stage == 4)
+                        drawDarkGameBoard(gameMapHere, *player);
+                    else
+                        drawGameBoard(gameMapHere, stage);
                     eraseColor(0, 0, gameMapHere);
 
                     patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
@@ -69,6 +72,10 @@ int main() {
                 {
                     player->movingProcess(gameMapHere);
                     drawCheckTime(player);
+                    if (stage == 4)
+                    {
+                        enemies->updateVisible(gameMapHere, *player);
+                    }
 
                     if (IsAlcoholTime == 0)
                     {

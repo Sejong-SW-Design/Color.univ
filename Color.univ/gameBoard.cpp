@@ -169,21 +169,30 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround) // 새로 만�
 
 
 //새로 만듦
-void drawDarkGameBoard(int gameMap[22][37],Pos PCposition) // 변수 일단 아무거나 넣었으니 바꿔주세요. 구조 바꾸고 싶으면 마음대로 바꾸기. 아직 헤더 파일에 선언 안해놓음요 -뤂
+void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나 넣었으니 바꿔주세요. 구조 바꾸고 싶으면 마음대로 바꾸기. 아직 헤더 파일에 선언 안해놓음요 -뤂
 // getColor 함수는 맨 밑에 있습니다.
 {
+    drawGameEdge();
+    drawStore();
+    drawAlcoholTimeEdge();
+
+    drawLifeEdge();
+
+    drawInfoOriginal(score, stage);
+
+    Exits.clear();
+
     int textColor;
 
     for (int i = 0; i < 22; i++)
     {
         for (int j = 0; j < 37; j++)
         {
-            if (1) // if PC 반경이라면? (걍 아무거나 넣어놓음. 바꿔주세용)
+            if (player.isVisiblePos({j, i})) // if PC 반경이라면? (걍 아무거나 넣어놓음. 바꿔주세용)
             {
                 textColor = getColor(gameMap[i][j]);
             }
             else textColor = 0; // 반경이 아니라면 검정색
-
             drawOnePoint(gameMap, i, j, 0, textColor);
         }
     }
@@ -263,7 +272,10 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
         setBackgroundColor(backGround, textColor); printf("⊙");  break;
 
     case EMERGENCY_EXIT:
-        setBackgroundColor(backGround, textColor); printf("▥");
+        //비상구는 항상 빛나야 하니깐 이렇게 함 해봤어.. (임시)
+        setBackgroundColor(backGround, getColor(EMERGENCY_EXIT)); printf("▥");
+        //setBackgroundColor(backGround, textColor); printf("▥");
+
         for (int k = 0; k < Exits.size(); k++) 
         {
             if (Exits[k].first == i && Exits[k].second == j) //같은 것이 있다면
@@ -300,7 +312,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
 }
 
 
-bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 색 있으면 없애고, 아니면 return -> 미완!!
+bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37], bool isStage4) //같은 색 있으면 없애고, 아니면 return -> 미완!!
 {
     vector<Pos>ErasePos;
     int filter[8][2] = { {0,1},{1,0},{0,-1},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1} };
@@ -358,10 +370,13 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37]) //같은 �
     }
 
     Sleep(50);
-    for (auto e : outLines)
-    {
-        drawOnePoint(gameMap, e.first, e.second);
-    }
+    if (isStage4)
+        for (auto e : outLines)
+            drawOnePoint(gameMap, e.first, e.second, 0, 0);
+    else
+        for (auto e : outLines)
+            drawOnePoint(gameMap, e.first, e.second);
+    
 
     return true;
 }
