@@ -18,10 +18,14 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
+    int gameCheck = 0;      // game over인 경우 1
+
     while (1) {
         int flag = initGame();
+        gameCheck = 0;
+
         if (flag == 0) {
-            stage = 3;
+            stage = 3;   // 나중에 위치 바꾸려고 합니다
 
             //초기위치
             Pos playerInitPos;
@@ -71,6 +75,20 @@ int main() {
 
                 for (int i = 0; i < pcMoveCnt; i++)
                 {
+                    if (keyControl() == 112) {
+                        if (drawPauseScreen() == 0) {
+                            drawGameBoard(gameMapHere, stage);
+                            continue;
+                        }
+                        else {
+                            system("cls");
+                            drawResultScreen(gameOver, 0);
+
+                            gameCheck = 1;
+                            break;
+                        }
+                    }
+
                     player->movingProcess(gameMapHere);
                     drawCheckTime(player);
 
@@ -134,8 +152,16 @@ int main() {
 
                 //적 돌아당기게 하고싶으면 이거 주석 풀면됨
                 enemies->EnemyMoveProcess(gameMapHere, player);
-                
+                if (gameCheck == 1) break;
             }
+            if (gameCheck == 1) continue;
+        } 
+        else if (flag == 2) {
+            drawDevInfo();
+        }
+        else if (flag == 3) {
+            system("cls");
+            return 0;
         }
     }
 

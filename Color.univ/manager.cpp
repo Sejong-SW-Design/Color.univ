@@ -11,12 +11,12 @@ extern int gameMap4[22][37];
 extern int gameMapHere[22][37];
 
 int pKeyPressed = 0;
-double keyInterval = 0.2;
+double keyInterval = 0.15;
 
 int keyControl() {
     static auto lastKeyPressTime = std::chrono::high_resolution_clock::now();
 
-    int flag = -1;
+    // int flag = -1;
     if (_kbhit() != 0) {
         int key = _getch();
 
@@ -27,19 +27,11 @@ int keyControl() {
         switch (key) {
         case 112:       // p: 112
             pKeyPressed = 1;
-
-            flag = drawPauseScreen();
-            if (flag == 0) {
-                system("cls");
-                drawGameBoard(gameMapHere, stage);      // 플레이어가 출력되는데 딜레이 생김 
-
-                pKeyPressed = 0;
-            }
-            else if (flag == 4) initGame();
-            break;
+            return key;
 
         case LEFT:
         case RIGHT:
+            if (pKeyPressed) break;
         case UP:
         case DOWN:
             if (elapsedSeconds.count() >= keyInterval) {
@@ -53,37 +45,34 @@ int keyControl() {
             return key;
         }
 
-        return flag;
+        // return flag;
     }
 }
 
 
 int drawPauseScreen() {
     system("cls");
-
     setBackgroundColor(0, 12);
 
-    setCurrentCursorPos(30, 14);
+    setCurrentCursorPos(34, 12);
     printf("> ");
 
-    setCurrentCursorPos(32, 14);
+    setCurrentCursorPos(38, 12);
     printf("이 어 하 기");
 
-    setCurrentCursorPos(32, 16);
-    printf("현재 학년을 재수강 하시겠습니까?");
+    setCurrentCursorPos(38, 14);
+    printf("게 임 오 버");
 
-    setCurrentCursorPos(32, 18);
-    printf("메인화면으로 돌아가기");
 
     while (1) {
-        int x = 32;
-        int y = 14;
+        int x = 36;
+        int y = 12;
 
         while (1) {
             int n = keyControl();
             switch (n) {
             case UP:
-                if (y > 14) {
+                if (y > 12) {
                     setCurrentCursorPos(x - 2, y);
                     printf(" ");
                     y -= 2;
@@ -93,7 +82,7 @@ int drawPauseScreen() {
                 break;
 
             case DOWN:
-                if (y < 18) {
+                if (y < 14) {
                     setCurrentCursorPos(x - 2, y);
                     printf(" ");
                     y += 2;
@@ -104,7 +93,7 @@ int drawPauseScreen() {
 
             case SPACEBAR:
                 setBackgroundColor(0, 15);
-                return y - 14;      // 0: 이어하기, 2:재수강, 4: 메인 화면
+                return y - 12;      // 0: 이어하기, 2: 게임 오버
             }
         }
     }
@@ -120,13 +109,14 @@ void setScore(int stage, double s) {
 }
 
 int initGame() {
+    // stage = 3;
     // drawStartScreen();
     // drawPrologue();
     int menu = drawMenu();
     if (menu == 0) return 0;        // 게임 시작
     else if (menu == 2) return 1;
     else if (menu == 4) return 2;  // todo
-    else if (menu == 6) return 3;
+    else if (menu == 6) return 3;  // 게임 종료
 }
 
 //void drawStartScreen();
@@ -192,7 +182,6 @@ int drawMenu() {
                 break;
 
             case SPACEBAR:
-                if (y - 12 != 0) break;
                 setBackgroundColor(0, 15);
                 return y - 12;      // 0: game start, 2:how to play, 4: dev,  6: exit
             }
@@ -202,27 +191,31 @@ int drawMenu() {
 }
 
 void drawDevInfo() { // 임시화면
-	setCurrentCursorPos(10, 10);
+    system("cls");
+	setCurrentCursorPos(36, 10);
+    setBackgroundColor(0, 10);
 	std::cout << "[Developer Info]" << endl;
 
-	setCurrentCursorPos(15, 11);
-	std::cout << "복민정" << endl;
+    setBackgroundColor(0, 15);
+	setCurrentCursorPos(36, 12);
+    std::cout << "22011191 전지원" << endl;
 
-	setCurrentCursorPos(15, 13);
-	std::cout << "이지호" << endl;
+	setCurrentCursorPos(36, 14);
+    std::cout << "22011819 복민정" << endl;
 
-	setCurrentCursorPos(15, 14);
-	std::cout << "신지우" << endl;
+	setCurrentCursorPos(36, 16);
+    std::cout << "22011824 이지호" << endl;
 
-	setCurrentCursorPos(15, 15);
-	std::cout << "전지원" << endl;
+	setCurrentCursorPos(36, 18);
+    std::cout << "22011839 신지우" << endl;
 
+
+    setCurrentCursorPos(33, 23);
     printf("돌아가려면 아무키나 누르세요");
 
 
     while (1)
         if (_getch()) break;
-
 }
 //
 //void drawStageIntroInfo();
@@ -330,6 +323,7 @@ void drawResultScreen(int gameResult[22][37], int check) {
 
     Sleep(100);
 
+    system("cls");
 }
 
 //void drawGameInstruction();
