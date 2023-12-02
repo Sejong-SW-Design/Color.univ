@@ -12,12 +12,11 @@ extern int stage; // 추가해써요 - 뤂
 int gameMapHere[22][37];
 int IsAlcoholTime = -1;
 extern int life[3];
-
+//extern int blink; // 움직 O 버전
 
 int main() {
 	setConsoleSize();
 	removeCursor();
-
 
     while (1) {
         int flag = initGame();
@@ -39,6 +38,7 @@ int main() {
             EnemiesManager* enemies = nullptr;
 
             int checkGoal = 1;
+            
 
             while (true)
             {
@@ -47,6 +47,7 @@ int main() {
                 if (checkGoal == 1) {
                     playerInitPos = setPcInitPos(stage);
                     player = new Player(playerInitPos, stage);
+                    //if(blink==-1) time(&(player->drawStartTime)); // 움직 O 버전
 
                     npcSleepTime = getNpcSleepTime(stage);
 
@@ -54,7 +55,7 @@ int main() {
 
                     getStage(gameMapHere, stage);
                     if (stage == 4)
-                        drawDarkGameBoard(gameMapHere, *player);
+                        blinkGameBoard(gameMapHere, *player); // 움직 X 버전
                     else
                         drawGameBoard(gameMapHere, stage);
                     eraseColor(0, 0, gameMapHere);
@@ -64,7 +65,7 @@ int main() {
                     shootEnemies = setShootNpcInitPos(stage, shootEnemies);
                     enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies);
 
-
+                    
                     checkGoal = 0;
                 }
 
@@ -72,6 +73,13 @@ int main() {
                 {
                     player->movingProcess(gameMapHere);
                     drawCheckTime(player);
+
+                    /* // 움직 O 버전
+                    if (stage == 4 && blink != 1) 
+                    {
+                        blinkGameBoard(gameMapHere, *player);
+                    }
+                    */
                     if (stage == 4)
                     {
                         enemies->updateVisible(gameMapHere, *player);
@@ -107,6 +115,7 @@ int main() {
                     {
                         if (stage == 4) {
                             drawResultScreen(gameClear, 0);
+                            drawGameResult(score, stage); // 없길래 추가함  - 뤂
                             return -1;
                         }
                         else {
@@ -125,7 +134,7 @@ int main() {
 
                 //적 돌아당기게 하고싶으면 이거 주석 풀면됨
                 enemies->EnemyMoveProcess(gameMapHere, player);
-
+                
             }
         }
     }

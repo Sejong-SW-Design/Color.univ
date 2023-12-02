@@ -88,6 +88,7 @@ private:
 	int getMin(int a, int b) { return a < b ? a : b; }
 public:
 	time_t alcoholStartTime = 0;
+	//time_t drawStartTime = 0; // 움직 O 버전
 	Player(Pos initPosition, int stage);
 	void movingProcess(int gameMap[22][37]);
 	void getItem(int gameMap[22][37]);

@@ -9,6 +9,7 @@ extern double score[5];
 extern int stage;
 extern int life[3];
 extern int IsAlcoholTime;
+//int blink = -1; // 움직 O 버전
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
 {
@@ -196,6 +197,47 @@ void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나
             drawOnePoint(gameMap, i, j, 0, textColor);
         }
     }
+}
+
+void blinkGameBoard(int gameMap[22][37], Player player) // ppt 추가
+{
+    //플레이어 움직X
+    
+    drawGameBoard(gameMap, stage);
+    player.showCharacter();
+    Sleep(600);
+
+    drawDarkGameBoard(gameMap, player);
+    player.showCharacter();
+    Sleep(100);
+
+    drawGameBoard(gameMap, stage);
+    player.showCharacter();
+    Sleep(300);
+
+    drawDarkGameBoard(gameMap, player);
+    
+
+
+    /*
+    // 플레이어 움직O -> 이상함... (움직X 버전은 잘 됨)
+    blink = 0;
+
+    time_t current;
+    time(&current);
+
+    drawGameBoard(gameMap, stage);
+
+    if (difftime(current, player.drawStartTime) >= 3)
+    {      
+        drawDarkGameBoard(gameMap, player);
+        player.showCharacter();
+        blink = 1;
+        return;
+    }
+
+    return;
+    */
 }
 
 

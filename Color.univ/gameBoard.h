@@ -118,6 +118,8 @@ void drawGameBoard(int gameMap[22][37], int stage);
 
 void drawDarkGameBoard(int gameMap[22][37], Player player);
 
+void blinkGameBoard(int gameMap[22][37], Player player);
+
 void drawGameEdge();
 
 bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37], bool isStage4);
