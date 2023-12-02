@@ -67,7 +67,7 @@ int main() {
                     patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
                     chasingEnemies = setChasingNpcInitPos(stage, chasingEnemies);
                     shootEnemies = setShootNpcInitPos(stage, shootEnemies);
-                    enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies);
+                    enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies, gameMapHere);
 
                     
                     checkGoal = 0;
@@ -95,7 +95,7 @@ int main() {
 
                     if (stage == 4)
                     {
-                        enemies->updateVisible(gameMapHere, *player);
+                        //enemies->updateVisible(gameMapHere, *player);
                         if (blink == -1) time(&(player->drawStartTime)); //시간 시작
                         if (blink != 1) blinkGameBoard(gameMapHere, *player, *enemies);
                     }

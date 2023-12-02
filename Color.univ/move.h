@@ -121,6 +121,7 @@ private:
 public:
 	PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSort);
 	void movingProcess(int gameMap[22][37], Player* player);
+	int getNpcSort() { return npcSort; }
 };
 
 class ChasingNpc : public Move
@@ -143,6 +144,7 @@ public:
 	ShootNpc(Pos initPosition, int npcSort);
 	void movingProcess(int gameMap[22][37], Player player);
 	void updateFireFlag(int gameMap[22][37], Player player);
+	int getNpcSort() { return npcSort; }
 };
 
 class EnemiesManager
@@ -152,11 +154,27 @@ private:
 	vector<ChasingNpc*>chasingEnemies;
 	vector<ShootNpc*>shootEnemies;
 public:
-	EnemiesManager(vector<PatternNpc*>p, vector<ChasingNpc*>c, vector<ShootNpc*>s)
+	EnemiesManager(vector<PatternNpc*>p, vector<ChasingNpc*>c, vector<ShootNpc*>s, int gameMap[22][37])
 	{
 		patternEnemies = p;
 		chasingEnemies = c;
 		shootEnemies = s;
+
+		for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
+		{
+			Pos pos = (*iter)->getPosition();
+			gameMap[pos.y][pos.x] = (*iter)->getNpcSort();
+		}
+		for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
+		{
+			Pos pos = (*iter)->getPosition();
+			gameMap[pos.y][pos.x] = CHASING_NPC;
+		}
+		for (auto iter = shootEnemies.begin(); iter != shootEnemies.end(); iter++)
+		{
+			Pos pos = (*iter)->getPosition();
+			gameMap[pos.y][pos.x] = (*iter)->getNpcSort();
+		}
 	}
 	void EnemyMoveProcess(int gameMap[22][37], Player *player)
 	{

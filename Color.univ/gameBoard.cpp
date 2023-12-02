@@ -254,6 +254,7 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
         (&player)->visibleDist = 3;
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
+        enemies.updateVisible(gameMap, player);
 
         checkB = 3; // 5초 지남 체크
         blink = 1; // main의 whlie문 멈추도록
@@ -270,7 +271,8 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     {
         (&player)->visibleDist = 3;
         drawDarkGameBoard(gameMap, player);
-        player.showCharacter();
+        player.showCharacter(); 
+        enemies.updateVisible(gameMap, player);
  
         checkB = 1; // 2초 지남 체크
     }
