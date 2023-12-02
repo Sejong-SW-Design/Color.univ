@@ -24,7 +24,11 @@ void chageNumBTS(int color1, int color2);
 
 void primeItemCollision(int posX, int posY, int gameMap[22][37]);
 
+int updateSpeedEffect();
+
 void minusLife();
+
 void plusLife();
+
 void fullLife();
 #endif __ITEM_H__

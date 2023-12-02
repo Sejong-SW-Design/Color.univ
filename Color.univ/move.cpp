@@ -214,7 +214,8 @@ void Player::getItem(int gameMap[22][37])
 	if (itemSort == SPEED)
 	{
 		gameMap[position.y][position.x] = 0;
-		keyInterval = 0.05;
+		keyInterval = updateSpeedEffect();
+		
 	}
 	if (itemSort == LIFE)
 	{

@@ -8,7 +8,7 @@ Store myStore = { 0,0 };
 extern double score[5];
 extern int stage;
 int life[3]={1,1,1}; // 하트 배열
-
+extern double keyInterval;
 
 void eraseColor(int posX, int posY, int gameMap[22][37]) {
 
@@ -365,35 +365,6 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 }
 
 
-
-/* // 하다가 안되서 지움 - 뤂
-void giveTimeInfo()
-{
-	time_t alcoholEffectTime, current;
-	time(&alcoholEffectTime);
-
-	if (IsAlcoholTime != -1)
-	{
-		while (1)
-		{
-			time(&current);
-
-			IsAlcoholTime = 10 - int(difftime(current, alcoholEffectTime));
-			updateAlcoholTime(IsAlcoholTime);
-			if (difftime(current, alcoholEffectTime) >= 10)
-			{
-				IsAlcoholTime = 0;
-				break;
-			}
-			return;
-		}
-		return;
-	}
-
-	return;
-}
-*/
-
 Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) {
 	
 	time_t alcoholEffectTime, current;
@@ -432,7 +403,26 @@ Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) {
 	//return getDrinkNextPos(direction, position, alcoholNum);
 	//
 	//
+}
 
+int updateSpeedEffect() {
+
+	time_t speedEffectTime, current;
+
+	time(&speedEffectTime);
+
+	while (1) {
+		time(&current);
+
+		keyInterval =  0.05;
+		
+		if (difftime(current, speedEffectTime) >= 5) {
+			keyInterval = 0.2;
+			break;
+		}
+		return keyInterval;
+	}
+	return keyInterval;
 }
 
 
