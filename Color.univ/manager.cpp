@@ -13,12 +13,15 @@ extern int gameMapHere[22][37];
 int pKeyPressed = 0;
 double keyInterval = 0.15;
 
+int checkKey;
+
 int keyControl() {
     static auto lastKeyPressTime = std::chrono::high_resolution_clock::now();
 
-    // int flag = -1;
+    int flag = -1;
     if (_kbhit() != 0) {
         int key = _getch();
+        flag = 0;
 
         auto currentTime = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsedSeconds = currentTime - lastKeyPressTime;
@@ -27,8 +30,13 @@ int keyControl() {
         switch (key) {
         case 112:       // p: 112
             pKeyPressed = 1;
+            checkKey = 112;
             return key;
 
+        case SPACEBAR:
+             pKeyPressed = 0;
+             checkKey = key;
+             return key;
         case LEFT:
         case RIGHT:
             if (pKeyPressed) break;
@@ -37,16 +45,13 @@ int keyControl() {
             if (elapsedSeconds.count() >= keyInterval) {
                 lastKeyPressTime = currentTime;
                 
+                checkKey = key;
                 return key;
             }
             break;
-        case SPACEBAR:
-            pKeyPressed = 0;
-            return key;
         }
-
-        // return flag;
     }
+    return flag;
 }
 
 
@@ -58,10 +63,10 @@ int drawPauseScreen() {
     printf("> ");
 
     setCurrentCursorPos(38, 12);
-    printf("이 어 하 기");
+    printf("CONTINUE");
 
     setCurrentCursorPos(38, 14);
-    printf("게 임 오 버");
+    printf("GAME OVER");
 
 
     while (1) {
@@ -111,7 +116,6 @@ void setScore(int stage, double s) {
 int initGame() {
     // stage = 3;
     // drawStartScreen();
-    // drawPrologue();
     int menu = drawMenu();
     if (menu == 0) return 0;        // 게임 시작
     else if (menu == 2) return 1;
@@ -123,8 +127,63 @@ int initGame() {
 //
 
 void drawPrologue() {
-    printf("PROLOGUE \n");
-    Sleep(1000);
+    const char* prologue1[] = {
+        "힘들게 대학교에 입학했다.",
+        "1학년부터 4학년까지 무사히 살아남아 졸업해야 한다...!!", "    ",
+        "앞이 벽으로 가로막혀 답이 없는 상황이다.", "벽이 색깔로 빛난다면 주변의 같은 색의 버튼을 먹어 벽을 부숴보도록 하자.",
+        "원하는 색이 없다면 두 가지 색을 조합해서 부숴보자!", "    ",
+        "대학교에 입학했다고 느긋하게 있으면 안된다.",
+        "과제가 따라와 공격한다. 과제는 꽤 어려워 부딪히면 학점이 내려간다...",
+        "3out이니 부딪히지 않도록 조심하도록 하자"
+    };
+    
+    for (int i = 0; i < 10; i++) {
+        setCurrentCursorPos(10, 3 + (i + 1) * 2);
+        if (i == 4) setBackgroundColor(0, 11);
+        else if (i == 5) setBackgroundColor(0, 14);
+        else if (i == 6) setBackgroundColor(0, 15);
+        for (int j = 0; prologue1[i][j] != '\0'; j++) {
+            Sleep(10);                                      // todo: 속도 조절
+            printf("%c", prologue1[i][j]);
+            fflush(stdout);
+        }
+    }
+
+    setCurrentCursorPos(20, 28);
+    setBackgroundColor(0, 8);
+    printf("Press Enter to continue...");
+    while (1)
+        if (_getch()) break;
+
+    system("cls");
+
+    const char* prologue2[] = {
+        "대학생이면 응당 술과 함께하는 삶이다.", "하지만 술과 부딪힌다면 어지러워지니 조심하자.",
+        "정말 탈출할 방법이 없는 거 같다면 주변의 비상구로 들어가보자.", "예상치 못하게 나를 구해줄 수도..?","    ","    ",
+        "열심히 3학년까지 달려왔다.", "곧 4학년... 갑자기 주변이 어두워진다..", "작은 빛에 의지해서 탈출해야 한다.", "주변을 잘 살피며 탈출해 보자."
+    };
+
+    setBackgroundColor(0, 15);
+    for (int i = 0; i < 9; i++) {
+        setCurrentCursorPos(10, 3 + (i + 1) * 2);
+        if (i == 1) setBackgroundColor(0, 8);
+        else if (i == 2) setBackgroundColor(0, 15);
+        else if (i == 8) setBackgroundColor(0, 14);
+        else if (i == 9) setBackgroundColor(0, 15);
+        for (int j = 0; prologue2[i][j] != '\0'; j++) {
+            Sleep(10);                                      // todo: 속도 조절
+            printf("%c", prologue2[i][j]);
+            fflush(stdout);
+        }
+    }
+
+    setCurrentCursorPos(20, 28);
+    setBackgroundColor(0, 8);
+    printf("Press Enter to continue...");
+    while (1)
+        if (_getch()) break;
+
+    setBackgroundColor(0, 15);
 }
 
 int drawMenu() {
@@ -210,9 +269,11 @@ void drawDevInfo() { // 임시화면
     std::cout << "22011839 신지우" << endl;
 
 
-    setCurrentCursorPos(33, 23);
+    setBackgroundColor(0, 8);
+    setCurrentCursorPos(31, 23);
     printf("돌아가려면 아무키나 누르세요");
 
+    setBackgroundColor(0, 10);
 
     while (1)
         if (_getch()) break;
@@ -352,11 +413,8 @@ void getStage(int gameMap[22][37], int stage) {
     }
 }
 
-//스테이지별로 속도 조절이 필요할 것 같아서 만든 함수(이지호)
 int getNpcSleepTime(int stage) {
-    //각 맵별로 속도 조절 필요하면 더 해주세요!
-    switch (stage)
-    {
+    switch (stage) {
     case 1: return 150;
     case 2: return 150;
     case 3: return 300;

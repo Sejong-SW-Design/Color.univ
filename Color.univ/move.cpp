@@ -103,7 +103,7 @@ Player::Player(Pos initPosition, int stage)
 	:Move(initPosition, 15, "◈")
 {
 	if (stage == 4)
-		visibleDist = 2;
+		visibleDist = 3;
 }
 
 void Player::setNoAlcohol()
@@ -167,13 +167,20 @@ void Player::movingProcess(int gameMap[22][37])
 	//visible 위치 조정
 	if (visibleDist != -1)
 	{
+		set<pair<int, int>>darkPos;
 		for (int i = getMax(0, prev.y - visibleDist); i <= getMin(21, prev.y + visibleDist); i++)
 			for (int j = getMax(0, prev.x - visibleDist); j <= getMin(36, prev.x + visibleDist); j++)
-				drawOnePoint(gameMap, i, j, 0, 0);
+				darkPos.insert({ i, j });
 
 		for (int i = getMax(0, position.y - visibleDist); i <= getMin(21, position.y + visibleDist); i++)
 			for (int j = getMax(0, position.x - visibleDist); j <= getMin(36, position.x + visibleDist); j++)
+			{
 				drawOnePoint(gameMap, i, j, 0, getColor(gameMap[i][j]));
+				darkPos.erase({ i, j });
+			}
+
+		for (pair<int, int>pos : darkPos)
+			drawOnePoint(gameMap, pos.first, pos.second, 0, 0);
 
 		this->showCharacter();
 	}

@@ -8,33 +8,36 @@
 
 extern Store myStore;
 extern double score[5];
-extern int stage; // Ãß°¡ÇØ½á¿ä - ³
+extern int stage;
 int gameMapHere[22][37];
 int IsAlcoholTime = -1;
 extern int life[3];
-//extern int blink; // ¿òÁ÷ O ¹öÀü
+extern int checkKey;
+//extern int blink; // ì›€ì§ O ë²„ì „
 
 int main() {
 	setConsoleSize();
 	removeCursor();
 
-    int gameCheck = 0;      // game overÀÎ °æ¿ì 1
+    drawPrologue();         // ë³´ê³ ìˆëŠ”ê±° ê·€ì°®ìœ¼ë‹ˆê¹Œ ì¼ë‹¨ ì£¼ì„ì²˜ë¦¬í•¨
+
+    int gameCheck = 0;      // game overì´ë©´ 1
 
     while (1) {
         int flag = initGame();
         gameCheck = 0;
 
         if (flag == 0) {
-            stage = 3;   // ³ªÁß¿¡ À§Ä¡ ¹Ù²Ù·Á°í ÇÕ´Ï´Ù
+            stage = 3;      // ë‚˜ì¤‘ì— ì´ê±°ë„ ë§¤ë‹ˆì €ì—ì„œ ê°€ì ¸ê°ˆê±°ì„-_-
 
-            //ÃÊ±âÀ§Ä¡
+            // ì´ˆê¸°ìœ„ì¹˜
             Pos playerInitPos;
             Player* player = nullptr;
 
             //npc sleep time
-            int npcSleepTime = 0; //pc´Â 5ms´ç ÇÑ¹ø ÀÔ·Â 
+            int npcSleepTime = 0; // pcëŠ” 5msë‹¹ í•œë²ˆ ì…ë ¥ 
 
-            //npc À§Ä¡
+            //npc ìœ„ì¹˜
             vector<PatternNpc*> patternEnemies;
             vector<ChasingNpc*> chasingEnemies;
             vector<ShootNpc*> shootEnemies;
@@ -51,7 +54,7 @@ int main() {
                 if (checkGoal == 1) {
                     playerInitPos = setPcInitPos(stage);
                     player = new Player(playerInitPos, stage);
-                    //if(blink==-1) time(&(player->drawStartTime)); // ¿òÁ÷ O ¹öÀü
+                    //if(blink==-1) time(&(player->drawStartTime)); // ì›€ì§ 0 ë²„ì „
 
                     npcSleepTime = getNpcSleepTime(stage);
 
@@ -59,7 +62,7 @@ int main() {
 
                     getStage(gameMapHere, stage);
                     if (stage == 4)
-                        blinkGameBoard(gameMapHere, *player); // ¿òÁ÷ X ¹öÀü
+                        blinkGameBoard(gameMapHere, *player); // ì›€ì§ X ë²„ì „
                     else
                         drawGameBoard(gameMapHere, stage);
                     eraseColor(0, 0, gameMapHere);
@@ -75,7 +78,7 @@ int main() {
 
                 for (int i = 0; i < pcMoveCnt; i++)
                 {
-                    if (keyControl() == 112) {
+                    if (checkKey == 112) {
                         if (drawPauseScreen() == 0) {
                             drawGameBoard(gameMapHere, stage);
                             continue;
@@ -92,7 +95,7 @@ int main() {
                     player->movingProcess(gameMapHere);
                     drawCheckTime(player);
 
-                    /* // ¿òÁ÷ O ¹öÀü
+                    /* // ì›€ì§ O ë²„ì „
                     if (stage == 4 && blink != 1) 
                     {
                         blinkGameBoard(gameMapHere, *player);
@@ -105,11 +108,11 @@ int main() {
 
                     if (IsAlcoholTime == 0)
                     {
-                        player->setNoAlcohol(); // ´Ù½Ã µ¹¾Æ¿À°Ô
+                        player->setNoAlcohol(); // ë‹¤ì‹œ ëŒì•„ì˜¤ê²Œ
                     }
 
 
-                    if (i % 5 == 0) //³Ê¹« ¸Å¹ø ¹İº¹ÇÏ¸é ºñÈ¿À²ÀûÀÎ°Í°°¾Æ¼­ ¤¾¤¾
+                    if (i % 5 == 0)
                     {
                         enemies->updateShootNpcFlags(gameMapHere, *player);
                     }
@@ -133,7 +136,7 @@ int main() {
                     {
                         if (stage == 4) {
                             drawResultScreen(gameClear, 0);
-                            drawGameResult(score, stage); // ¾ø±æ·¡ Ãß°¡ÇÔ  - ³
+                            drawGameResult(score, stage); 
                             return -1;
                         }
                         else {
@@ -150,7 +153,6 @@ int main() {
                     Sleep(5);
                 }
 
-                //Àû µ¹¾Æ´ç±â°Ô ÇÏ°í½ÍÀ¸¸é ÀÌ°Å ÁÖ¼® Ç®¸éµÊ
                 enemies->EnemyMoveProcess(gameMapHere, player);
                 if (gameCheck == 1) break;
             }
