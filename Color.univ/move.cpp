@@ -8,6 +8,7 @@ extern int stage;
 extern int IsAlcoholTime; 
 extern double keyInterval;
 extern int checkB; // è≥
+extern int speedFlag;
 
 Move::Move(Position initPos, int color, std::string shape)
 {
@@ -27,7 +28,11 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum)
 	deleteCharacter(gameMap);
 
 	Pos next = position;
-	
+	if (speedFlag == 1) {
+		keyInterval = 0.05;
+		next = getDrinkNextPos(direction, position, alcoholNum);
+	}
+
 	if (alcoholNum != -1)
 	{
 		
@@ -221,8 +226,8 @@ void Player::getItem(int gameMap[22][37])
 	if (itemSort == SPEED)
 	{
 		gameMap[position.y][position.x] = 0;
-		keyInterval = updateSpeedEffect();
-		
+		speedFlag == 1;
+		//keyInterval = 0.15;
 	}
 	if (itemSort == LIFE)
 	{

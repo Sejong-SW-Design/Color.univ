@@ -11,6 +11,8 @@ extern double score[5];
 extern int stage;
 int gameMapHere[22][37];
 int IsAlcoholTime = -1;
+int IsSpeedTime = -1;
+int speedFlag = 0;
 extern int life[3];
 extern int checkKey;
 extern int blink; 
@@ -28,7 +30,7 @@ int main() {
         gameCheck = 0;
 
         if (flag == 0) {
-            stage = 4;      // 나중에 이거도 매니저에서 가져갈거임-_-
+            stage = 3;      // 나중에 이거도 매니저에서 가져갈거임-_-
 
             // 초기위치
             Pos playerInitPos;
@@ -104,8 +106,9 @@ int main() {
                     {
                         player->setNoAlcohol(); // 다시 돌아오게
                     }
-
-
+                    if (IsSpeedTime == 0) {
+                        speedFlag == 0;
+                    }
                     if (i % 5 == 0)
                     {
                         enemies->updateShootNpcFlags(gameMapHere, *player);
