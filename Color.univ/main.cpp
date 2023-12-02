@@ -21,7 +21,7 @@ int main() {
     while (1) {
         int flag = initGame();
         if (flag == 0) {
-            stage = 3;
+            stage = 4;
 
             //초기위치
             Pos playerInitPos;

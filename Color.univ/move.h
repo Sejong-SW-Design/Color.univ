@@ -6,6 +6,7 @@
 #include<conio.h>
 #include<ctime>
 #include<string>
+#include<set>
 #include"util.h"
 #include"gameBoard.h"
 //
