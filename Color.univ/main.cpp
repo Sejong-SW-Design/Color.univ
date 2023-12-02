@@ -13,13 +13,13 @@ int gameMapHere[22][37];
 int IsAlcoholTime = -1;
 extern int life[3];
 extern int checkKey;
-//extern int blink; // 움직 O 버전
+extern int blink; 
 
 int main() {
 	setConsoleSize();
 	removeCursor();
 
-    drawPrologue();         // 보고있는거 귀찮으니까 일단 주석처리함
+    //drawPrologue();         // 보고있는거 귀찮으니까 일단 주석처리함
 
     int gameCheck = 0;      // game over이면 1
 
@@ -28,7 +28,7 @@ int main() {
         gameCheck = 0;
 
         if (flag == 0) {
-            stage = 3;      // 나중에 이거도 매니저에서 가져갈거임-_-
+            stage = 4;      // 나중에 이거도 매니저에서 가져갈거임-_-
 
             // 초기위치
             Pos playerInitPos;
@@ -54,17 +54,14 @@ int main() {
                 if (checkGoal == 1) {
                     playerInitPos = setPcInitPos(stage);
                     player = new Player(playerInitPos, stage);
-                    //if(blink==-1) time(&(player->drawStartTime)); // 움직 0 버전
 
                     npcSleepTime = getNpcSleepTime(stage);
 
                     calculateAvgScore();
 
                     getStage(gameMapHere, stage);
-                    if (stage == 4)
-                        blinkGameBoard(gameMapHere, *player); // 움직 X 버전
-                    else
-                        drawGameBoard(gameMapHere, stage);
+
+                    drawGameBoard(gameMapHere, stage); // stage 4도 일단 보여줌.
                     eraseColor(0, 0, gameMapHere);
 
                     patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
@@ -80,7 +77,8 @@ int main() {
                 {
                     if (checkKey == 112) {
                         if (drawPauseScreen() == 0) {
-                            drawGameBoard(gameMapHere, stage);
+                            if (stage == 4) drawDarkGameBoard(gameMapHere, *player); // 여기 바꿨어용~ -뤂
+                            else drawGameBoard(gameMapHere, stage);                          
                             continue;
                         }
                         else {
@@ -95,15 +93,11 @@ int main() {
                     player->movingProcess(gameMapHere);
                     drawCheckTime(player);
 
-                    /* // 움직 O 버전
-                    if (stage == 4 && blink != 1) 
-                    {
-                        blinkGameBoard(gameMapHere, *player);
-                    }
-                    */
                     if (stage == 4)
                     {
                         enemies->updateVisible(gameMapHere, *player);
+                        if (blink == -1) time(&(player->drawStartTime)); //시간 시작
+                        if (blink != 1) blinkGameBoard(gameMapHere, *player, *enemies);
                     }
 
                     if (IsAlcoholTime == 0)

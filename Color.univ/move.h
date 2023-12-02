@@ -89,7 +89,7 @@ private:
 	int getMin(int a, int b) { return a < b ? a : b; }
 public:
 	time_t alcoholStartTime = 0;
-	//time_t drawStartTime = 0; // 움직 O 버전
+	time_t drawStartTime = 0; // 움직 O 버전
 	Player(Pos initPosition, int stage);
 	void movingProcess(int gameMap[22][37]);
 	void getItem(int gameMap[22][37]);
@@ -106,6 +106,7 @@ public:
 			return true;
 		return false;
 	}
+	friend void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies); // 뤂
 };
 
 class PatternNpc : public Move

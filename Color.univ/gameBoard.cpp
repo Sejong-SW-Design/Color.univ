@@ -9,7 +9,8 @@ extern double score[5];
 extern int stage;
 extern int life[3];
 extern int IsAlcoholTime;
-//int blink = -1; // 움직 O 버전
+int blink = -1; // 움직 O 버전
+int checkB = 0; // 시간 확인
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
 {
@@ -101,7 +102,7 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
         break;
     case 4:
     
-        C.push_back(new ChasingNpc({ 12, 1 }));
+        //C.push_back(new ChasingNpc({ 12, 1 })); -> 일단 없앨게요
         break;
     }
     return C;
@@ -156,6 +157,27 @@ void drawGameBoard(int gameMap[22][37], int stage)
     }
 }
 
+void drawAllDarkGameBoard(int gameMap[22][37], int stage) // manager에 넣기 위해 새로 만듦. 근데 필요 없어졌음 ㅋ 혹시 몰라 일단 놔둠용
+{
+    drawGameEdge();
+    drawStore();
+    if (stage != 1) drawAlcoholTimeEdge();
+
+    drawLifeEdge();
+
+    drawInfoOriginal(score, stage);
+
+    Exits.clear();
+
+    for (int i = 0; i < 22; i++)
+    {
+        for (int j = 0; j < 37; j++)
+        {
+            drawOnePoint(gameMap, i, j, 0, 0);
+        }
+    }
+}
+
 void drawOnePoint(int gameMap[22][37], int i, int j)
 {
     int textColor = getColor(gameMap[i][j]);
@@ -199,10 +221,10 @@ void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나
     }
 }
 
-void blinkGameBoard(int gameMap[22][37], Player player) // ppt 추가
+void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) // ppt 추가, 왜 npc는 안 나타나는지 의문
 {
     //플레이어 움직X
-    
+    /*
     drawGameBoard(gameMap, stage);
     player.showCharacter();
     Sleep(600);
@@ -216,28 +238,44 @@ void blinkGameBoard(int gameMap[22][37], Player player) // ppt 추가
     Sleep(300);
 
     drawDarkGameBoard(gameMap, player);
+    */
     
-
-
-    /*
-    // 플레이어 움직O -> 이상함... (움직X 버전은 잘 됨)
-    blink = 0;
+    // 플레이어 움직O
 
     time_t current;
     time(&current);
+    blink = 0;
 
-    drawGameBoard(gameMap, stage);
-
-    if (difftime(current, player.drawStartTime) >= 3)
-    {      
+    // 시간 변경 가능이요~
+    if (difftime(current, player.drawStartTime) >= 4 && checkB == 2)
+    {
+        (&player)->visibleDist = 3;
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
-        blink = 1;
+
+        checkB = 3; // 5초 지남 체크
+        blink = 1; // main의 whlie문 멈추도록
         return;
     }
+    else if (difftime(current, player.drawStartTime) >= 3 && checkB == 1)
+    {
+        drawGameBoard(gameMap, stage);
+        player.showCharacter();
+        
+        checkB = 2; // 3초 지남 체크
+    }
+    else if (difftime(current, player.drawStartTime) >= 2 && checkB ==0)
+    {
+        (&player)->visibleDist = 3;
+        drawDarkGameBoard(gameMap, player);
+        player.showCharacter();
+ 
+        checkB = 1; // 2초 지남 체크
+    }
+
 
     return;
-    */
+    
 }
 
 
@@ -428,7 +466,7 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
 {
     int x, y, h = 2, w = 6;
 
-
+    setBackgroundColor(0, 15); // 하얀색
     int origin_x = 57, origin_y = 27;
     for (y = 0; y <= h; y++)
     {
@@ -485,6 +523,7 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
 
 void drawAlcoholTimeEdge()
 {
+    setBackgroundColor(0, 15); // 하얀색
     int x, y;
     int origin_x = 85, origin_y = 11, h = 10, w = 1;
     for (y = 0; y <= h; y++)
@@ -723,6 +762,7 @@ void updateStore(int color1, int color2)
 
 void drawStore()
 {
+    setBackgroundColor(0, 15); // 하얀색
     int x, y;
 
     // 첫번째 저장소
@@ -804,6 +844,7 @@ void drawStore()
 
 void drawGameEdge()
 {
+    setBackgroundColor(0, 15); // 하얀색
     int x, y;
 
     int origin_x1 = 4, origin_y1 = 3, h = 23, w = 37;

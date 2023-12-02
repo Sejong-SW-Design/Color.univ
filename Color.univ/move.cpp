@@ -5,8 +5,9 @@
 
 extern double score[5];
 extern int stage;
-extern int IsAlcoholTime; //뤂
+extern int IsAlcoholTime; 
 extern double keyInterval;
+extern int checkB; // 뤂
 
 Move::Move(Position initPos, int color, std::string shape)
 {
@@ -102,8 +103,10 @@ Pos Move::getPosition()
 Player::Player(Pos initPosition, int stage)
 	:Move(initPosition, 15, "◈")
 {
-	if (stage == 4)
-		visibleDist = 3;
+//	if (stage == 4)
+//		visibleDist = 3;
+	// 암전 전에 화면 깜빡일 때 잠깐 -1로 바뀌어야 해서!!
+	// 밑에 구현해놓음 - 뤂
 }
 
 void Player::setNoAlcohol()
@@ -156,13 +159,10 @@ void Player::movingProcess(int gameMap[22][37])
 		setAlcoholNumber();
 		drawAlcoholTime(IsAlcoholTime);
 	}
-	/*
-	// 여기 고침
-	if (IsAlcoholTime != -1) // item에서 IsAlcoholTime 줄어든다.
-	{
-		updateAlcoholTime(IsAlcoholTime);
-	}
-	*/
+
+	if (checkB == 1) visibleDist = 3;
+	else if (checkB == 2) visibleDist = -1;
+	else if (checkB == 3) visibleDist = 3;
 
 	//visible 위치 조정
 	if (visibleDist != -1)

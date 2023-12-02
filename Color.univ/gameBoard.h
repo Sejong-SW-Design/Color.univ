@@ -26,6 +26,7 @@ class Player;
 class PatternNpc;
 class ChasingNpc;
 class ShootNpc;
+class EnemiesManager;
 
 typedef struct Position
 {
@@ -118,7 +119,7 @@ void drawGameBoard(int gameMap[22][37], int stage);
 
 void drawDarkGameBoard(int gameMap[22][37], Player player);
 
-void blinkGameBoard(int gameMap[22][37], Player player);
+void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies);
 
 void drawGameEdge();
 
@@ -162,8 +163,6 @@ void drawCheckTime(Player* player);
 
 int getColor(int gameBoardNumber);
 
-//void updateLife();
-
-//void playerMoveThread(Player* player, int gameMapHere[22][37]);
+void drawAllDarkGameBoard(int gameMap[22][37], int stage);
 
 #endif
