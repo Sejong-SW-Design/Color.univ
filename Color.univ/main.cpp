@@ -12,7 +12,6 @@ extern int stage;
 int gameMapHere[22][37];
 int IsAlcoholTime = -1;
 int IsSpeedTime = -1;
-int speedFlag = 0;
 extern int life[3];
 extern int checkKey;
 extern int blink; 
@@ -106,8 +105,9 @@ int main() {
                     {
                         player->setNoAlcohol(); // 다시 돌아오게
                     }
+
                     if (IsSpeedTime == 0) {
-                        speedFlag == 0;
+                        player->setNoSpeed();
                     }
                     if (i % 5 == 0)
                     {

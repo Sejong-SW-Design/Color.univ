@@ -6,9 +6,9 @@
 extern double score[5];
 extern int stage;
 extern int IsAlcoholTime; 
+extern int IsSpeedTime;
 extern double keyInterval;
 extern int checkB; // è≥
-extern int speedFlag;
 
 Move::Move(Position initPos, int color, std::string shape)
 {
@@ -20,22 +20,24 @@ Move::Move(Position initPos, int color, std::string shape)
 
 bool Move::shiftCharacter(int direction, int gameMap[22][37])
 {
-	return shiftCharacter(direction, gameMap, -1);
+	return shiftCharacter(direction, gameMap, -1, 0);
 }
 
-bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum)
+bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum, int speedFlag)
 {
 	deleteCharacter(gameMap);
 
 	Pos next = position;
-	if (speedFlag == 1) {
+
+	if (speedFlag == 0) {
+		keyInterval = 0.15;
+	}
+	else {
 		keyInterval = 0.05;
-		next = getDrinkNextPos(direction, position, alcoholNum);
 	}
 
 	if (alcoholNum != -1)
 	{
-		
 		//next = getDrinkNextPos(direction, position, alcoholNum);
 		next = updateAlcoholEffect(direction, position, alcoholNum);
 	}
@@ -118,6 +120,10 @@ void Player::setNoAlcohol()
 {
 	alcoholNumber = -1;
 }
+void Player::setNoSpeed()
+{
+	speedFlag = 0;
+}
 
 void Player::movingProcess(int gameMap[22][37])
 {
@@ -128,16 +134,16 @@ void Player::movingProcess(int gameMap[22][37])
 	switch (key)
 	{
 	case LEFT:
-		shifted = shiftCharacter(LEFT, gameMap, alcoholNumber);
+		shifted = shiftCharacter(LEFT, gameMap, alcoholNumber,speedFlag);
 		break;
 	case RIGHT:
-		shifted = shiftCharacter(RIGHT, gameMap, alcoholNumber);
+		shifted = shiftCharacter(RIGHT, gameMap, alcoholNumber, speedFlag);
 		break;
 	case UP:
-		shifted = shiftCharacter(UP, gameMap, alcoholNumber);
+		shifted = shiftCharacter(UP, gameMap, alcoholNumber, speedFlag);
 		break;
 	case DOWN:
-		shifted = shiftCharacter(DOWN, gameMap, alcoholNumber);
+		shifted = shiftCharacter(DOWN, gameMap, alcoholNumber, speedFlag);
 		break;
 	case SPACEBAR:
 		collaborateColor(position.x, position.y, gameMap, visibleDist != -1);
@@ -226,7 +232,8 @@ void Player::getItem(int gameMap[22][37])
 	if (itemSort == SPEED)
 	{
 		gameMap[position.y][position.x] = 0;
-		speedFlag == 1;
+		IsSpeedTime = 5;
+		setSpeedFlag();
 		//keyInterval = 0.15;
 	}
 	if (itemSort == LIFE)
@@ -253,6 +260,12 @@ void Player::setAlcoholNumber()
 		alcoholNumber = rand() % 3;
 	}
 	time(&alcoholStartTime);
+}
+
+void Player::setSpeedFlag()
+{
+	speedFlag = 1;
+	time(&speedStartTime);
 }
 
 PatternNpc::PatternNpc(Pos initPosition, Pos startPoint, Pos endPoint, int npcSort)

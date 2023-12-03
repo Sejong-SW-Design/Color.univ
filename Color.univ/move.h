@@ -21,7 +21,7 @@ protected:
 public:
 	Move(Position initPos, int color, std::string shape);
 	bool shiftCharacter(int direction, int gameMap[22][37]);
-	bool shiftCharacter(int direction, int gameMap[22][37], int alcoholNum);
+	bool shiftCharacter(int direction, int gameMap[22][37], int alcoholNum, int speeFlag);
 	void deleteCharacter(int gameMap[22][37]);
 	void showCharacter();	
 	void showBlinkCharacter(int backgroundColor);
@@ -84,7 +84,7 @@ class Player : public Move
 {
 private:
 	int alcoholNumber = -1; // -1이 정상
-	//int speedFlag = 0; //0이 정상
+	int speedFlag = 0; //0이 정상
 	int visibleDist = -1;
 	int getMax(int a, int b) { return a > b ? a : b; }
 	int getMin(int a, int b) { return a < b ? a : b; }
@@ -98,6 +98,8 @@ public:
 	bool checkGoalIn(int gameMap[22][37]);
 	void setAlcoholNumber();
 	void setNoAlcohol();
+	void setSpeedFlag();
+	void setNoSpeed();
 	bool isVisiblePos(Pos pos) {
 		//일단 사각형 반경으로 해둠. 다이아 반경으로 바꾸고 싶으면 여기만 수정
 		int dx = position.x - pos.x;

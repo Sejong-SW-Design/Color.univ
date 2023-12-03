@@ -10,6 +10,7 @@ extern int stage;
 extern int life[3];
 extern int IsAlcoholTime;
 extern int IsSpeedTime;
+extern  double keyInterval;
 
 int blink = -1; // 움직 O 버전
 int checkB = 0; // 시간 확인
@@ -598,16 +599,13 @@ void drawCheckTime(Player* player) // 나중에 ppt에 추가해야함
     if (player->speedStartTime != 0 && player->speedStartTime != current)
     {
         IsSpeedTime--;
-        //drawAlcoholTime(IsAlcoholTime);
         player->speedStartTime = current;
     }
-    if (current - player->speedStartTime == 10)
+    if (current - player->speedStartTime >= 5)
     {
         player->speedStartTime = 0;
     }
-
 }
-
 
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
 {

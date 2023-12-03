@@ -141,6 +141,8 @@ void drawAlcoholTimeEdge();
 
 void drawAlcoholTime(int t);
 
+void drawCheckTime(Player* player);
+
 int getWallColor(int gameBoardWallNumber);
 
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]);
@@ -158,8 +160,6 @@ vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S);
 string calculate(double score); // 점수 계산
 
 void drawLifeEdge();
-
-void drawCheckTime(Player* player);
 
 int getColor(int gameBoardNumber);
 
