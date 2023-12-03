@@ -72,12 +72,26 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
     case 4:
         P.push_back(new PatternNpc({ 18, 6 }, { 17, 6 }, { 20, 6 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 10, 15 }, { 9, 15 }, { 12, 15 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 10, 2 }, { 9, 2 }, { 12, 2 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 15, 10 }, { 15, 9 }, { 15, 12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 18, 6 }, { 17,6 }, { 20, 6 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 10, 6 }, { 9,6 }, { 12, 6 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 30, 5 }, { 29,5 }, { 32, 5 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 18,16 }, { 17,16 }, { 18, 16 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 20,16 }, { 19,16 }, { 20, 16 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 24,10 }, { 24,9 }, { 24, 12 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 16,1 }, { 16,1 }, { 16, 2 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 21,1 }, { 21,1 }, { 21, 2 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 6,17 }, { 6,16 }, {6, 20 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 6,2 }, { 4,2 }, { 7, 2 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 31,17 }, { 30,17 }, { 32, 17 }, NORMAL_NPC));
+
 
         P.push_back(new PatternNpc({ 1, 7 }, { 0, 7 }, { 2, 7 }, ALCOHOL_NPC));
-        P.push_back(new PatternNpc({ 26, 17 }, { 25, 17 }, { 28, 17 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 1, 12 }, { 0, 12 }, { 2, 12 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 26, 16 }, { 25, 16 }, { 28, 16 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 19, 5 }, { 17,5 }, { 20, 5 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 19, 18 }, { 17,18 }, { 20, 18 }, ALCOHOL_NPC));
 
         break;
     }
