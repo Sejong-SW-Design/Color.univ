@@ -106,7 +106,7 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
         break;
     case 4:
     
-        C.push_back(new ChasingNpc({ 7, 7 }));
+        //C.push_back(new ChasingNpc({ 7, 7 })); // ÃßÀû X
         break;
     }
     return C;
