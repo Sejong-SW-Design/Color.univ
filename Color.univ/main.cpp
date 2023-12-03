@@ -70,7 +70,12 @@ int main() {
 
                     getStage(gameMapHere, stage);
 
-                    drawGameBoard(gameMapHere, stage); // stage 4도 일단 보여줌.
+                    drawGameBoard(gameMapHere, stage); // stage 4도 일단 보여주기.
+                    if (stage == 4)
+                    {
+                        blink = 0; checkB = 0; // 깜빡이 초기화
+                    }
+
                     eraseColor(0, 0, gameMapHere);
 
                     patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
@@ -78,7 +83,6 @@ int main() {
                     shootEnemies = setShootNpcInitPos(stage, shootEnemies);
                     enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies, gameMapHere);
 
-                    
                     checkGoal = 0;
                 }
                 
@@ -86,7 +90,7 @@ int main() {
                 {
                     if (checkKey == 112) {
                         if (drawPauseScreen() == 0) {
-                            if (stage == 4) drawDarkGameBoard(gameMapHere, *player); // 여기 바꿨어용~ -뤂
+                            if (stage == 4) drawDarkGameBoard(gameMapHere, *player); 
                             else drawGameBoard(gameMapHere, stage);                          
                             continue;
                         }
@@ -137,8 +141,11 @@ int main() {
                         else {
                             drawResultScreen(stageOver, 0);
                             score[stage] = 4.5;
-                            if (stage == 4) drawAllDarkGameBoard(gameMapHere, 4);
-                            else drawGameBoard(gameMapHere, stage);
+                            drawGameBoard(gameMapHere, stage); // stage 4 다시 시작하면 화면 좀 보여주기.
+                            if (stage == 4)
+                            {
+                                blink = 0; checkB = 0; // 깜빡이 초기화
+                            }
                             break;
                         }
                     }

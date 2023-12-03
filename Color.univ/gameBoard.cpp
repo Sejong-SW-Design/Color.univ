@@ -226,54 +226,34 @@ void drawDarkGameBoard(int gameMap[22][37], Player player)
 
 void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) // ppt 추가
 {
-    //플레이어 움직X
-    /*
-    drawGameBoard(gameMap, stage);
-    player.showCharacter();
-    Sleep(600);
-
-    drawDarkGameBoard(gameMap, player);
-    player.showCharacter();
-    Sleep(100);
-
-    drawGameBoard(gameMap, stage);
-    player.showCharacter();
-    Sleep(300);
-
-    drawDarkGameBoard(gameMap, player);
-    */
-
-    // 플레이어 움직O
-
     time_t current;
     time(&current);
 
-    // 시간 변경 가능이요~
     if (difftime(current, player.drawStartTime) >= 5 && checkB == 2)
     {
+        checkB++; // 3이 됨, 5초 지남 체크, blinkGameBoard 종료
         (&player)->visibleDist = 3;
 
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
 
-        checkB++; // 3이 됨, 5초 지남 체크, blinkGameBoard 종료
         return;
     }
     else if (difftime(current, player.drawStartTime) >= 3 && checkB == 1)
     {
+        checkB++; //2가 됨
+
         drawGameBoard(gameMap, stage);
         player.showCharacter();
         enemies.updateColor(gameMap, player);
-
-        checkB++; //2가 됨
     }
     else if (difftime(current, player.drawStartTime) >= 2 && checkB == 0)
     {
+        checkB++; //1이 됨
+
         (&player)->visibleDist = 3;
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
-
-        checkB++; //1이 됨
     }
 
     if (checkB % 2 == 1) (&player)->visibleDist = 3; // 홀수면
@@ -376,7 +356,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
     case ERASER:
         setBackgroundColor(backGround, textColor); printf("ⓔ"); break;
     case LIFE:
-        setBackgroundColor(backGround, textColor); printf("♥"); break; // npc랑 헷갈릴까봐 다크 레드 사용
+        setBackgroundColor(backGround, textColor); printf("♥"); break; 
     case SPEED:
         setBackgroundColor(backGround, textColor); printf("⒮"); break; // eraser랑 헷갈릴까봐
     case NORMAL_NPC:
