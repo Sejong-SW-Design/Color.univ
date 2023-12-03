@@ -11,7 +11,6 @@ extern int life[3];
 extern int IsAlcoholTime;
 extern int IsSpeedTime;
 
-int blink = -1; // 움직 O 버전
 int checkB = 0; // 시간 확인
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
@@ -225,8 +224,6 @@ void drawDarkGameBoard(int gameMap[22][37], Player player)
     }
 }
 
-
-
 void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) // ppt 추가
 {
     //플레이어 움직X
@@ -250,39 +247,37 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
 
     time_t current;
     time(&current);
-    blink = 0;
 
     // 시간 변경 가능이요~
-    if (difftime(current, player.drawStartTime) >= 6 && checkB == 2)
+    if (difftime(current, player.drawStartTime) >= 5 && checkB == 2)
     {
         (&player)->visibleDist = 3;
 
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
 
-        checkB = 3; // 5초 지남 체크
-        blink = 1; // main의 whlie문 멈추도록
+        checkB++; // 3이 됨, 5초 지남 체크, blinkGameBoard 종료
         return;
     }
-    else if (difftime(current, player.drawStartTime) >= 4 && checkB == 1)
+    else if (difftime(current, player.drawStartTime) >= 3 && checkB == 1)
     {
         drawGameBoard(gameMap, stage);
         player.showCharacter();
         enemies.updateColor(gameMap, player);
-        checkB = 2; // 3초 지남 체크
+
+        checkB++; //2가 됨
     }
     else if (difftime(current, player.drawStartTime) >= 2 && checkB == 0)
     {
         (&player)->visibleDist = 3;
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
-        enemies.updateVisible(gameMap, player);
 
-        checkB = 1; // 2초 지남 체크
+        checkB++; //1이 됨
     }
 
-    if (checkB == 3 || checkB == 1) (&player)->visibleDist = 3;
-    else if (checkB == 2 || checkB == 0) (&player)->visibleDist = -1;
+    if (checkB % 2 == 1) (&player)->visibleDist = 3; // 홀수면
+    else if (checkB % 2 == 0) (&player)->visibleDist = -1; // 짝수면
 
     return;
 

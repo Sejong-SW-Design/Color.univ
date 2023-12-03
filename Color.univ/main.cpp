@@ -15,24 +15,25 @@ int IsSpeedTime = -1;
 int speedFlag = 0;
 extern int life[3];
 extern int checkKey;
-extern int blink; 
+extern int checkB;
 
 int main() {
 	setConsoleSize();
 	removeCursor();
 
-    drawTitle();
+    //drawTitle();
 
     //drawPrologue();         // 보고있는거 귀찮으니까 일단 주석처리함
 
     int gameCheck = 0;      // game over이면 1
+    int blink = 0; // 전역->지역으로 변경
 
     while (1) {
         int flag = initGame();
         gameCheck = 0;
 
         if (flag == 0) {
-            stage = 3;      // 나중에 이거도 매니저에서 가져갈거임
+            stage = 4;      // 나중에 이거도 매니저에서 가져갈거임
             if (stage == 1) {
                 for (int i = 0; i < 3; ++i) life[i] = 1;
                 for (int i = 0; i < 5; ++i) score[i] = 4.5;
@@ -108,9 +109,12 @@ int main() {
 
                     if (stage == 4)
                     {
-                        if (blink == -1) time(&(player->drawStartTime)); //시간 시작
-                        if (blink != 1) blinkGameBoard(gameMapHere, *player, *enemies);
-                        if (blink == 1) enemies->updateVisible(gameMapHere, *player);
+                        if (blink == 0)
+                        {
+                            time(&(player->drawStartTime)); blink = 1;
+                        }
+                        if (checkB != 3) blinkGameBoard(gameMapHere, *player, *enemies);
+                        if (checkB % 2 == 1) enemies->updateVisible(gameMapHere, *player); // 홀수면
                     }
 
                     if (IsSpeedTime == 0){

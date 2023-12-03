@@ -121,8 +121,8 @@ void Player::setNoAlcohol()
 
 void Player::movingProcess(int gameMap[22][37])
 {
-	if (checkB == 1|| checkB==3) visibleDist = 3;
-	else if (checkB == 2 || checkB==0) visibleDist = -1;
+	if (checkB % 2 == 1) visibleDist = 3; // È¦¼ö¸é
+	else if (checkB % 2 == 0) visibleDist = -1; // Â¦¼ö¸é
 
 	int key = keyControl();
 	Pos prev = position;
