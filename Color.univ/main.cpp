@@ -72,7 +72,7 @@ int main() {
                     
                     checkGoal = 0;
                 }
-
+                
                 for (int i = 0; i < pcMoveCnt; i++)
                 {
                     if (checkKey == 112) {
@@ -93,18 +93,17 @@ int main() {
                     player->movingProcess(gameMapHere);
                     drawCheckTime(player);
 
-                    if (stage == 4)
-                    {
-                        //enemies->updateVisible(gameMapHere, *player);
-                        if (blink == -1) time(&(player->drawStartTime)); //시간 시작
-                        if (blink != 1) blinkGameBoard(gameMapHere, *player, *enemies);
-                    }
-
                     if (IsAlcoholTime == 0)
                     {
                         player->setNoAlcohol(); // 다시 돌아오게
                     }
 
+                    if (stage == 4)
+                    {
+                        if (blink == -1) time(&(player->drawStartTime)); //시간 시작
+                        if (blink != 1) blinkGameBoard(gameMapHere, *player, *enemies);
+                        if (blink == 1) enemies->updateVisible(gameMapHere, *player);
+                    }
 
                     if (i % 5 == 0)
                     {
@@ -146,8 +145,8 @@ int main() {
 
                     Sleep(5);
                 }
-
                 enemies->EnemyMoveProcess(gameMapHere, player);
+
                 if (gameCheck == 1) break;
             }
             if (gameCheck == 1) continue;

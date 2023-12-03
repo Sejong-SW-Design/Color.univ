@@ -194,7 +194,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround) // 새로 만�
 
 
 //새로 만듦
-void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나 넣었으니 바꿔주세요. 구조 바꾸고 싶으면 마음대로 바꾸기. 아직 헤더 파일에 선언 안해놓음요 -뤂
+void drawDarkGameBoard(int gameMap[22][37], Player player) 
 // getColor 함수는 맨 밑에 있습니다.
 {
     drawGameEdge();
@@ -213,7 +213,7 @@ void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나
     {
         for (int j = 0; j < 37; j++)
         {
-            if (player.isVisiblePos({j, i})) // if PC 반경이라면? (걍 아무거나 넣어놓음. 바꿔주세용)
+            if (player.isVisiblePos({j, i})) 
             {
                 textColor = getColor(gameMap[i][j]);
             }
@@ -223,7 +223,9 @@ void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나
     }
 }
 
-void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) // ppt 추가, 왜 npc는 안 나타나는지 의문
+
+
+void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) // ppt 추가
 {
     //플레이어 움직X
     /*
@@ -249,25 +251,25 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     blink = 0;
 
     // 시간 변경 가능이요~
-    if (difftime(current, player.drawStartTime) >= 4 && checkB == 2)
+    if (difftime(current, player.drawStartTime) >= 6 && checkB == 2)
     {
         (&player)->visibleDist = 3;
+
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
-        enemies.updateVisible(gameMap, player);
 
         checkB = 3; // 5초 지남 체크
         blink = 1; // main의 whlie문 멈추도록
         return;
     }
-    else if (difftime(current, player.drawStartTime) >= 3 && checkB == 1)
+    else if (difftime(current, player.drawStartTime) >= 4 && checkB == 1)
     {
         drawGameBoard(gameMap, stage);
         player.showCharacter();
-        
+        enemies.updateColor(gameMap, player);
         checkB = 2; // 3초 지남 체크
     }
-    else if (difftime(current, player.drawStartTime) >= 2 && checkB ==0)
+    else if (difftime(current, player.drawStartTime) >= 2 && checkB == 0)
     {
         (&player)->visibleDist = 3;
         drawDarkGameBoard(gameMap, player);
@@ -277,6 +279,8 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
         checkB = 1; // 2초 지남 체크
     }
 
+    if (checkB == 3 || checkB == 1) (&player)->visibleDist = 3;
+    else if (checkB == 2 || checkB == 0) (&player)->visibleDist = -1;
 
     return;
     

@@ -207,6 +207,18 @@ public:
 				(*iter)->setDarkColor();
 		}
 	}
+
+	void updateColor(int gameMap[22][37], Player player) // ³
+	{
+		for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
+		{
+			(*iter)->setOriginColor();
+		}
+		for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
+		{
+			(*iter)->setOriginColor();
+		}
+	}
 };
 
 

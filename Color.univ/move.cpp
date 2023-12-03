@@ -116,6 +116,9 @@ void Player::setNoAlcohol()
 
 void Player::movingProcess(int gameMap[22][37])
 {
+	if (checkB == 1|| checkB==3) visibleDist = 3;
+	else if (checkB == 2 || checkB==0) visibleDist = -1;
+
 	int key = keyControl();
 	Pos prev = position;
 
@@ -159,10 +162,6 @@ void Player::movingProcess(int gameMap[22][37])
 		setAlcoholNumber();
 		drawAlcoholTime(IsAlcoholTime);
 	}
-
-	if (checkB == 1) visibleDist = 3;
-	else if (checkB == 2) visibleDist = -1;
-	else if (checkB == 3) visibleDist = 3;
 
 	//visible 위치 조정
 	if (visibleDist != -1)
