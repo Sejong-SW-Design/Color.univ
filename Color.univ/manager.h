@@ -34,6 +34,8 @@ int drawMenu();
 void drawPrologue();
 
 void drawDevInfo();
+
+void drawHowToPlay();
 //
 //void drawStageIntroInfo();
 //
@@ -52,5 +54,9 @@ void getStage(int gameMap[22][37], int stage);
 int getNpcSleepTime(int stage);
 
 void calculateAvgScore();
+
+void drawReport();
+
+void drawTitle();
 
 #endif

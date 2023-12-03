@@ -10,6 +10,8 @@ extern int gameMap4[22][37];
 
 extern int gameMapHere[22][37];
 
+extern int gameTitle[22][37];
+
 int pKeyPressed = 0;
 double keyInterval = 0.15;
 
@@ -271,12 +273,35 @@ void drawDevInfo() { // 임시화면
 
     setBackgroundColor(0, 8);
     setCurrentCursorPos(31, 23);
-    printf("돌아가려면 아무키나 누르세요");
+    printf("Press Enter to continue...");
 
     setBackgroundColor(0, 10);
 
     while (1)
         if (_getch()) break;
+}
+
+void drawHowToPlay() {
+    system("cls");
+
+    setCurrentCursorPos(36, 9);
+    setBackgroundColor(0, 10);
+    printf("[HOW TO PLAY]");
+
+    setBackgroundColor(0, 15);
+    setCurrentCursorPos(36, 12);
+    printf("몰라잉");
+
+    setBackgroundColor(0, 8);
+    setCurrentCursorPos(31, 23);
+    printf("Press Enter to continue...");
+
+    setBackgroundColor(0, 10);
+
+    while (1)
+        if (_getch()) break;
+
+
 }
 //
 //void drawStageIntroInfo();
@@ -424,10 +449,87 @@ int getNpcSleepTime(int stage) {
 }
 
 void calculateAvgScore() {
-    float sum = 0.0f;
+    double sum = 0.0;
     for (int i = 1; i <= stage; i++) {
         sum += score[i];
     }
 
     score[0] = sum / stage;
+}
+
+void drawReport() {
+    system("cls");
+
+    setCurrentCursorPos(38, 9);
+    setBackgroundColor(0, 10);
+    printf("[성 적 표]");
+
+    setBackgroundColor(0, 15);
+    setCurrentCursorPos(38, 12);
+    printf("1학년: %.1f", score[1]);
+
+    setCurrentCursorPos(38, 14);
+    printf("2학년: %.1f", score[2]);
+
+    setCurrentCursorPos(38, 16);
+    printf("3학년: %.1f", score[3]);
+
+    setCurrentCursorPos(38, 18);
+    printf("4학년: %.1f", score[4]);
+
+    setCurrentCursorPos(36, 20);
+    printf("평균 학점: %.1f", score[0]);
+
+    setBackgroundColor(0, 8);
+    setCurrentCursorPos(31, 23);
+    printf("Press Enter to continue...");
+
+    setBackgroundColor(0, 10);
+
+    while (1)
+        if (_getch()) break;
+    system("cls");
+}
+
+void drawTitle() {
+    int x = GBOARD_ORIGIN_X + 5, y = GBOARD_ORIGIN_Y;
+    for (int j = 0; j < 37; j++) {
+        for (int i = 0; i < 10; i++) {
+            setCurrentCursorPos(x + j * 2, y + i);
+            if (gameTitle[i][j] == 0) {
+                setBackgroundColor(0, 0);
+                printf("■");
+            }
+
+            else {
+                setBackgroundColor(0, 14);
+                printf("■");
+            }
+        }
+
+        Sleep(50);
+    }
+
+    for (int j = 0; j < 37; j++) {
+        for (int i = 10; i < 22; i++) {
+            setCurrentCursorPos(x + j * 2, y + i);
+            if (gameTitle[i][j] == 0) {
+                setBackgroundColor(0, 0);
+                printf("■");
+            }
+
+            else {
+                setBackgroundColor(0, 14);
+                printf("■");
+            }
+        }
+
+        Sleep(50);
+    }
+
+
+
+    Sleep(2000);
+
+    system("cls");
 }

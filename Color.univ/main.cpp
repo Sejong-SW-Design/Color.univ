@@ -21,6 +21,8 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
+    drawTitle();
+
     //drawPrologue();         // 보고있는거 귀찮으니까 일단 주석처리함
 
     int gameCheck = 0;      // game over이면 1
@@ -30,7 +32,11 @@ int main() {
         gameCheck = 0;
 
         if (flag == 0) {
-            stage = 4;      // 나중에 이거도 매니저에서 가져갈거임-_-
+            stage = 3;      // 나중에 이거도 매니저에서 가져갈거임
+            if (stage == 1) {
+                for (int i = 0; i < 3; ++i) life[i] = 1;
+                for (int i = 0; i < 5; ++i) score[i] = 4.5;
+            }
 
             // 초기위치
             Pos playerInitPos;
@@ -118,15 +124,17 @@ int main() {
 
                     if (score[stage] == 0)
                     {
-                        if (life[0] == 0) {
+                        if (life[1] == 0) {
+                            gameCheck = 1;
                             drawResultScreen(gameOver, 0);
                             drawGameResult(score, stage);
-                            return -1;
+                            break;
                         }
                         else {
                             drawResultScreen(stageOver, 0);
                             score[stage] = 4.5;
-                            checkGoal = 1;
+                            if (stage == 4) drawAllDarkGameBoard(gameMapHere, 4);
+                            else drawGameBoard(gameMapHere, stage);
                             break;
                         }
                     }
@@ -134,9 +142,11 @@ int main() {
                     if (player->checkGoalIn(gameMapHere))
                     {
                         if (stage == 4) {
-                            drawResultScreen(gameClear, 0);
+                            drawResultScreen(gameClear, 1);
                             drawGameResult(score, stage); 
-                            return -1;
+                            drawReport();
+
+                            return 0;
                         }
                         else {
                             drawResultScreen(stageClear, 1);
@@ -157,6 +167,9 @@ int main() {
             }
             if (gameCheck == 1) continue;
         } 
+        else if (flag == 1) {
+            drawHowToPlay();
+        }
         else if (flag == 2) {
             drawDevInfo();
         }
