@@ -32,7 +32,7 @@ int main() {
         gameCheck = 0;
 
         if (flag == 0) {
-            stage = 4;      // 나중에 이거도 매니저에서 가져갈거임
+            stage = 3;      // 나중에 이거도 매니저에서 가져갈거임
             if (stage == 1) {
                 for (int i = 0; i < 3; ++i) life[i] = 1;
                 for (int i = 0; i < 5; ++i) score[i] = 4.5;
@@ -119,9 +119,6 @@ int main() {
                         if (checkB != 3) blinkGameBoard(gameMapHere, *player, *enemies);
                         if (checkB % 2 == 1) enemies->updateVisible(gameMapHere, *player); // 홀수면
                     }
-
-                    if (IsSpeedTime == 0){
-                        speedFlag == 0;
 
                     if (IsSpeedTime == 0) {
                         player->setNoSpeed();

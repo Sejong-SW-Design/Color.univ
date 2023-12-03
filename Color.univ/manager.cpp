@@ -13,7 +13,7 @@ extern int gameMapHere[22][37];
 extern int gameTitle[22][37];
 
 int pKeyPressed = 0;
-double keyInterval = 0.15;
+double keyInterval = 0.20;
 
 int checkKey;
 
