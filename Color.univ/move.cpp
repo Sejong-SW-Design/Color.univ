@@ -111,7 +111,7 @@ Player::Player(Pos initPosition, int stage)
 	:Move(initPosition, 15, "◈")
 {
 //	if (stage == 4)
-//		visibleDist = 3;
+//		visibleDist = 4;
 	// 암전 전에 화면 깜빡일 때 잠깐 -1로 바뀌어야 해서!!
 	// 밑에 구현해놓음 - 뤂
 }
@@ -127,7 +127,7 @@ void Player::setNoSpeed()
 
 void Player::movingProcess(int gameMap[22][37])
 {
-	if (checkB % 2 == 1) visibleDist = 3; // 홀수면
+	if (checkB % 2 == 1) visibleDist = 4; // 홀수면
 	else if (checkB % 2 == 0) visibleDist = -1; // 짝수면
 
 	int key = keyControl();

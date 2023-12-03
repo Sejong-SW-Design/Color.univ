@@ -145,6 +145,7 @@ void drawGameBoard(int gameMap[22][37], int stage)
     drawGameEdge();
     drawStore();
     if (stage != 1) drawAlcoholTimeEdge();
+    
 
     drawLifeEdge();
 
@@ -230,10 +231,12 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     time_t current;
     time(&current);
 
+    int vD = 4;
+
     if (difftime(current, player.drawStartTime) >= 5 && checkB == 2)
     {
         checkB++; // 3ÀÌ µÊ, 5ÃÊ Áö³² Ã¼Å©, blinkGameBoard Á¾·á
-        (&player)->visibleDist = 3;
+        (&player)->visibleDist = vD;
 
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
@@ -252,12 +255,12 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     {
         checkB++; //1ÀÌ µÊ
 
-        (&player)->visibleDist = 3;
+        (&player)->visibleDist = vD;
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
     }
 
-    if (checkB % 2 == 1) (&player)->visibleDist = 3; // È¦¼ö¸é
+    if (checkB % 2 == 1) (&player)->visibleDist = vD; // È¦¼ö¸é
     else if (checkB % 2 == 0) (&player)->visibleDist = -1; // Â¦¼ö¸é
 
     return;
@@ -558,6 +561,13 @@ void drawAlcoholTime(int t)
     {
         setCurrentCursorPos(origin_x, origin_y - 1);
         printf("  ");
+
+        for (y = 0; y < h; y++)
+        {
+            setCurrentCursorPos(origin_x, origin_y + y);
+            setBackgroundColor(0, 12);
+            printf("¡á");
+        }
     }
 }
 
