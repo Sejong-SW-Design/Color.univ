@@ -9,6 +9,9 @@ extern double score[5];
 extern int stage;
 int life[3]={1,1,1}; // 하트 배열
 extern double keyInterval;
+extern int IsAlcoholTime;
+extern int IsSpeedTime;
+extern int speedFlag;
 
 void eraseColor(int posX, int posY, int gameMap[22][37]) {
 
@@ -384,27 +387,13 @@ Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) {
 	}
 	return getDrinkNextPos(direction, position, alcoholNum);
 	
-	
-	
-	//int endTime = (unsigned)time(NULL);
-	//
-	//endTime += 10;
-
-	//while (1) {
-	//
-	//	int startTime = (unsigned)time(NULL);
-
-	//	if (endTime - startTime >= 10) {
-	//		alcoholNum = -1;
-	//		break;
-	//	}
-	//	return getDrinkNextPos(direction, position, alcoholNum);
-	//}
-	//return getDrinkNextPos(direction, position, alcoholNum);
-	//
-	//
 }
 
+
+
+
+
+/*
 int updateSpeedEffect() {
 
 	time_t speedEffectTime, current;
@@ -424,7 +413,7 @@ int updateSpeedEffect() {
 	}
 	return keyInterval;
 }
-
+*/
 
 void minusLife() { //스코어가 0이 되면 minusLife()호출
 	

@@ -84,12 +84,14 @@ class Player : public Move
 {
 private:
 	int alcoholNumber = -1; // -1이 정상
+	//int speedFlag = 0; //0이 정상
 	int visibleDist = -1;
 	int getMax(int a, int b) { return a > b ? a : b; }
 	int getMin(int a, int b) { return a < b ? a : b; }
 public:
 	time_t alcoholStartTime = 0;
 	time_t drawStartTime = 0; // 움직 O 버전
+	time_t speedStartTime = 0;
 	Player(Pos initPosition, int stage);
 	void movingProcess(int gameMap[22][37]);
 	void getItem(int gameMap[22][37]);
