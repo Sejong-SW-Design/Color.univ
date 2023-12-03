@@ -10,7 +10,8 @@ extern int stage;
 extern int life[3];
 extern int IsAlcoholTime;
 extern int IsSpeedTime;
-extern  double keyInterval;
+extern double keyInterval;
+
 
 int checkB = 0; // 시간 확인
 
