@@ -245,7 +245,7 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
 
     drawDarkGameBoard(gameMap, player);
     */
-    
+
     // 플레이어 움직O
 
     time_t current;
@@ -275,9 +275,9 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     {
         (&player)->visibleDist = 3;
         drawDarkGameBoard(gameMap, player);
-        player.showCharacter(); 
+        player.showCharacter();
         enemies.updateVisible(gameMap, player);
- 
+
         checkB = 1; // 2초 지남 체크
     }
 
@@ -285,7 +285,7 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     else if (checkB == 2 || checkB == 0) (&player)->visibleDist = -1;
 
     return;
-    
+
 }
 
 
