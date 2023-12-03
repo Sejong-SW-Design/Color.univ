@@ -12,7 +12,6 @@ extern int IsAlcoholTime;
 extern int IsSpeedTime;
 extern  double keyInterval;
 
-int blink = -1; // 움직 O 버전
 int checkB = 0; // 시간 확인
 
 Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
@@ -197,7 +196,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround) // 새로 만�
 
 
 //새로 만듦
-void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나 넣었으니 바꿔주세요. 구조 바꾸고 싶으면 마음대로 바꾸기. 아직 헤더 파일에 선언 안해놓음요 -뤂
+void drawDarkGameBoard(int gameMap[22][37], Player player) 
 // getColor 함수는 맨 밑에 있습니다.
 {
     drawGameEdge();
@@ -216,7 +215,7 @@ void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나
     {
         for (int j = 0; j < 37; j++)
         {
-            if (player.isVisiblePos({j, i})) // if PC 반경이라면? (걍 아무거나 넣어놓음. 바꿔주세용)
+            if (player.isVisiblePos({j, i})) 
             {
                 textColor = getColor(gameMap[i][j]);
             }
@@ -226,63 +225,43 @@ void drawDarkGameBoard(int gameMap[22][37], Player player) // 변수 일단 아무거나
     }
 }
 
-void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) // ppt 추가, 왜 npc는 안 나타나는지 의문
+void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) // ppt 추가
 {
-    //플레이어 움직X
-    /*
-    drawGameBoard(gameMap, stage);
-    player.showCharacter();
-    Sleep(600);
-
-    drawDarkGameBoard(gameMap, player);
-    player.showCharacter();
-    Sleep(100);
-
-    drawGameBoard(gameMap, stage);
-    player.showCharacter();
-    Sleep(300);
-
-    drawDarkGameBoard(gameMap, player);
-    */
-    
-    // 플레이어 움직O
-
     time_t current;
     time(&current);
-    blink = 0;
 
-    // 시간 변경 가능이요~
-    if (difftime(current, player.drawStartTime) >= 4 && checkB == 2)
+    if (difftime(current, player.drawStartTime) >= 5 && checkB == 2)
     {
+        checkB++; // 3이 됨, 5초 지남 체크, blinkGameBoard 종료
         (&player)->visibleDist = 3;
+
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
-        enemies.updateVisible(gameMap, player);
 
-        checkB = 3; // 5초 지남 체크
-        blink = 1; // main의 whlie문 멈추도록
         return;
     }
     else if (difftime(current, player.drawStartTime) >= 3 && checkB == 1)
     {
+        checkB++; //2가 됨
+
         drawGameBoard(gameMap, stage);
         player.showCharacter();
-        
-        checkB = 2; // 3초 지남 체크
+        enemies.updateColor(gameMap, player);
     }
-    else if (difftime(current, player.drawStartTime) >= 2 && checkB ==0)
+    else if (difftime(current, player.drawStartTime) >= 2 && checkB == 0)
     {
+        checkB++; //1이 됨
+
         (&player)->visibleDist = 3;
         drawDarkGameBoard(gameMap, player);
-        player.showCharacter(); 
-        enemies.updateVisible(gameMap, player);
- 
-        checkB = 1; // 2초 지남 체크
+        player.showCharacter();
     }
 
+    if (checkB % 2 == 1) (&player)->visibleDist = 3; // 홀수면
+    else if (checkB % 2 == 0) (&player)->visibleDist = -1; // 짝수면
 
     return;
-    
+
 }
 
 
@@ -378,7 +357,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
     case ERASER:
         setBackgroundColor(backGround, textColor); printf("ⓔ"); break;
     case LIFE:
-        setBackgroundColor(backGround, textColor); printf("♥"); break; // npc랑 헷갈릴까봐 다크 레드 사용
+        setBackgroundColor(backGround, textColor); printf("♥"); break; 
     case SPEED:
         setBackgroundColor(backGround, textColor); printf("⒮"); break; // eraser랑 헷갈릴까봐
     case NORMAL_NPC:

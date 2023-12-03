@@ -127,6 +127,9 @@ void Player::setNoSpeed()
 
 void Player::movingProcess(int gameMap[22][37])
 {
+	if (checkB % 2 == 1) visibleDist = 3; // È¦¼ö¸é
+	else if (checkB % 2 == 0) visibleDist = -1; // Â¦¼ö¸é
+
 	int key = keyControl();
 	Pos prev = position;
 
@@ -170,10 +173,6 @@ void Player::movingProcess(int gameMap[22][37])
 		setAlcoholNumber();
 		drawAlcoholTime(IsAlcoholTime);
 	}
-
-	if (checkB == 1) visibleDist = 3;
-	else if (checkB == 2) visibleDist = -1;
-	else if (checkB == 3) visibleDist = 3;
 
 	//visible À§Ä¡ Á¶Á¤
 	if (visibleDist != -1)

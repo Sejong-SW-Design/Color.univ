@@ -14,22 +14,29 @@ int IsAlcoholTime = -1;
 int IsSpeedTime = -1;
 extern int life[3];
 extern int checkKey;
-extern int blink; 
+extern int checkB;
 
 int main() {
 	setConsoleSize();
 	removeCursor();
 
+    //drawTitle();
+
     //drawPrologue();         // 보고있는거 귀찮으니까 일단 주석처리함
 
     int gameCheck = 0;      // game over이면 1
+    int blink = 0; // 전역->지역으로 변경
 
     while (1) {
         int flag = initGame();
         gameCheck = 0;
 
         if (flag == 0) {
-            stage = 3;      // 나중에 이거도 매니저에서 가져갈거임-_-
+            stage = 4;      // 나중에 이거도 매니저에서 가져갈거임
+            if (stage == 1) {
+                for (int i = 0; i < 3; ++i) life[i] = 1;
+                for (int i = 0; i < 5; ++i) score[i] = 4.5;
+            }
 
             // 초기위치
             Pos playerInitPos;
@@ -62,7 +69,12 @@ int main() {
 
                     getStage(gameMapHere, stage);
 
-                    drawGameBoard(gameMapHere, stage); // stage 4도 일단 보여줌.
+                    drawGameBoard(gameMapHere, stage); // stage 4도 일단 보여주기.
+                    if (stage == 4)
+                    {
+                        blink = 0; checkB = 0; // 깜빡이 초기화
+                    }
+
                     eraseColor(0, 0, gameMapHere);
 
                     patternEnemies = setPatternNpcInitPos(stage, patternEnemies);
@@ -70,15 +82,14 @@ int main() {
                     shootEnemies = setShootNpcInitPos(stage, shootEnemies);
                     enemies = new EnemiesManager(patternEnemies, chasingEnemies, shootEnemies, gameMapHere);
 
-                    
                     checkGoal = 0;
                 }
-
+                
                 for (int i = 0; i < pcMoveCnt; i++)
                 {
                     if (checkKey == 112) {
                         if (drawPauseScreen() == 0) {
-                            if (stage == 4) drawDarkGameBoard(gameMapHere, *player); // 여기 바꿨어용~ -뤂
+                            if (stage == 4) drawDarkGameBoard(gameMapHere, *player); 
                             else drawGameBoard(gameMapHere, stage);                          
                             continue;
                         }
@@ -94,21 +105,28 @@ int main() {
                     player->movingProcess(gameMapHere);
                     drawCheckTime(player);
 
-                    if (stage == 4)
-                    {
-                        //enemies->updateVisible(gameMapHere, *player);
-                        if (blink == -1) time(&(player->drawStartTime)); //시간 시작
-                        if (blink != 1) blinkGameBoard(gameMapHere, *player, *enemies);
-                    }
-
                     if (IsAlcoholTime == 0)
                     {
                         player->setNoAlcohol(); // 다시 돌아오게
                     }
 
+                    if (stage == 4)
+                    {
+                        if (blink == 0)
+                        {
+                            time(&(player->drawStartTime)); blink = 1;
+                        }
+                        if (checkB != 3) blinkGameBoard(gameMapHere, *player, *enemies);
+                        if (checkB % 2 == 1) enemies->updateVisible(gameMapHere, *player); // 홀수면
+                    }
+
+                    if (IsSpeedTime == 0){
+                        speedFlag == 0;
+
                     if (IsSpeedTime == 0) {
                         player->setNoSpeed();
                     }
+
                     if (i % 5 == 0)
                     {
                         enemies->updateShootNpcFlags(gameMapHere, *player);
@@ -116,15 +134,20 @@ int main() {
 
                     if (score[stage] == 0)
                     {
-                        if (life[0] == 0) {
+                        if (life[1] == 0) {
+                            gameCheck = 1;
                             drawResultScreen(gameOver, 0);
                             drawGameResult(score, stage);
-                            return -1;
+                            break;
                         }
                         else {
                             drawResultScreen(stageOver, 0);
                             score[stage] = 4.5;
-                            checkGoal = 1;
+                            drawGameBoard(gameMapHere, stage); // stage 4 다시 시작하면 화면 좀 보여주기.
+                            if (stage == 4)
+                            {
+                                blink = 0; checkB = 0; // 깜빡이 초기화
+                            }
                             break;
                         }
                     }
@@ -132,9 +155,11 @@ int main() {
                     if (player->checkGoalIn(gameMapHere))
                     {
                         if (stage == 4) {
-                            drawResultScreen(gameClear, 0);
+                            drawResultScreen(gameClear, 1);
                             drawGameResult(score, stage); 
-                            return -1;
+                            drawReport();
+
+                            return 0;
                         }
                         else {
                             drawResultScreen(stageClear, 1);
@@ -149,12 +174,15 @@ int main() {
 
                     Sleep(5);
                 }
-
                 enemies->EnemyMoveProcess(gameMapHere, player);
+
                 if (gameCheck == 1) break;
             }
             if (gameCheck == 1) continue;
         } 
+        else if (flag == 1) {
+            drawHowToPlay();
+        }
         else if (flag == 2) {
             drawDevInfo();
         }
