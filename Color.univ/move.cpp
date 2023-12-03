@@ -161,17 +161,19 @@ void Player::movingProcess(int gameMap[22][37])
 	getItem(gameMap);
 
 	//npc와 충돌 확인
-	if (gameMap[position.y][position.x] == NORMAL_NPC)
+	switch (gameMap[position.y][position.x])
 	{
+	case NORMAL_NPC:
+	case CHASING_NPC:
+	case SHOOT_NPC_LEFT:case SHOOT_NPC_RIGHT:case SHOOT_NPC_UP:case SHOOT_NPC_DOWN:
 		setScore(stage, -1.5);
-		drawInfoMinus(score, stage); 
-	}
-	if (gameMap[position.y][position.x] == ALCOHOL_NPC)
-	{
-		//changeD++;
+		drawInfoMinus(score, stage);
+		break;
+	case ALCOHOL_NPC:
 		IsAlcoholTime = 10;
 		setAlcoholNumber();
 		drawAlcoholTime(IsAlcoholTime);
+		break;
 	}
 
 	//visible 위치 조정

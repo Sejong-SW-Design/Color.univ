@@ -141,6 +141,7 @@ int main() {
                             drawResultScreen(stageOver, 0);
                             score[stage] = 4.5;
                             drawGameBoard(gameMapHere, stage); // stage 4 다시 시작하면 화면 좀 보여주기.
+                            enemies->updateColor(gameMapHere, *player);
                             if (stage == 4)
                             {
                                 blink = 0; checkB = 0; // 깜빡이 초기화
