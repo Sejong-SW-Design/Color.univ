@@ -679,35 +679,47 @@ void drawGameResult(double* score, int stage)
     {
         setCurrentCursorPos(35, 18);
         setBackgroundColor(0, 7);
-        printf("퇴학입니다.");
+        printf("퇴학이라니...");
     }
     else if (stage == 1)
     {
         setCurrentCursorPos(30, 18);
         setBackgroundColor(0, 7);
-        printf("2학년에는 술이 등장합니다");
+        printf("2학년이 되니까 체력이 예전같지가 않네");
+
+        setCurrentCursorPos(35, 19);
+        setBackgroundColor(0, 7);
+        printf("입만 대도 술병 나겠어ㅜㅜ"); //2학년에 술 등장해서 언금 - 지우
     }
     else if (stage == 2)
     {
-        setCurrentCursorPos(27, 18);
+        setCurrentCursorPos(30, 18);
         setBackgroundColor(0, 7);
-        printf("벌써 3학년이라니..시간 참 빠르다");
+        printf("벌써 3학년이라니...");
+
+        setCurrentCursorPos(23, 19);
+        setBackgroundColor(0, 7);
+        printf("할 일도 많아지고 으악 스트레스 !!"); //3학년에 추적엔피씨 등장해서 언급 - 지우
     }
     else if (stage == 3)
     {
-        setCurrentCursorPos(33,18);
+        setCurrentCursorPos(30, 18);
         setBackgroundColor(0, 7);
-        printf("왜 이렇게 어둡지...?");
+        printf("이제 4학년이라 그런가");
 
-        setCurrentCursorPos(34, 19);
+        setCurrentCursorPos(32, 19);
         setBackgroundColor(0, 7);
-        printf("내 미래인가...?");
+        printf("눈 앞이 막막하네");
     }
     else if (stage == 4)
     {
         setCurrentCursorPos(37, 18);
         setBackgroundColor(0, 7);
         printf("축★졸업");
+
+        setCurrentCursorPos(31, 19);
+        setBackgroundColor(0, 7);
+        printf("드디어 졸업이다ㅎㅎ");
     }
 
 
