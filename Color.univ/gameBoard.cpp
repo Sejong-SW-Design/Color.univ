@@ -166,6 +166,7 @@ void drawGameBoard(int gameMap[22][37], int stage)
 
     drawInfoOriginal(score, stage);
 
+    drawPause();
     Exits.clear();
 
     for (int i = 0; i < 22; i++)
@@ -177,6 +178,15 @@ void drawGameBoard(int gameMap[22][37], int stage)
     }
 }
 
+
+void drawPause()
+{
+    setBackgroundColor(0, 8);
+    setCurrentCursorPos(5, 31);
+    printf("게임을 중단하고 싶다면 p를 누르시오");
+}
+
+
 void drawAllDarkGameBoard(int gameMap[22][37], int stage) // manager에 넣기 위해 새로 만듦. 근데 필요 없어졌음 ㅋ 혹시 몰라 일단 놔둠용
 {
     drawGameEdge();
@@ -187,6 +197,7 @@ void drawAllDarkGameBoard(int gameMap[22][37], int stage) // manager에 넣기 위해
 
     drawInfoOriginal(score, stage);
 
+    drawPause();
     Exits.clear();
 
     for (int i = 0; i < 22; i++)
@@ -223,6 +234,7 @@ void drawDarkGameBoard(int gameMap[22][37], Player player)
 
     drawInfoOriginal(score, stage);
 
+    drawPause();
     Exits.clear();
 
     int textColor;
@@ -281,7 +293,6 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     return;
 
 }
-
 
 void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textColor)
 {
@@ -378,6 +389,8 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
         setBackgroundColor(backGround, textColor); printf("♥"); break; 
     case SPEED:
         setBackgroundColor(backGround, textColor); printf("⒮"); break; // eraser랑 헷갈릴까봐
+    case LIGHT:
+        setBackgroundColor(backGround, textColor); printf("※"); break; // 추가
     case NORMAL_NPC:
         setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(NORMAL_NPC).c_str()); break;
     case ALCOHOL_NPC:
@@ -655,11 +668,9 @@ void drawGameResult(double* score, int stage)
     setCurrentCursorPos(36, 10);
     printf("[  %d 학년  ]",stage);
 
-
     setBackgroundColor(0, 15);
     setCurrentCursorPos(33, 13);
     printf("최종 학점 : %.1f  %s", score[stage],calculate(score[stage]).c_str());
-
 
     setCurrentCursorPos(33, 15);
     printf("평균 학점 : %.1f", score[0]);
@@ -983,8 +994,8 @@ int getColor(int gameBoardNumber) // enum 색 얻어오는 함수
     switch (gameBoardNumber)
     {
     case NORMAL_WALL:
-        if (stage == 4) return 8; 
-        else return 7; 
+        if (stage == 4) return 8;
+        else return 7;
     case BLANK:
         return 0;
     case GOAL:
