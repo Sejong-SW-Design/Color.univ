@@ -389,8 +389,6 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
         setBackgroundColor(backGround, textColor); printf("♥"); break; 
     case SPEED:
         setBackgroundColor(backGround, textColor); printf("⒮"); break; // eraser랑 헷갈릴까봐
-    case LIGHT:
-        setBackgroundColor(backGround, textColor); printf("※"); break; // 추가
     case NORMAL_NPC:
         setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(NORMAL_NPC).c_str()); break;
     case ALCOHOL_NPC:
@@ -660,8 +658,7 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // �
 
 void drawGameResult(double* score, int stage)
 {
-    Sleep(1300);
-
+    Sleep(100);
     system("cls");
 
     setBackgroundColor(0, 14);
@@ -683,31 +680,31 @@ void drawGameResult(double* score, int stage)
     }
     else if (stage == 1)
     {
-        setCurrentCursorPos(30, 18);
+        setCurrentCursorPos(25, 18);
         setBackgroundColor(0, 7);
         printf("2학년이 되니까 체력이 예전같지가 않네");
 
-        setCurrentCursorPos(35, 19);
+        setCurrentCursorPos(30, 19);
         setBackgroundColor(0, 7);
         printf("입만 대도 술병 나겠어ㅜㅜ"); //2학년에 술 등장해서 언금 - 지우
     }
     else if (stage == 2)
     {
-        setCurrentCursorPos(30, 18);
+        setCurrentCursorPos(34, 18);
         setBackgroundColor(0, 7);
         printf("벌써 3학년이라니...");
 
-        setCurrentCursorPos(23, 19);
+        setCurrentCursorPos(27, 19);
         setBackgroundColor(0, 7);
         printf("할 일도 많아지고 으악 스트레스 !!"); //3학년에 추적엔피씨 등장해서 언급 - 지우
     }
     else if (stage == 3)
     {
-        setCurrentCursorPos(30, 18);
+        setCurrentCursorPos(32, 18);
         setBackgroundColor(0, 7);
         printf("이제 4학년이라 그런가");
 
-        setCurrentCursorPos(32, 19);
+        setCurrentCursorPos(34, 19);
         setBackgroundColor(0, 7);
         printf("눈 앞이 막막하네");
     }
@@ -717,13 +714,12 @@ void drawGameResult(double* score, int stage)
         setBackgroundColor(0, 7);
         printf("축★졸업");
 
-        setCurrentCursorPos(31, 19);
+        setCurrentCursorPos(33, 19);
         setBackgroundColor(0, 7);
         printf("드디어 졸업이다ㅎㅎ");
     }
 
-
-    Sleep(2500);
+    Sleep(4000);
 
 }
 

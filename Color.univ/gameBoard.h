@@ -104,9 +104,6 @@ enum GAME_BOARD
 
     // goal
     GOAL,//42
-
-    // light
-    LIGHT//43
 };
 
 

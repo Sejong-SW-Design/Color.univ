@@ -25,7 +25,7 @@ int main() {
     //drawPrologue();         // 보고있는거 귀찮으니까 일단 주석처리함
 
     int gameCheck = 0;      // game over이면 1
-    int blink = 0; // 전역->지역으로 변경
+    int blink = 0; 
 
     while (1) {
         int flag = initGame();
