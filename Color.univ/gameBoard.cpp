@@ -10,7 +10,8 @@ extern int stage;
 extern int life[3];
 extern int IsAlcoholTime;
 extern int IsSpeedTime;
-extern  double keyInterval;
+extern double keyInterval;
+
 
 int checkB = 0; // 시간 확인
 
@@ -72,12 +73,26 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
     case 4:
         P.push_back(new PatternNpc({ 18, 6 }, { 17, 6 }, { 20, 6 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 10, 15 }, { 9, 15 }, { 12, 15 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 10, 2 }, { 9, 2 }, { 12, 2 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 15, 10 }, { 15, 9 }, { 15, 12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 18, 6 }, { 17,6 }, { 20, 6 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 10, 6 }, { 9,6 }, { 12, 6 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 30, 5 }, { 29,5 }, { 32, 5 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 18,16 }, { 17,16 }, { 18, 16 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 20,16 }, { 19,16 }, { 20, 16 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 24,10 }, { 24,9 }, { 24, 12 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 16,1 }, { 16,1 }, { 16, 2 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 21,1 }, { 21,1 }, { 21, 2 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 6,17 }, { 6,16 }, {6, 20 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 6,2 }, { 4,2 }, { 7, 2 }, NORMAL_NPC));
+        P.push_back(new PatternNpc({ 31,17 }, { 30,17 }, { 32, 17 }, NORMAL_NPC));
+
 
         P.push_back(new PatternNpc({ 1, 7 }, { 0, 7 }, { 2, 7 }, ALCOHOL_NPC));
-        P.push_back(new PatternNpc({ 26, 17 }, { 25, 17 }, { 28, 17 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 1, 12 }, { 0, 12 }, { 2, 12 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 26, 16 }, { 25, 16 }, { 28, 16 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 19, 5 }, { 17,5 }, { 20, 5 }, ALCOHOL_NPC));
+        P.push_back(new PatternNpc({ 19, 18 }, { 17,18 }, { 20, 18 }, ALCOHOL_NPC));
 
         break;
     }
@@ -106,7 +121,7 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
         break;
     case 4:
     
-        C.push_back(new ChasingNpc({ 7, 7 }));
+        //C.push_back(new ChasingNpc({ 7, 7 })); // 추적 X
         break;
     }
     return C;
@@ -145,11 +160,13 @@ void drawGameBoard(int gameMap[22][37], int stage)
     drawGameEdge();
     drawStore();
     if (stage != 1) drawAlcoholTimeEdge();
+    
 
     drawLifeEdge();
 
     drawInfoOriginal(score, stage);
 
+    drawPause();
     Exits.clear();
 
     for (int i = 0; i < 22; i++)
@@ -161,6 +178,15 @@ void drawGameBoard(int gameMap[22][37], int stage)
     }
 }
 
+
+void drawPause()
+{
+    setBackgroundColor(0, 8);
+    setCurrentCursorPos(5, 31);
+    printf("게임을 중단하고 싶다면 p를 누르시오");
+}
+
+
 void drawAllDarkGameBoard(int gameMap[22][37], int stage) // manager에 넣기 위해 새로 만듦. 근데 필요 없어졌음 ㅋ 혹시 몰라 일단 놔둠용
 {
     drawGameEdge();
@@ -171,6 +197,7 @@ void drawAllDarkGameBoard(int gameMap[22][37], int stage) // manager에 넣기 위해
 
     drawInfoOriginal(score, stage);
 
+    drawPause();
     Exits.clear();
 
     for (int i = 0; i < 22; i++)
@@ -207,6 +234,7 @@ void drawDarkGameBoard(int gameMap[22][37], Player player)
 
     drawInfoOriginal(score, stage);
 
+    drawPause();
     Exits.clear();
 
     int textColor;
@@ -230,10 +258,12 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     time_t current;
     time(&current);
 
+    int vD = 4;
+
     if (difftime(current, player.drawStartTime) >= 5 && checkB == 2)
     {
         checkB++; // 3이 됨, 5초 지남 체크, blinkGameBoard 종료
-        (&player)->visibleDist = 3;
+        (&player)->visibleDist = vD;
 
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
@@ -252,18 +282,17 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
     {
         checkB++; //1이 됨
 
-        (&player)->visibleDist = 3;
+        (&player)->visibleDist = vD;
         drawDarkGameBoard(gameMap, player);
         player.showCharacter();
     }
 
-    if (checkB % 2 == 1) (&player)->visibleDist = 3; // 홀수면
+    if (checkB % 2 == 1) (&player)->visibleDist = vD; // 홀수면
     else if (checkB % 2 == 0) (&player)->visibleDist = -1; // 짝수면
 
     return;
 
 }
-
 
 void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textColor)
 {
@@ -558,6 +587,13 @@ void drawAlcoholTime(int t)
     {
         setCurrentCursorPos(origin_x, origin_y - 1);
         printf("  ");
+
+        for (y = 0; y < h; y++)
+        {
+            setCurrentCursorPos(origin_x, origin_y + y);
+            setBackgroundColor(0, 12);
+            printf("■");
+        }
     }
 }
 
@@ -622,19 +658,16 @@ pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // �
 
 void drawGameResult(double* score, int stage)
 {
-    Sleep(1300);
-
+    Sleep(100);
     system("cls");
 
     setBackgroundColor(0, 14);
     setCurrentCursorPos(36, 10);
     printf("[  %d 학년  ]",stage);
 
-
     setBackgroundColor(0, 15);
     setCurrentCursorPos(33, 13);
     printf("최종 학점 : %.1f  %s", score[stage],calculate(score[stage]).c_str());
-
 
     setCurrentCursorPos(33, 15);
     printf("평균 학점 : %.1f", score[0]);
@@ -643,39 +676,50 @@ void drawGameResult(double* score, int stage)
     {
         setCurrentCursorPos(35, 18);
         setBackgroundColor(0, 7);
-        printf("퇴학입니다.");
+        printf("퇴학이라니...");
     }
     else if (stage == 1)
     {
-        setCurrentCursorPos(30, 18);
+        setCurrentCursorPos(25, 18);
         setBackgroundColor(0, 7);
-        printf("2학년에는 술이 등장합니다");
+        printf("2학년이 되니까 체력이 예전같지가 않네");
+
+        setCurrentCursorPos(30, 19);
+        setBackgroundColor(0, 7);
+        printf("입만 대도 술병 나겠어ㅜㅜ"); //2학년에 술 등장해서 언금 - 지우
     }
     else if (stage == 2)
     {
-        setCurrentCursorPos(27, 18);
+        setCurrentCursorPos(34, 18);
         setBackgroundColor(0, 7);
-        printf("벌써 3학년이라니..시간 참 빠르다");
+        printf("벌써 3학년이라니...");
+
+        setCurrentCursorPos(27, 19);
+        setBackgroundColor(0, 7);
+        printf("할 일도 많아지고 으악 스트레스 !!"); //3학년에 추적엔피씨 등장해서 언급 - 지우
     }
     else if (stage == 3)
     {
-        setCurrentCursorPos(33,18);
+        setCurrentCursorPos(32, 18);
         setBackgroundColor(0, 7);
-        printf("왜 이렇게 어둡지...?");
+        printf("이제 4학년이라 그런가");
 
         setCurrentCursorPos(34, 19);
         setBackgroundColor(0, 7);
-        printf("내 미래인가...?");
+        printf("눈 앞이 막막하네");
     }
     else if (stage == 4)
     {
         setCurrentCursorPos(37, 18);
         setBackgroundColor(0, 7);
         printf("축★졸업");
+
+        setCurrentCursorPos(33, 19);
+        setBackgroundColor(0, 7);
+        printf("드디어 졸업이다ㅎㅎ");
     }
 
-
-    Sleep(2500);
+    Sleep(4000);
 
 }
 
@@ -958,8 +1002,8 @@ int getColor(int gameBoardNumber) // enum 색 얻어오는 함수
     switch (gameBoardNumber)
     {
     case NORMAL_WALL:
-        if (stage == 4) return 8; 
-        else return 7; 
+        if (stage == 4) return 8;
+        else return 7;
     case BLANK:
         return 0;
     case GOAL:

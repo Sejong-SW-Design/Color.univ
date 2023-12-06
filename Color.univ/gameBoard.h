@@ -103,7 +103,7 @@ enum GAME_BOARD
     SHOOT_NPC_DOWN,//41
 
     // goal
-    GOAL//42
+    GOAL,//42
 };
 
 
@@ -164,5 +164,7 @@ void drawLifeEdge();
 int getColor(int gameBoardNumber);
 
 void drawAllDarkGameBoard(int gameMap[22][37], int stage);
+
+void drawPause();
 
 #endif
