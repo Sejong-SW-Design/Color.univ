@@ -116,8 +116,7 @@ void setScore(int stage, double s) {
 }
 
 int initGame() {
-    // stage = 3;
-    // drawStartScreen();
+    stage = 3;
     int menu = drawMenu();
     if (menu == 0) return 0;        // 게임 시작
     else if (menu == 2) return 1;
@@ -129,17 +128,20 @@ int initGame() {
 //
 
 void drawPrologue() {
+    setBackgroundColor(0, 15);
+
     const char* prologue1[] = {
         "힘들게 대학교에 입학했다.",
         "1학년부터 4학년까지 무사히 살아남아 졸업해야 한다...!!", "    ",
         "앞이 벽으로 가로막혀 답이 없는 상황이다.", "벽이 색깔로 빛난다면 주변의 같은 색의 버튼을 먹어 벽을 부숴보도록 하자.",
         "원하는 색이 없다면 두 가지 색을 조합해서 부숴보자!", "    ",
         "대학교에 입학했다고 느긋하게 있으면 안된다.",
-        "과제가 따라와 공격한다. 과제는 꽤 어려워 부딪히면 학점이 내려간다...",
+        "지각을 하거나!! 감기 바이러스에 부딪힌다면 내 학점이 내려간다.",
+        "시험 NPC가 날리는 스트레스도 잘 피해서 다녀보자.",
         "3out이니 부딪히지 않도록 조심하도록 하자"
     };
     
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 11; i++) {
         setCurrentCursorPos(10, 3 + (i + 1) * 2);
         if (i == 4) setBackgroundColor(0, 11);
         else if (i == 5) setBackgroundColor(0, 14);
@@ -153,7 +155,7 @@ void drawPrologue() {
 
     setCurrentCursorPos(20, 28);
     setBackgroundColor(0, 8);
-    printf("Press Enter to continue...");
+    printf("Press Anything to continue...");
     while (1)
         if (_getch()) break;
 
@@ -181,7 +183,7 @@ void drawPrologue() {
 
     setCurrentCursorPos(20, 28);
     setBackgroundColor(0, 8);
-    printf("Press Enter to continue...");
+    printf("Press Anything to continue...");
     while (1)
         if (_getch()) break;
 
@@ -273,7 +275,7 @@ void drawDevInfo() { // 임시화면
 
     setBackgroundColor(0, 8);
     setCurrentCursorPos(31, 23);
-    printf("Press Enter to continue...");
+    printf("Press Anything to continue...");
 
     setBackgroundColor(0, 10);
 
@@ -283,33 +285,52 @@ void drawDevInfo() { // 임시화면
 
 void drawHowToPlay() {
     system("cls");
+    setCurrentCursorPos(39, 4);  setBackgroundColor(0, 10);  printf("[HOW TO PLAY]");
 
-    setCurrentCursorPos(36, 9);
+    setCurrentCursorPos(7, 8);    setBackgroundColor(0, 11);   printf("⊙");
+    setCurrentCursorPos(8, 8);  setBackgroundColor(0, 15);  printf(" : 색버튼을 먹거나 조합하여 ");
+    setCurrentCursorPos(8, 9);  setBackgroundColor(0, 15);  printf("   벽을 해제할 수 있습니다. ");
+
+    setBackgroundColor(0, 14); setCurrentCursorPos(7, 12);  printf("⊙");
+    setBackgroundColor(0, 15); setCurrentCursorPos(9, 12);  printf(" + "); setCurrentCursorPos(14, 12); printf(" = ");
+    setBackgroundColor(0, 9); setCurrentCursorPos(12, 12);  printf("⊙");
+    setBackgroundColor(0, 10); setCurrentCursorPos(17, 12);  printf("■");
+
+    setBackgroundColor(0, 12); setCurrentCursorPos(7, 14);  printf("⊙");
+    setBackgroundColor(0, 15); setCurrentCursorPos(9, 14);  printf(" + "); setCurrentCursorPos(14, 14); printf(" = ");
+    setBackgroundColor(0, 14); setCurrentCursorPos(12, 14);  printf("⊙");
+    setBackgroundColor(0, 6); setCurrentCursorPos(17, 14);  printf("■");
+
+    setBackgroundColor(0, 9); setCurrentCursorPos(7, 16);  printf("⊙");
+    setBackgroundColor(0, 15); setCurrentCursorPos(9, 16);  printf(" + "); setCurrentCursorPos(14, 16); printf(" = ");
+    setBackgroundColor(0, 12); setCurrentCursorPos(12, 16);  printf("⊙");
+    setBackgroundColor(0, 5); setCurrentCursorPos(17, 16);  printf("■");
+
+   
+    setCurrentCursorPos(7, 20);  setBackgroundColor(0, 15);  printf("ⓔ: 지우개로 색저장소를 비울 수 있습니다.");
+
+
+    setCurrentCursorPos(55, 8);   setBackgroundColor(0, 6);  printf("★");
+    setCurrentCursorPos(56, 8);  setBackgroundColor(0, 14);  printf(" : 족보 아이템");
+    setCurrentCursorPos(56, 9);  setBackgroundColor(0, 15);  printf("   학점을 0.5점 올릴 수 있습니다. ");
+
+    setCurrentCursorPos(55, 12);   setBackgroundColor(0, 4);  printf("♥");
+    setCurrentCursorPos(56, 12);  setBackgroundColor(0, 14);  printf(" : 생명 아이템");
+    setCurrentCursorPos(56, 13);  setBackgroundColor(0, 15);  printf("   생명을 1 증가시킬 수 있습니다.");
+
+    setCurrentCursorPos(55, 16);  setBackgroundColor(0, 15);  printf("⒮: 스피드로 플레이어의 속도를 ");
+    setCurrentCursorPos(55, 17);  setBackgroundColor(0, 15);  printf("    5초간 빠르게 할 수 있습니다.");
+
+    setCurrentCursorPos(55, 20);   setBackgroundColor(0, 2);  printf("▥");
+    setCurrentCursorPos(56, 20);  setBackgroundColor(0, 15);  printf(" : 비상구를 통해 ");
+    setCurrentCursorPos(56, 21);  setBackgroundColor(0, 15);  printf("   다른 비상구로 나갈 수 있습니다.");
+
+    
+    setBackgroundColor(0, 8); setCurrentCursorPos(32, 30); printf("Press Anything to continue...");
+
+    while (1) if (_getch()) break;
     setBackgroundColor(0, 10);
-    printf("[HOW TO PLAY]");
-
-    setBackgroundColor(0, 15);
-    setCurrentCursorPos(36, 12);
-    printf("몰라잉");
-
-    setBackgroundColor(0, 8);
-    setCurrentCursorPos(31, 23);
-    printf("Press Enter to continue...");
-
-    setBackgroundColor(0, 10);
-
-    while (1)
-        if (_getch()) break;
-
-
 }
-//
-//void drawStageIntroInfo();
-//
-//void drawStageEnding();
-//
-
-// 하트 지워지는 것도 넣어주세용~ -뤂
 
 void drawResultScreen(int gameResult[22][37], int check) {
     setCurrentCursorPos(12, 28);
@@ -412,17 +433,6 @@ void drawResultScreen(int gameResult[22][37], int check) {
     system("cls");
 }
 
-//void drawGameInstruction();
-//
-//void drawIntro();
-//
-//void drawReturnToMain();
-
-//void gameBoardInit() {
-//
-//}
-
-
 void getStage(int gameMap[22][37], int stage) {
     for (int i = 0; i < 22; i++) {
         for (int j = 0; j < 37; j++) {
@@ -482,7 +492,7 @@ void drawReport() {
 
     setBackgroundColor(0, 8);
     setCurrentCursorPos(31, 23);
-    printf("Press Enter to continue...");
+    printf("Press Anything to continue...");
 
     setBackgroundColor(0, 10);
 

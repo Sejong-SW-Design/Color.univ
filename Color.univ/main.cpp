@@ -20,9 +20,8 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-    //drawTitle();
-
-    //drawPrologue();         // 보고있는거 귀찮으니까 일단 주석처리함
+    // drawTitle();
+    // drawPrologue();
 
     int gameCheck = 0;      // game over이면 1
     int blink = 0; 
@@ -32,7 +31,6 @@ int main() {
         gameCheck = 0;
 
         if (flag == 0) {
-            stage = 1;      // 나중에 이거도 매니저에서 가져갈거임
             if (stage == 1) {
                 for (int i = 0; i < 3; ++i) life[i] = 1;
                 for (int i = 0; i < 5; ++i) score[i] = 4.5;

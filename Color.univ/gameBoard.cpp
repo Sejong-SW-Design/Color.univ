@@ -182,8 +182,8 @@ void drawGameBoard(int gameMap[22][37], int stage)
 void drawPause()
 {
     setBackgroundColor(0, 8);
-    setCurrentCursorPos(5, 31);
-    printf("게임을 중단하고 싶다면 p를 누르시오");
+    setCurrentCursorPos(30, 31);
+    printf("게임을 중단하고 싶다면 p를 누르세요");
 }
 
 
