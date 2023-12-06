@@ -67,7 +67,7 @@ int main() {
 
                     getStage(gameMapHere, stage);
 
-                    drawGameBoard(gameMapHere, stage); // stage 4도 일단 보여주기.
+                    drawGameBoard(gameMapHere, stage);
                     if (stage == 4)
                     {
                         blink = 0; checkB = 0; // 깜빡이 초기화
@@ -138,7 +138,7 @@ int main() {
                         else {
                             drawResultScreen(stageOver, 0);
                             score[stage] = 4.5;
-                            drawGameBoard(gameMapHere, stage); // stage 4 다시 시작하면 화면 좀 보여주기.
+                            drawGameBoard(gameMapHere, stage); 
                             chageNumBTS(myStore.color1, myStore.color2);
 
                             enemies->updateColor(gameMapHere, *player);

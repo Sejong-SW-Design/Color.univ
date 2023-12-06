@@ -2,9 +2,7 @@
 #include "move.h"
 #include "item.h"
 
-//점수 계산 맨 밑에 있어용
-
-vector<pair<int, int>>Exits; //비상구 배열
+vector<pair<int, int>>Exits;
 extern double score[5];
 extern int stage;
 extern int life[3];
@@ -15,7 +13,7 @@ extern double keyInterval;
 
 int checkB = 0; // 시간 확인
 
-Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
+Pos setPcInitPos(int stage) 
 {
     switch (stage)
     {
@@ -24,7 +22,7 @@ Pos setPcInitPos(int stage) //(게임보드 기준! 곱하기 2 이딴거 안해도됨)
     case 2: case 3:
         return  { 1,10 };
     case 4:
-        return { 1,10 }; //  임시
+        return { 1,10 }; 
     default:
         return { 1,10 };
     }
@@ -40,8 +38,6 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
         P.push_back(new PatternNpc({ 32,13 }, { 32,7 }, { 32,14 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 23,8 }, { 22,8 }, { 26,8 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 23,13 }, { 22,13 }, { 26,13 }, NORMAL_NPC));
-        //P.push_back(new PatternNpc({ 22,10 }, { 22,9 }, { 22,12 }, NORMAL_NPC));
-        //P.push_back(new PatternNpc({ 26,10 }, { 26,9 }, { 26,12 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 11,11 }, { 10,11 }, { 14,11 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 4,13 }, { 4,7 }, { 4,14 }, NORMAL_NPC));
         P.push_back(new PatternNpc({ 19,10 }, { 19,6 }, { 19,15 }, NORMAL_NPC));
@@ -96,7 +92,7 @@ vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P)
 
         break;
     }
-    
+   
 
     return P;
 }
@@ -108,7 +104,6 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
     switch (stage)
     {
     case 1:
-        //C.push_back(new ChasingNpc({ 5, 17 })); //  정신 사나워서 주석
         C.push_back(new ChasingNpc({ 31, 4 })); 
         break;
     case 2:
@@ -120,8 +115,6 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C)
         C.push_back(new ChasingNpc({ 19, 16 }));
         break;
     case 4:
-    
-        //C.push_back(new ChasingNpc({ 7, 7 })); // 추적 X
         break;
     }
     return C;
@@ -160,8 +153,7 @@ void drawGameBoard(int gameMap[22][37], int stage)
     drawGameEdge();
     drawStore();
     if (stage != 1) drawAlcoholTimeEdge();
-    
-
+ 
     drawLifeEdge();
 
     drawInfoOriginal(score, stage);
@@ -187,44 +179,20 @@ void drawPause()
 }
 
 
-void drawAllDarkGameBoard(int gameMap[22][37], int stage) // manager에 넣기 위해 새로 만듦. 근데 필요 없어졌음 ㅋ 혹시 몰라 일단 놔둠용
-{
-    drawGameEdge();
-    drawStore();
-    if (stage != 1) drawAlcoholTimeEdge();
-
-    drawLifeEdge();
-
-    drawInfoOriginal(score, stage);
-
-    drawPause();
-    Exits.clear();
-
-    for (int i = 0; i < 22; i++)
-    {
-        for (int j = 0; j < 37; j++)
-        {
-            drawOnePoint(gameMap, i, j, 0, 0);
-        }
-    }
-}
-
 void drawOnePoint(int gameMap[22][37], int i, int j)
 {
     int textColor = getColor(gameMap[i][j]);
     drawOnePoint(gameMap, i, j, 0, textColor);
 }
 
-void drawOnePoint(int gameMap[22][37], int i, int j, int backGround) // 새로 만듦 -> 혹시 함수를 합치고 싶다면 합치세요.
+void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
 {
     int textColor = getColor(gameMap[i][j]);
     drawOnePoint(gameMap, i, j, backGround, textColor);
 }
 
 
-//새로 만듦
 void drawDarkGameBoard(int gameMap[22][37], Player player) 
-// getColor 함수는 맨 밑에 있습니다.
 {
     drawGameEdge();
     drawStore();
@@ -253,7 +221,7 @@ void drawDarkGameBoard(int gameMap[22][37], Player player)
     }
 }
 
-void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) // ppt 추가
+void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
 {
     time_t current;
     time(&current);
@@ -296,7 +264,7 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
 
 void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textColor)
 {
-    int flag = 0; // 비상구 때문에!
+    int flag = 0; 
     Pos cursorPosition = Move::getCursorPos({j, i});
     setCurrentCursorPos(cursorPosition.x, cursorPosition.y);
 
@@ -367,10 +335,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
         setBackgroundColor(backGround, textColor); printf("⊙");  break;
 
     case EMERGENCY_EXIT:
-        //비상구는 항상 빛나야 하니깐 이렇게 함 해봤어.. (임시)
         setBackgroundColor(backGround, getColor(EMERGENCY_EXIT)); printf("▥");
-        //setBackgroundColor(backGround, textColor); printf("▥");
-
         for (int k = 0; k < Exits.size(); k++) 
         {
             if (Exits[k].first == i && Exits[k].second == j) //같은 것이 있다면
@@ -407,7 +372,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
 }
 
 
-bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37], bool isStage4) //같은 색 있으면 없애고, 아니면 return -> 미완!!
+bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37], bool isStage4) 
 {
     vector<Pos>ErasePos;
     int filter[8][2] = { {0,1},{1,0},{0,-1},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1} };
@@ -455,7 +420,7 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37], bool isS
     //벽을 해제한 경우만 애니메이션
     for (auto e : outLines)
     {
-        drawOnePoint(gameMap, e.first, e.second, getWallColor(colorSort));
+        drawOnePoint(gameMap, e.first, e.second, getColor(colorSort));
     }
 
     for (auto e : ErasePos)
@@ -525,7 +490,7 @@ void drawLifeEdge() // 하트 테두리 + 초기 하트 설정
 
     for (x = 0; x < 3; x++)
     {
-        if (life[x] == 1) // 스테이지마다 불러오기 때문에 추가.
+        if (life[x] == 1) 
         {
             setCurrentCursorPos(origin_x + (x * 3) + 2, origin_y);
             setBackgroundColor(0, 4); // 어두운 빨강
@@ -574,7 +539,7 @@ void drawAlcoholTime(int t)
 {
     int y = 0, full = 10;
     int origin_x = 87, origin_y = 11 + full - t, h = t, w = 1;
-    if (t == full) // 처음 술 먹었을 때(만땅)
+    if (t == full) // 처음 술 먹었을 때
     {
         for (y = 0; y < h; y++)
         {
@@ -597,7 +562,7 @@ void drawAlcoholTime(int t)
     }
 }
 
-void drawCheckTime(Player* player) // 나중에 ppt에 추가해야함
+void drawCheckTime(Player* player) 
 {
     time_t current;
     time(&current);
@@ -622,38 +587,19 @@ void drawCheckTime(Player* player) // 나중에 ppt에 추가해야함
     }
 }
 
-pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) // 목적지 배열 return
+pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]) 
 {
-    // 랜덤
     srand((unsigned int)time(NULL));
     
     int idx = rand() % (Exits.size()); // 나올 비상구 idx
 
 
-    while (Exits[idx].first == posY && Exits[idx].second == posX) //현재와 같은 위치로 나오면 안된다.
+    while (Exits[idx].first == posY && Exits[idx].second == posX) 
     {     
         idx = rand() % (Exits.size());
     }
 
     return Exits[idx];
-
-    // 순서대로 한 번씩 다 나오도록
-    /*
-    int currIdx=0; 
-
-    for (int i = 0; i < Exits.size(); i++) 
-    {
-        if (Exits[i].first == posY && Exits[i].second == posX)
-        {
-            currIdx = i;
-            break;
-        }
-    }
-
-    int idx = (currIdx + 1) % Exits.size();
-
-    return Exits[idx];
-    */
 }
 
 void drawGameResult(double* score, int stage)
@@ -686,7 +632,7 @@ void drawGameResult(double* score, int stage)
 
         setCurrentCursorPos(30, 19);
         setBackgroundColor(0, 7);
-        printf("입만 대도 술병 나겠어ㅜㅜ"); //2학년에 술 등장해서 언금 - 지우
+        printf("입만 대도 술병 나겠어ㅜㅜ"); //2학년에 술 등장해서 언급 - 지우
     }
     else if (stage == 2)
     {
@@ -957,46 +903,6 @@ void drawInfoPlus(double* score, int stage)
     drawInfoOriginal(score, stage);
 }
 
-//벽 해제 애니메이션 때문이 임시로 만들었었으(이지호)
-int getWallColor(int gameBoardWallNumber)
-{
-    switch (gameBoardWallNumber)
-    {
-    case BLUE_WALL:
-        return 9;
-    case RED_WALL:
-        return 12;
-    case YELLOW_WALL:
-        return 14;
-    case PURPLE_WALL:
-        return 5;
-    case GREEN_WALL:
-        return 10;
-    case ORANGE_WALL:
-        return 6;
-    case DARKBLUE_WALL:
-        return 1;
-    case DARKGREEN_WALL:
-        return 2;
-    case DARKSKYBLUE_WALL:
-        return 3;
-    case DARKRED_WALL:
-        return 4;
-    case PINK_WALL:
-        return 13;
-    case DARKYELLOW_WALL:
-        return 6;
-    case DARKGRAY_WALL:
-        return 8;
-    case SKYBLUE_WALL:
-        return 11;
-    }
-    return 0;
-
-}
-
-
-// 새로 만듦
 int getColor(int gameBoardNumber) // enum 색 얻어오는 함수
 {
     switch (gameBoardNumber)

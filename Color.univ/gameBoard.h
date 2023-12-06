@@ -7,14 +7,12 @@
 #include <iostream>
 #include <Windows.h>
 #include <chrono>
-#include <thread>
 #include <ctime>
 #include <queue>
 #include <vector>
 #include "util.h"
 #include <clocale>
 #include "manager.h"
-
 
 #define GBOARD_ORIGIN_X 6
 #define GBOARD_ORIGIN_Y 4
@@ -127,9 +125,9 @@ bool removeWall(int colorSort, int posX, int posY, int gameMap[22][37], bool isS
 
 void drawStore();
 
-void updateStore(int color1,int color2); // 새로 생성
+void updateStore(int color1,int color2); 
 
-void drawInfo(double* score, int stage); // score[0]은 평균
+void drawInfo(double* score, int stage); 
 
 void drawInfoOriginal(double* score, int stage);
 
@@ -143,13 +141,11 @@ void drawAlcoholTime(int t);
 
 void drawCheckTime(Player* player);
 
-int getWallColor(int gameBoardWallNumber);
-
 pair<int, int> randomEmergencyExit(int posX, int posY, int gameMap[22][37]);
 
 void drawGameResult(double* score, int stage);
 
-Pos setPcInitPos(int stage); // PC 위치 초기화 설정
+Pos setPcInitPos(int stage);
 
 vector<PatternNpc*> setPatternNpcInitPos(int stage, vector<PatternNpc*> P);
 
@@ -157,13 +153,11 @@ vector<ChasingNpc*> setChasingNpcInitPos(int stage, vector<ChasingNpc*> C);
 
 vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S);
 
-string calculate(double score); // 점수 계산
+string calculate(double score); 
 
 void drawLifeEdge();
 
 int getColor(int gameBoardNumber);
-
-void drawAllDarkGameBoard(int gameMap[22][37], int stage);
 
 void drawPause();
 
