@@ -107,14 +107,61 @@ Pos Move::getPosition()
 	return position;
 }
 
+void Move::setDarkColor()
+{
+	color = 0;
+	showCharacter();
+}
+void Move::setOriginColor()
+{
+	color = 12;
+	showCharacter();
+}
+
+Pos Move::getGBoardPos(Pos cursorPos)
+{
+	Pos gameboardPos = { (cursorPos.x - GBOARD_ORIGIN_X) / 2,
+		cursorPos.y - GBOARD_ORIGIN_Y };
+	return gameboardPos;
+}
+Pos Move::getCursorPos(Pos gameboardPos)
+{
+	Pos cursorPos = { 2 * gameboardPos.x + GBOARD_ORIGIN_X,
+		gameboardPos.y + GBOARD_ORIGIN_Y };
+	return cursorPos;
+}
+bool Move::isWall(int sort)
+{
+	return sort >= NORMAL_WALL && sort <= SKYBLUE_WALL;
+}
+string Move::getNpcShape(int npcSort)
+{
+	switch (npcSort)
+	{
+	case NORMAL_NPC:
+		return "¢Ì";
+	case ALCOHOL_NPC:
+		return "¡×";
+	case CHASING_NPC:
+		return "¥÷";
+	case SHOOT_NPC_LEFT:
+		return "¢¸";
+	case SHOOT_NPC_RIGHT:
+		return "¢º";
+	case SHOOT_NPC_UP:
+		return "¡ã";
+	case SHOOT_NPC_DOWN:
+		return "¡å";
+	}
+	return "";
+}
+
 Player::Player(Pos initPosition, int stage)
 	:Move(initPosition, 15, "¢Â")
-{
-//	if (stage == 4)
-//		visibleDist = 4;
-	// ¾ÏÀü Àü¿¡ È­¸é ±ôºýÀÏ ¶§ Àá±ñ -1·Î ¹Ù²î¾î¾ß ÇØ¼­!!
-	// ¹Ø¿¡ ±¸ÇöÇØ³õÀ½ - ³
-}
+{}
+
+int Player::getMax(int a, int b) { return a > b ? a : b; }
+int Player::getMin(int a, int b) { return a < b ? a : b; }
 
 void Player::setNoAlcohol()
 {
@@ -261,6 +308,16 @@ void Player::setAlcoholNumber()
 		alcoholNumber = rand() % 3;
 	}
 	time(&alcoholStartTime);
+}
+
+bool Player::isVisiblePos(Pos pos) {
+	int dx = position.x - pos.x;
+	int dy = position.y - pos.y;
+	dx = dx < 0 ? -dx : dx;
+	dy = dy < 0 ? -dy : dy;
+	if (dx <= visibleDist && dy <= visibleDist)
+		return true;
+	return false;
 }
 
 void Player::setSpeedFlag()
@@ -448,5 +505,75 @@ void ShootNpc::updateFireFlag(int gameMap[22][37], Player player)
 		}
 		radar.x += dx[idx];
 		radar.y += dy[idx];
+	}
+}
+
+int PatternNpc::getNpcSort() { return npcSort; }
+int ShootNpc::getNpcSort() { return npcSort; }
+
+EnemiesManager::EnemiesManager(vector<PatternNpc*>p, vector<ChasingNpc*>c, vector<ShootNpc*>s, int gameMap[22][37])
+{
+	patternEnemies = p;
+	chasingEnemies = c;
+	shootEnemies = s;
+
+	for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
+	{
+		Pos pos = (*iter)->getPosition();
+		gameMap[pos.y][pos.x] = (*iter)->getNpcSort();
+	}
+	for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
+	{
+		Pos pos = (*iter)->getPosition();
+		gameMap[pos.y][pos.x] = CHASING_NPC;
+	}
+	for (auto iter = shootEnemies.begin(); iter != shootEnemies.end(); iter++)
+	{
+		Pos pos = (*iter)->getPosition();
+		gameMap[pos.y][pos.x] = (*iter)->getNpcSort();
+	}
+}
+
+void EnemiesManager::EnemyMoveProcess(int gameMap[22][37], Player* player)
+{
+	for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
+		(*iter)->movingProcess(gameMap, player);
+	for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
+		(*iter)->movingProcess(gameMap, *player);
+	for (auto iter = shootEnemies.begin(); iter != shootEnemies.end(); iter++)
+		(*iter)->movingProcess(gameMap, *player);
+}
+void EnemiesManager::updateShootNpcFlags(int gameMap[22][37], Player player)
+{
+	for (auto iter = shootEnemies.begin(); iter != shootEnemies.end(); iter++)
+		(*iter)->updateFireFlag(gameMap, player);
+}
+void EnemiesManager::updateVisible(int gameMap[22][37], Player player)
+{
+	for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
+	{
+		if (player.isVisiblePos((*iter)->getPosition()))
+			(*iter)->setOriginColor();
+		else
+			(*iter)->setDarkColor();
+	}
+	for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
+	{
+		if (player.isVisiblePos((*iter)->getPosition()))
+			(*iter)->setOriginColor();
+		else
+			(*iter)->setDarkColor();
+	}
+}
+
+void EnemiesManager::updateColor(int gameMap[22][37], Player player) // ³
+{
+	for (auto iter = patternEnemies.begin(); iter != patternEnemies.end(); iter++)
+	{
+		(*iter)->setOriginColor();
+	}
+	for (auto iter = chasingEnemies.begin(); iter != chasingEnemies.end(); iter++)
+	{
+		(*iter)->setOriginColor();
 	}
 }
