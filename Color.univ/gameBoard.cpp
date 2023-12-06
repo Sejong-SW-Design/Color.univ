@@ -9,7 +9,7 @@ extern int life[3];
 extern int IsAlcoholTime;
 extern int IsSpeedTime;
 extern double keyInterval;
-
+extern Store myStore;
 
 int checkB = 0; // 시간 확인
 
@@ -149,11 +149,12 @@ vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S)
 }
 
 void drawGameBoard(int gameMap[22][37], int stage)
-{   
+{
     drawGameEdge();
     drawStore();
+    chageNumBTS(myStore.color1, myStore.color2);
     if (stage != 1) drawAlcoholTimeEdge();
- 
+
     drawLifeEdge();
 
     drawInfoOriginal(score, stage);
@@ -171,32 +172,12 @@ void drawGameBoard(int gameMap[22][37], int stage)
 }
 
 
-void drawPause()
-{
-    setBackgroundColor(0, 8);
-    setCurrentCursorPos(30, 31);
-    printf("게임을 중단하고 싶다면 p를 누르세요");
-}
-
-
-void drawOnePoint(int gameMap[22][37], int i, int j)
-{
-    int textColor = getColor(gameMap[i][j]);
-    drawOnePoint(gameMap, i, j, 0, textColor);
-}
-
-void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
-{
-    int textColor = getColor(gameMap[i][j]);
-    drawOnePoint(gameMap, i, j, backGround, textColor);
-}
-
-
 void drawDarkGameBoard(int gameMap[22][37], Player player) 
 {
     drawGameEdge();
-    drawStore();
-    drawAlcoholTimeEdge();
+    drawStore(); 
+    chageNumBTS(myStore.color1, myStore.color2);
+    if (stage != 1) drawAlcoholTimeEdge();
 
     drawLifeEdge();
 
@@ -219,6 +200,7 @@ void drawDarkGameBoard(int gameMap[22][37], Player player)
             drawOnePoint(gameMap, i, j, 0, textColor);
         }
     }
+    player.showCharacter();
 }
 
 void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies) 
@@ -234,7 +216,6 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies)
         (&player)->visibleDist = vD;
 
         drawDarkGameBoard(gameMap, player);
-        player.showCharacter();
 
         return;
     }
@@ -252,14 +233,27 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies)
 
         (&player)->visibleDist = vD;
         drawDarkGameBoard(gameMap, player);
-        player.showCharacter();
     }
-
-    if (checkB % 2 == 1) (&player)->visibleDist = vD; // 홀수면
-    else if (checkB % 2 == 0) (&player)->visibleDist = -1; // 짝수면
-
     return;
+}
 
+void drawPause()
+{
+    setBackgroundColor(0, 8);
+    setCurrentCursorPos(30, 31);
+    printf("게임을 중단하고 싶다면 p를 누르세요");
+}
+
+void drawOnePoint(int gameMap[22][37], int i, int j)
+{
+    int textColor = getColor(gameMap[i][j]);
+    drawOnePoint(gameMap, i, j, 0, textColor);
+}
+
+void drawOnePoint(int gameMap[22][37], int i, int j, int backGround)
+{
+    int textColor = getColor(gameMap[i][j]);
+    drawOnePoint(gameMap, i, j, backGround, textColor);
 }
 
 void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textColor)
@@ -353,7 +347,7 @@ void drawOnePoint(int gameMap[22][37], int i, int j, int backGround, int textCol
     case LIFE:
         setBackgroundColor(backGround, textColor); printf("♥"); break; 
     case SPEED:
-        setBackgroundColor(backGround, textColor); printf("⒮"); break; // eraser랑 헷갈릴까봐
+        setBackgroundColor(backGround, textColor); printf("⒮"); break; 
     case NORMAL_NPC:
         setBackgroundColor(backGround, textColor); printf("%s", Move::getNpcShape(NORMAL_NPC).c_str()); break;
     case ALCOHOL_NPC:

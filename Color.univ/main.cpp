@@ -105,7 +105,7 @@ int main() {
 
                     if (IsAlcoholTime == 0)
                     {
-                        player->setNoAlcohol(); // 다시 돌아오게
+                        player->setNoAlcohol();
                     }
 
                     if (stage == 4)
@@ -115,7 +115,7 @@ int main() {
                             time(&(player->drawStartTime)); blink = 1;
                         }
                         if (checkB != 3) blinkGameBoard(gameMapHere, *player, *enemies);
-                        if (checkB % 2 == 1) enemies->updateVisible(gameMapHere, *player); // 홀수면
+                        if (checkB % 2 == 1) enemies->updateVisible(gameMapHere, *player);
                     }
 
                     if (IsSpeedTime == 0) {
@@ -139,7 +139,6 @@ int main() {
                             drawResultScreen(stageOver, 0);
                             score[stage] = 4.5;
                             drawGameBoard(gameMapHere, stage); 
-                            chageNumBTS(myStore.color1, myStore.color2);
 
                             enemies->updateColor(gameMapHere, *player);
                             
