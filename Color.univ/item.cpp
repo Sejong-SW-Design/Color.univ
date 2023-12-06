@@ -13,18 +13,21 @@ extern double keyInterval;
 extern int IsAlcoholTime;
 extern int IsSpeedTime;
 
-void eraseColor(int posX, int posY, int gameMap[22][37]) {
+void eraseColor(int posX, int posY, int gameMap[22][37])
+{
 
 	gameMap[posY][posX] = 0;
 
 	myStore.color1 = 0;
 	myStore.color2 = 0;
 	myStore.capacity = 0;		// 용량 초기화
+	
 	updateStore(myStore.color1, myStore.color2); 
 }
 
 
-void getColor(int colorNum, int posX, int posY, int gameMap[22][37], bool isStage4) {
+void getColor(int colorNum, int posX, int posY, int gameMap[22][37], bool isStage4) 
+{
 	
 	if (myStore.capacity < 2) 
 	{
@@ -33,9 +36,11 @@ void getColor(int colorNum, int posX, int posY, int gameMap[22][37], bool isStag
 		// 일단 벽 해제를 시도
 	
 		bool didRemove = removeWall(colorNum - 14, posX, posY, gameMap, isStage4);
+		
 		if (didRemove)
 			return;
 		//벽 해제에 사용되지 않은 건 store에 저장
+		
 		if (myStore.color1 == 0) 
 		{ //1이 비어있으면
 			myStore.color1 = colorNum;
@@ -49,10 +54,12 @@ void getColor(int colorNum, int posX, int posY, int gameMap[22][37], bool isStag
 			chageNumBTS(myStore.color1, myStore.color2);
 		}
 	}
+
 	else return;
 }
 
-void collaborateColor(int posX, int posY,int gameMap[22][37], bool isStage4) {//스페이스바 누르면 호출됨
+void collaborateColor(int posX, int posY,int gameMap[22][37], bool isStage4) // 스페이스바 누르면 호출됨
+{
 	if (myStore.capacity < 2) return;
 	
 	int mixColor = 0;
@@ -77,8 +84,7 @@ void collaborateColor(int posX, int posY,int gameMap[22][37], bool isStage4) {//
 	}
 	
 	else return;
-	//removeWall(mixColor, posX, posY, gameMap);
-	//updateStore(mixColor, 0); -> 벽해제 안되면 그냥 색깔 냅두면 됨  
+	  
 }
 
 void chageNumBTS(int color1, int color2) {
@@ -146,55 +152,56 @@ void chageNumBTS(int color1, int color2) {
 	case SKYBLUE_BTN:
 		color2 = 11; break;
 	}
+
 	updateStore(color1, color2);
 }
 
-void primeItemCollision(int posX, int posY, int gameMap[22][37]) {
+void primeItemCollision(int posX, int posY, int gameMap[22][37]) 
+{
 	gameMap[posY][posX] = 0;
 	setScore(stage, 0.5);
 	drawInfoOriginal(score, stage);
 }
 
 
-Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
+Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) 
+{
 	Pos next = now;
 
-	/*
-	srand((unsigned int)time(NULL));
-	int prev = alcoholNum;
-	while (prev == alcoholNum)
-	{
-		alcoholNum = rand() % 3;
-	}
-	*/
-	//int n = rand() % 23; 
 	int n = alcoholNum;
 	
-	if (n == 0) {
-		switch (direction){
+	if (n == 0) 
+	{
+		switch (direction)
+		{
 		case LEFT: next.y += 1; break;
 		case RIGHT: next.y -= 1; break;
 		case UP: next.x -= 1; break;
 		case DOWN: next.x += 1; break;
 		}
 	}
-	else if (n == 1) {
-		switch (direction){
+	else if (n == 1) 
+	{
+		switch (direction)
+		{
 		case LEFT: next.x += 1; break;
 		case RIGHT: next.x -= 1; break;
 		case UP: next.y += 1; break;
 		case DOWN: next.y -= 1; break;
 		}
 	}
-	else if (n == 2) {
-		switch (direction){
+	else if (n == 2) 
+	{
+		switch (direction)
+		{
 		case LEFT: next.y -= 1; break;
 		case RIGHT: next.y += 1; break;
 		case UP: next.x += 1; break;
 		case DOWN: next.x -= 1; break;
 		}
 	}
-	else if (n == -1) {
+	else if (n == -1) 
+	{
 		switch (direction)
 		{
 		case LEFT:
@@ -207,243 +214,68 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum) {
 			next.y += 1; break;
 		}
 	}
-	//updateAlcoholEffect(alcoholNum);
-
-	/*
-	else if (n == 3) {
-		switch (direction){
-		case LEFT: next.y += 1; break;
-		case RIGHT: next.x -= 1; break;
-		case UP: next.y -= 1; break;
-		case DOWN: next.x += 1; break;
-		}
-	}
-	else if (n == 4) {
-		switch (direction){
-		case LEFT: next.y += 1; break;
-		case RIGHT: next.x += 1; break;
-		case UP: next.y -= 1; break;
-		case DOWN: next.x -= 1; break;
-		}
-	}
-	else if (n == 5) {
-		switch (direction){
-		case LEFT: next.x += 1; break;
-		case RIGHT: next.y += 1; break;
-		case UP: next.y -= 1; break;
-		case DOWN: next.x -= 1; break;
-		}
-	}
-	else if (n == 6) {
-		switch (direction){
-		case LEFT: next.y -= 1; break;
-		case RIGHT: next.x -= 1; break;
-		case UP: next.x += 1; break;
-		case DOWN: next.y += 1; break;
-		}
-	}
-	else if (n == 7) {
-		switch (direction){
-		case LEFT: next.y += 1; break;
-		case RIGHT: next.x -= 1; break;
-		case UP: next.x += 1; break;
-		case DOWN: next.y -= 1; break;
-		}
-	}
-	else if (n == 8) {
-		switch (direction){
-		case LEFT: next.y += 1; break;
-		case RIGHT: next.y -= 1; break;
-		case UP: next.x += 1; break;
-		case DOWN: next.x -= 1; break;
-		}
-	}
-	else if (n == 9) {
-		switch (direction){
-		case LEFT: next.x -= 1; break;
-		case RIGHT: next.y -= 1; break;
-		case UP: next.x += 1; break;
-		case DOWN: next.y += 1; break;
-		}
-	}
-	else if (n == 10) {
-		switch (direction){
-		case LEFT: next.x -= 1; break;
-		case RIGHT: next.y += 1; break;
-		case UP: next.x += 1; break;
-		case DOWN: next.y -= 1; break;
-		}
-	}
-	else if (n == 11) {
-		switch (direction){
-		case LEFT: next.y -= 1; break;
-		case RIGHT: next. x+= 1; break;
-		case UP: next.y += 1; break;
-		case DOWN: next.x -= 1; break;
-		}
-	}
-	else if (n == 12) {
-		switch (direction) {
-		case LEFT: next.y -= 1; break;
-		case RIGHT: next.x -= 1; break;
-		case UP: next.y += 1; break;
-		case DOWN: next.x += 1; break;
-		}
-	}
-	else if (n == 13) {
-		switch (direction) {
-		case LEFT: next.x -= 1; break;
-		case RIGHT: next.y -= 1; break;
-		case UP: next.y += 1; break;
-		case DOWN: next.x += 1; break;
-		}
-	}
-	else if (n == 14) {
-		switch (direction) {
-		case LEFT: next.x -= 1; break;
-		case RIGHT: next.x += 1; break;
-		case UP: next.y += 1; break;
-		case DOWN: next.y -= 1; break;
-		}
-	}
-	else if (n == 15) {
-		switch (direction) {
-		case LEFT: next.x += 1; break;
-		case RIGHT: next.y -= 1; break;
-		case UP: next.y += 1; break;
-		case DOWN: next.x -= 1; break;
-		}
-	}
-	else if (n == 16) {
-		switch (direction) {
-		case LEFT: next.x -= 1; break;
-		case RIGHT: next.x += 1; break;
-		case UP: next.y -= 1; break;
-		case DOWN: next.y += 1; break;
-		}
-	}
-	else if (n == 17) {
-		switch (direction) {
-		case LEFT: next.y -= 1; break;
-		case RIGHT: next.x += 1; break;
-		case UP: next.x -= 1; break;
-		case DOWN: next.y += 1; break;
-		}
-	}
-	else if (n == 18) {
-		switch (direction) {
-		case LEFT: next.y -= 1; break;
-		case RIGHT: next.y += 1; break;
-		case UP: next.x -= 1; break;
-		case DOWN: next.x += 1; break;
-		}
-	}
-	else if (n == 19) {
-		switch (direction) {
-		case LEFT: next.y += 1; break;
-		case RIGHT: next.x += 1; break;
-		case UP: next.x -= 1; break;
-		case DOWN: next.y -= 1; break;
-		}
-	}
-	else if (n == 20) {
-		switch (direction) {
-		case LEFT: next.x += 1; break;
-		case RIGHT: next.x -= 1; break;
-		case UP: next.y -= 1; break;
-		case DOWN: next.y += 1; break;
-		}
-	}
-	else if (n == 21) {
-		switch (direction) {
-		case LEFT: next.x += 1; break;
-		case RIGHT: next.y -= 1; break;
-		case UP: next.x -= 1; break;
-		case DOWN: next.y += 1; break;
-		}
-	}
-	else if (n == 22) {
-		switch (direction) {
-		case LEFT: next.x += 1; break;
-		case RIGHT: next.y += 1; break;
-		case UP: next.x -= 1; break;
-		case DOWN: next.y -= 1; break;
-		}
-	}
-	*/
+	
 
 	return next;
 }
 
 
-Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) {
+Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) 
+{
 	
 	time_t alcoholEffectTime, current;
 	
 	time(&alcoholEffectTime);
 
-	while (1) {
+	while (1) 
+	{
 		time(&current);
 
-		if (difftime(current, alcoholEffectTime) >= 10) {
+		if (difftime(current, alcoholEffectTime) >= 10) 
+		{
 			alcoholNum = -1;
 			//Sleep(10);
 			//printf("%d", difftime(current, alcoholEffectTime));
 			break;
 		}
+
 		return getDrinkNextPos(direction, position, alcoholNum);
 	}
+
 	return getDrinkNextPos(direction, position, alcoholNum);
 	
 }
 
 
 
-
-
-/*
-int updateSpeedEffect() {
-
-	time_t speedEffectTime, current;
-
-	time(&speedEffectTime);
-
-	while (1) {
-		time(&current);
-
-		keyInterval =  0.05;
-		
-		if (difftime(current, speedEffectTime) >= 5) {
-			keyInterval = 0.2;
-			break;
-		}
-		return keyInterval;
-	}
-	return keyInterval;
-}
-*/
-
-
-void minusLife() { //스코어가 0이 되면 minusLife()호출
+void minusLife() //스코어가 0이 되면 minusLife()호출
+{ 
 	
-	for (int i = 2; i >= 0; i--) {
-		if (life[i] == 1) {
+	for (int i = 2; i >= 0; i--) 
+	{
+		if (life[i] == 1) 
+		{
 			setCurrentCursorPos(61 + i*3, 28);
 			setBackgroundColor(0, 4);
 			printf("  ");
 			life[i] = 0;
+			
 			break;
 		}
 	}
 }
 
-void plusLife() {//하트아이템 먹으면 plusLife()호출
-	for (int i = 1; i < 3; i++) {
-		if (life[i] == 0) {
+void plusLife() //하트아이템 먹으면 plusLife()호출
+{
+	for (int i = 1; i < 3; i++) 
+	{
+		if (life[i] == 0) 
+		{
 			setCurrentCursorPos(61 + i * 3, 28);
 			setBackgroundColor(0, 4);
 			printf("♥");
 			life[i] = 1;
+			
 			break;
 		}
 	}
