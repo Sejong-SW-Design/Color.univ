@@ -61,15 +61,11 @@ int drawPauseScreen() {
     system("cls");
     setBackgroundColor(0, 12);
 
-    setCurrentCursorPos(34, 12);
-    printf("> ");
+    setCurrentCursorPos(34, 12); printf("> ");
 
-    setCurrentCursorPos(38, 12);
-    printf("CONTINUE");
+    setCurrentCursorPos(38, 12); printf("CONTINUE");
 
-    setCurrentCursorPos(38, 14);
-    printf("GAME OVER");
-
+    setCurrentCursorPos(38, 14); printf("GAME OVER");
 
     while (1) {
         int x = 36;
@@ -116,16 +112,13 @@ void setScore(int stage, double s) {
 }
 
 int initGame() {
-    stage = 3;
+    stage = 1;
     int menu = drawMenu();
     if (menu == 0) return 0;        // 게임 시작
     else if (menu == 2) return 1;
     else if (menu == 4) return 2;  // todo
     else if (menu == 6) return 3;  // 게임 종료
 }
-
-//void drawStartScreen();
-//
 
 void drawPrologue() {
     setBackgroundColor(0, 15);
@@ -191,31 +184,21 @@ void drawPrologue() {
 }
 
 int drawMenu() {
-    // 0: 게임 시작, 1: 게임 방법, 2: 개발자 정보, 3: 나가기
-
     system("cls");
 
-    setCurrentCursorPos(36, 9);
-    setBackgroundColor(0, 10);
-    printf("COLOR UNIV.");
-
+    setCurrentCursorPos(36, 9); setBackgroundColor(0, 10); printf("COLOR UNIV.");
 
     setBackgroundColor(0, 15);
 
-    setCurrentCursorPos(32, 12);
-    printf("> ");
+    setCurrentCursorPos(32, 12); printf("> ");
 
-    setCurrentCursorPos(36, 12);
-    printf("[GAME START]");
+    setCurrentCursorPos(36, 12); printf("[GAME START]");
 
-    setCurrentCursorPos(36, 14);
-    printf("[HOW TO PLAY]");
+    setCurrentCursorPos(36, 14);  printf("[HOW TO PLAY]");
 
-    setCurrentCursorPos(36, 16);
-    printf("[DEVELOPER INFORMAION]");
+    setCurrentCursorPos(36, 16); printf("[DEVELOPER INFORMAION]");
 
-    setCurrentCursorPos(36, 18);
-    printf("[EXIT]");
+    setCurrentCursorPos(36, 18); printf("[EXIT]");
 
     while (1) {
         int x = 34;
@@ -255,30 +238,18 @@ int drawMenu() {
 
 void drawDevInfo() { // 임시화면
     system("cls");
-	setCurrentCursorPos(36, 10);
-    setBackgroundColor(0, 10);
-	std::cout << "[Developer Info]" << endl;
+    setCurrentCursorPos(36, 10); setBackgroundColor(0, 10); printf("[Developer Info]");
 
     setBackgroundColor(0, 15);
-	setCurrentCursorPos(36, 12);
-    std::cout << "22011191 전지원" << endl;
 
-	setCurrentCursorPos(36, 14);
-    std::cout << "22011819 복민정" << endl;
+    setCurrentCursorPos(36, 12); printf("22011191 전지원");
+    setCurrentCursorPos(36, 14); printf("22011819 복민정");
+    setCurrentCursorPos(36, 16); printf("22011824 이지호");
+    setCurrentCursorPos(36, 18); printf("22011839 신지우");
 
-	setCurrentCursorPos(36, 16);
-    std::cout << "22011824 이지호" << endl;
-
-	setCurrentCursorPos(36, 18);
-    std::cout << "22011839 신지우" << endl;
-
-
-    setBackgroundColor(0, 8);
-    setCurrentCursorPos(31, 23);
-    printf("Press Anything to continue...");
+    setBackgroundColor(0, 8); setCurrentCursorPos(31, 23); printf("Press Anything to continue...");
 
     setBackgroundColor(0, 10);
-
     while (1)
         if (_getch()) break;
 }
@@ -422,14 +393,12 @@ void drawResultScreen(int gameResult[22][37], int check) {
                 printf("■");
             }
         }
-
         Sleep(30);
     }
 
 
 
     Sleep(100);
-
     system("cls");
 }
 
@@ -460,9 +429,7 @@ int getNpcSleepTime(int stage) {
 
 void calculateAvgScore() {
     double sum = 0.0;
-    for (int i = 1; i <= stage; i++) {
-        sum += score[i];
-    }
+    for (int i = 1; i <= stage; i++) sum += score[i];
 
     score[0] = sum / stage;
 }
@@ -516,7 +483,6 @@ void drawTitle() {
                 printf("■");
             }
         }
-
         Sleep(50);
     }
 
@@ -533,13 +499,9 @@ void drawTitle() {
                 printf("■");
             }
         }
-
         Sleep(50);
     }
 
-
-
     Sleep(2000);
-
     system("cls");
 }

@@ -23,9 +23,6 @@ int keyControl();
 int drawPauseScreen();
 
 void setScore(int stage, double s);
-//
-//void drawStartScreen();
-//
 
 int initGame();
 
@@ -36,18 +33,8 @@ void drawPrologue();
 void drawDevInfo();
 
 void drawHowToPlay();
-//
-//void drawStageIntroInfo();
-//
-//void drawStageEnding();
-//
+
 void drawResultScreen(int gameResult[22][37], int check);
-//
-//void drawGameInstruction();
-//
-//void drawIntro();
-//
-//void drawReturnToMain();
 
 void getStage(int gameMap[22][37], int stage);
 
