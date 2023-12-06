@@ -8,7 +8,7 @@ extern int stage;
 extern int IsAlcoholTime; 
 extern int IsSpeedTime;
 extern double keyInterval;
-extern int checkB; // è≥
+extern int checkB; 
 
 Move::Move(Position initPos, int color, std::string shape)
 {
@@ -196,7 +196,8 @@ void Player::movingProcess(int gameMap[22][37])
 		shifted = shiftCharacter(DOWN, gameMap, alcoholNumber, speedFlag);
 		break;
 	case SPACEBAR:
-		collaborateColor(position.x, position.y, gameMap, visibleDist != -1);
+		collaborateColor(position.x, position.y, gameMap, visibleDist != -1);	
+		if (visibleDist != -1) drawDarkGameBoard(gameMap, *this); 
 		break;
 	}
 
