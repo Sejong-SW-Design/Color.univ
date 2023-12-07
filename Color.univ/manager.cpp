@@ -133,7 +133,7 @@ void setScore(int stage, double s) {
 }
 
 int initGame() {
-    stage = 1;
+    stage = 4;
     int menu = drawMenu();
     if (menu == 0) return 0;        // 게임 시작
     else if (menu == 2) return 1;

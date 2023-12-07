@@ -150,8 +150,11 @@ vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S)
 
 void drawGameBoard(int gameMap[22][37], int stage)
 {
-    BGMplayer(INTRO_BGM, false);
-    BGMplayer(PLAY_BGM, true);
+    if (checkB != 2)
+    {
+        BGMplayer(INTRO_BGM, false);
+        BGMplayer(PLAY_BGM, true);
+    }
     drawGameEdge();
     drawStore();
     chageNumBTS(myStore.color1, myStore.color2);
@@ -216,7 +219,6 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies)
     {
         checkB++; // 3이 됨, 5초 지남 체크, blinkGameBoard 종료
         (&player)->visibleDist = vD;
-
         drawDarkGameBoard(gameMap, player);
 
         return;
@@ -232,7 +234,6 @@ void blinkGameBoard(int gameMap[22][37], Player player, EnemiesManager enemies)
     else if (difftime(current, player.drawStartTime) >= 2 && checkB == 0)
     {
         checkB++; //1이 됨
-
         (&player)->visibleDist = vD;
         drawDarkGameBoard(gameMap, player);
     }
