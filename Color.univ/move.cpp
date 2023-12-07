@@ -38,8 +38,7 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum, in
 
 	if (alcoholNum != -1)
 	{
-		//next = getDrinkNextPos(direction, position, alcoholNum);
-		next = updateAlcoholEffect(direction, position, alcoholNum);
+		next = getDrinkNextPos(direction, position, alcoholNum);
 	}
 	else
 	{
@@ -66,7 +65,7 @@ bool Move::shiftCharacter(int direction, int gameMap[22][37], int alcoholNum, in
 	bool shifted = false;
 
 	//벽이 아니면 움직일 수 있다
-	if (!isWall(detectCollision(gameMap, next)))
+	if (!isWall(gameMap[next.y][next.x]))
 	{
 		position = next;
 		shifted = true;
@@ -97,11 +96,6 @@ void Move::showBlinkCharacter(int backgroundColor)
 	printf("%s", shape.c_str());
 }
 
-int Move::detectCollision(int gameMap[22][37], Pos nextPosition)
-{
-	return gameMap[nextPosition.y][nextPosition.x];
-}
-
 Pos Move::getPosition()
 {
 	return position;
@@ -112,6 +106,7 @@ void Move::setDarkColor()
 	color = 0;
 	showCharacter();
 }
+
 void Move::setOriginColor()
 {
 	color = 12;
@@ -124,16 +119,19 @@ Pos Move::getGBoardPos(Pos cursorPos)
 		cursorPos.y - GBOARD_ORIGIN_Y };
 	return gameboardPos;
 }
+
 Pos Move::getCursorPos(Pos gameboardPos)
 {
 	Pos cursorPos = { 2 * gameboardPos.x + GBOARD_ORIGIN_X,
 		gameboardPos.y + GBOARD_ORIGIN_Y };
 	return cursorPos;
 }
+
 bool Move::isWall(int sort)
 {
 	return sort >= NORMAL_WALL && sort <= SKYBLUE_WALL;
 }
+
 string Move::getNpcShape(int npcSort)
 {
 	switch (npcSort)
@@ -428,7 +426,7 @@ int ChasingNpc::getNextDirection(Pos playerPos, int gameMap[22][37])
 		int x = this->position.x + filter[i][0];
 		int y = this->position.y + filter[i][1];
 
-		if (detectCollision(gameMap, { x,y }) != BLANK)
+		if (gameMap[y][x] != BLANK)
 			continue;
 
 		int dist = (x - playerPos.x) * (x - playerPos.x)

@@ -20,8 +20,8 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-    drawTitle();
-    drawPrologue();
+    //drawTitle();
+    //drawPrologue();
 
     int gameCheck = 0;      // game over이면 1
     int blink = 0; 

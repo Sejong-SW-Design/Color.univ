@@ -23,10 +23,8 @@ public:
 	void deleteCharacter(int gameMap[22][37]);
 	void showCharacter();	
 	void showBlinkCharacter(int backgroundColor);
-	int detectCollision(int gameMap[22][37], Pos nextPosition);
 	Pos getPosition();
 	Pos getDrinkNextPos(int direction, Pos now, int alcoholNum);
-	Pos updateAlcoholEffect(int direction, Pos position, int alcoholNum);
 	void setDarkColor();
 	void setOriginColor();
 

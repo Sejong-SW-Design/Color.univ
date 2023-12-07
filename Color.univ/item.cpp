@@ -219,35 +219,6 @@ Pos Move::getDrinkNextPos(int direction, Pos now, int alcoholNum)
 	return next;
 }
 
-
-Pos Move::updateAlcoholEffect(int direction,Pos position, int alcoholNum) 
-{
-	
-	time_t alcoholEffectTime, current;
-	
-	time(&alcoholEffectTime);
-
-	while (1) 
-	{
-		time(&current);
-
-		if (difftime(current, alcoholEffectTime) >= 10) 
-		{
-			alcoholNum = -1;
-			//Sleep(10);
-			//printf("%d", difftime(current, alcoholEffectTime));
-			break;
-		}
-
-		return getDrinkNextPos(direction, position, alcoholNum);
-	}
-
-	return getDrinkNextPos(direction, position, alcoholNum);
-	
-}
-
-
-
 void minusLife() //스코어가 0이 되면 minusLife()호출
 { 
 	
