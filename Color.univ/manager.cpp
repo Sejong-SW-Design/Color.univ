@@ -23,17 +23,16 @@ void BGMplayer(int sort, bool turn_on) {
         switch (sort) 
         {
         case GAME_OVER:
-            PlaySound(TEXT("게임오버.wav"), NULL, SND_ASYNC); break;
+            PlaySound(TEXT("BGM/게임오버.wav"), NULL, SND_ASYNC); break;
         case GAME_CLEAR:
-            PlaySound(TEXT("게임클리어.wav"), NULL, SND_ASYNC); break;
+            PlaySound(TEXT("BGM/게임클리어.wav"), NULL, SND_ASYNC); break;
         case INTRO_BGM:
-            PlaySound(TEXT("인트로.wav"), NULL, SND_ASYNC); break;
+            PlaySound(TEXT("BGM/인트로.wav"), NULL, SND_ASYNC); break;
         case PLAY_BGM:
-            PlaySound(TEXT("플레이.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); break;
+            PlaySound(TEXT("BGM/플레이.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); break;
         case RESULT_BGM:
-            PlaySound(TEXT("성적표.wav"), NULL, SND_FILENAME | SND_ASYNC); break;
+            PlaySound(TEXT("BGM/성적표.wav"), NULL, SND_FILENAME | SND_ASYNC); break;
         }
-        
     }
 
     else
@@ -136,7 +135,7 @@ void setScore(int stage, double s) {
 }
 
 int initGame() {
-    stage = 4;
+    stage = 1;
     int menu = drawMenu();
     if (menu == 0) return 0;        // 게임 시작
     else if (menu == 2) return 1;
