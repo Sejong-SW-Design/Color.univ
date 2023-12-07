@@ -21,7 +21,7 @@ using namespace std;
 
 enum BGM
 {
-	INTRO_BGM, PLAY_BGM, GAME_OVER, GAME_CLEAR
+	INTRO_BGM, PLAY_BGM, GAME_OVER, GAME_CLEAR, RESULT_BGM
 };
 
 void BGMplayer(int sort, bool turn_on);

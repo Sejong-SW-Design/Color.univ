@@ -30,7 +30,10 @@ void BGMplayer(int sort, bool turn_on) {
             PlaySound(TEXT("인트로.wav"), NULL, SND_ASYNC); break;
         case PLAY_BGM:
             PlaySound(TEXT("플레이.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); break;
+        case RESULT_BGM:
+            PlaySound(TEXT("성적표.wav"), NULL, SND_FILENAME | SND_ASYNC); break;
         }
+        
     }
 
     else
@@ -466,8 +469,9 @@ void calculateAvgScore() {
 }
 
 void drawReport() {
+    BGMplayer(RESULT_BGM, true);
     system("cls");
-
+    
     setCurrentCursorPos(38, 9);
     setBackgroundColor(0, 10);
     printf("[성 적 표]");
