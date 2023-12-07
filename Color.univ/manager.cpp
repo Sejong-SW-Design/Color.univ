@@ -17,6 +17,27 @@ double keyInterval = 0.20;
 
 int checkKey;
 
+void BGMplayer(int sort, bool turn_on) {
+
+    if (turn_on) {
+        switch (sort) 
+        {
+        case GAME_OVER:
+            PlaySound(TEXT("게임오버.wav"), NULL, SND_ASYNC); break;
+        case GAME_CLEAR:
+            PlaySound(TEXT("게임클리어.wav"), NULL, SND_ASYNC); break;
+        case INTRO_BGM:
+            PlaySound(TEXT("인트로.wav"), NULL, SND_ASYNC); break;
+        case PLAY_BGM:
+            PlaySound(TEXT("플레이.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); break;
+        }
+    }
+
+    else
+        PlaySound(NULL, 0, 0);
+    return;
+}
+
 int keyControl() {
     static auto lastKeyPressTime = std::chrono::high_resolution_clock::now();
 
@@ -112,7 +133,7 @@ void setScore(int stage, double s) {
 }
 
 int initGame() {
-    stage = 4;
+    stage = 1;
     int menu = drawMenu();
     if (menu == 0) return 0;        // 게임 시작
     else if (menu == 2) return 1;
@@ -374,8 +395,18 @@ void drawResultScreen(int gameResult[22][37], int check) {
     Sleep(10);
 
     int color = 0;
-    if (check == 0) color = 4;      // game over 
-    else color = 14;                // game clear
+    if (check == 0)// game over 
+    {
+        color = 4;
+        BGMplayer(GAME_OVER, false);
+        BGMplayer(GAME_OVER, true);
+    }
+    else// game clear
+    {
+        color = 14;
+        BGMplayer(GAME_CLEAR, false);
+        BGMplayer(GAME_CLEAR, true);
+    }
 
     if (check == 0) minusLife();
 
@@ -469,6 +500,7 @@ void drawReport() {
 }
 
 void drawTitle() {
+    BGMplayer(INTRO_BGM, true);
     int x = GBOARD_ORIGIN_X + 5, y = GBOARD_ORIGIN_Y;
     for (int j = 0; j < 37; j++) {
         for (int i = 0; i < 10; i++) {

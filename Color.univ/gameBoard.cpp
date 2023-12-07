@@ -150,6 +150,8 @@ vector<ShootNpc*> setShootNpcInitPos(int stage, vector<ShootNpc*> S)
 
 void drawGameBoard(int gameMap[22][37], int stage)
 {
+    BGMplayer(INTRO_BGM, false);
+    BGMplayer(PLAY_BGM, true);
     drawGameEdge();
     drawStore();
     chageNumBTS(myStore.color1, myStore.color2);

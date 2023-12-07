@@ -20,8 +20,8 @@ int main() {
 	setConsoleSize();
 	removeCursor();
 
-    // drawTitle();
-    // drawPrologue();
+    drawTitle();
+    drawPrologue();
 
     int gameCheck = 0;      // game over이면 1
     int blink = 0; 
@@ -51,7 +51,6 @@ int main() {
             EnemiesManager* enemies = nullptr;
 
             int checkGoal = 1;
-            
 
             while (true)
             {
@@ -82,7 +81,7 @@ int main() {
 
                     checkGoal = 0;
                 }
-                
+
                 for (int i = 0; i < pcMoveCnt; i++)
                 {
                     if (checkKey == 112) {

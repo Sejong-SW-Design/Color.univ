@@ -9,7 +9,8 @@
 #include <Windows.h>
 #include <conio.h>
 #include "item.h"
-
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
 using namespace std;
 
 #define LEFT 75 
@@ -17,6 +18,13 @@ using namespace std;
 #define UP 72   
 #define DOWN 80 
 #define SPACEBAR 32
+
+enum BGM
+{
+	INTRO_BGM, PLAY_BGM, GAME_OVER, GAME_CLEAR
+};
+
+void BGMplayer(int sort, bool turn_on);
 
 int keyControl();
 
