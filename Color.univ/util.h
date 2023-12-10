@@ -15,7 +15,5 @@ void setCurrentCursorPos(int x, int y);
 
 void setBackgroundColor(int backColor, int textcolor);
 
-// void setBGM(int sort, int playFlag);
-
 
 #endif

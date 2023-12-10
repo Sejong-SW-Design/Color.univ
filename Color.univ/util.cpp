@@ -32,5 +32,3 @@ void setBackgroundColor(int backColor, int textColor) {
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(handle, (backColor << 4) + textColor);
 }
-
-// void setBGM(int sort, int playFlag);
