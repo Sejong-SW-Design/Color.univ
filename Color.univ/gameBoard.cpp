@@ -612,7 +612,7 @@ void drawGameResult(double* score, int stage)
     setCurrentCursorPos(33, 13);
     printf("최종 학점 : %.1f  %s", score[stage],calculate(score[stage]).c_str());
 
-    setCurrentCursorPos(33, 15);
+    setCurrentCursorPos(33, 15);     calculateAvgScore();
     printf("평균 학점 : %.1f", score[0]);
 
     if (score[stage] == 0) // gameover일 때

@@ -1,7 +1,7 @@
 #include "manager.h"
 #include <chrono>
 
-double score[5] = { 4.5, 4.5, 4.5, 4.5, 4.5 };
+double score[5] = { 0.0, 4.5, 4.5, 4.5, 4.5 };
 int stage; 
 extern int gameMap1[22][37];
 extern int gameMap2[22][37];

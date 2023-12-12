@@ -62,7 +62,7 @@ int main() {
 
                     npcSleepTime = getNpcSleepTime(stage);
 
-                    calculateAvgScore();
+                    //calculateAvgScore();
 
                     getStage(gameMapHere, stage);
 

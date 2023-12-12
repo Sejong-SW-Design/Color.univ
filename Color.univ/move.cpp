@@ -5,10 +5,10 @@
 
 extern double score[5];
 extern int stage;
-extern int IsAlcoholTime; 
+extern int IsAlcoholTime;
 extern int IsSpeedTime;
 extern double keyInterval;
-extern int checkB; 
+extern int checkB;
 
 Move::Move(Position initPos, int color, std::string shape)
 {
